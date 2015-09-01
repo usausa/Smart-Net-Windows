@@ -5,26 +5,15 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using System.Runtime.CompilerServices;
 
+    using Smart.ComponentModel;
     using Smart.Windows.Messaging;
 
     /// <summary>
     ///
     /// </summary>
-    public abstract class ViewModelBase : INotifyPropertyChanged, IDataErrorInfo
+    public abstract class ViewModelBase : NotificationObject, IDataErrorInfo
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="propertyName"></param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         /// <summary>
         ///
         /// </summary>
