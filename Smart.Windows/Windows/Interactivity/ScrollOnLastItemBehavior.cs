@@ -1,4 +1,6 @@
-﻿namespace Smart.Windows.Interactivity
+﻿using System;
+
+namespace Smart.Windows.Interactivity
 {
     using System.Collections.Specialized;
     using System.Windows;
@@ -11,7 +13,7 @@
     public class ScrollOnLastItemBehavior : Behavior<ItemsControl>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
-        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(true));
+        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(ScrollOnLastItemBehavior), new PropertyMetadata(true));
 
         /// <summary>
         ///
