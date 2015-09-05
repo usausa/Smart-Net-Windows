@@ -63,6 +63,7 @@
     <Compile Include="Windows\Data\BooleanAndConverter.cs" />
     <Compile Include="Windows\Data\BooleanOrConverter.cs" />
     <Compile Include="Windows\Data\BoolToVisibilityConverter.cs" />
+    <Compile Include="Windows\Data\DateFormatConverter.cs" />
     <Compile Include="Windows\Data\NotConverter.cs" />
     <Compile Include="Windows\Data\ParameterEqualsConverter.cs" />
     <Compile Include="Windows\DependencyObjectExtensions.cs" />
