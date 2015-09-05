@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Smart.Windows.Interactivity
+﻿namespace Smart.Windows.Interactivity
 {
     using System.Collections.Specialized;
     using System.Windows;
