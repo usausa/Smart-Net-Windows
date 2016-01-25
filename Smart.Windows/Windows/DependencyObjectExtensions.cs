@@ -1,7 +1,6 @@
 ﻿namespace Smart.Windows
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Media;
 
@@ -20,7 +19,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T FindParent<T>(this DependencyObject obj) where T : DependencyObject
+        public static T FindParent<T>(this DependencyObject obj)
+            where T : DependencyObject
         {
             while (true)
             {
@@ -89,7 +89,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static IEnumerable<T> FindChildrens<T>(this DependencyObject source) where T : DependencyObject
+        public static IEnumerable<T> FindChildrens<T>(this DependencyObject source)
+            where T : DependencyObject
         {
             if (source == null)
             {
@@ -126,9 +127,13 @@
             if ((obj is ContentElement) || (obj is FrameworkElement))
             {
                 // ContentElement、FrameworkElementについては論理ツリーを見る
-                foreach (var typedChild in LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>())
+                foreach (var child in LogicalTreeHelper.GetChildren(obj))
                 {
-                    yield return typedChild;
+                    var typedChild = child as DependencyObject;
+                    if (typedChild != null)
+                    {
+                        yield return typedChild;
+                    }
                 }
             }
             else

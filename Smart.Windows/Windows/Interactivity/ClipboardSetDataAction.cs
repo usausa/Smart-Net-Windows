@@ -9,13 +9,10 @@
     /// </summary>
     public class ClipboardSetDataAction : TriggerAction<DependencyObject>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ClipboardSetDataAction));
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ClipboardSetDataAction));
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(ClipboardSetDataAction));
 
         /// <summary>

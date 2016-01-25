@@ -10,7 +10,6 @@
     /// </summary>
     public class ListBoxSelectedItemsBehavior : Behavior<ListBox>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(ICollection), typeof(ListBoxSelectedItemsBehavior), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>

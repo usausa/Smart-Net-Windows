@@ -9,7 +9,6 @@
     /// </summary>
     public class DragMoveBehavior : Behavior<Window>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(DragMoveBehavior), new PropertyMetadata(true));
 
         /// <summary>
@@ -41,10 +40,10 @@
         ///
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="mouseButtonEventArgs"></param>
-        private void OnMouseDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        /// <param name="args"></param>
+        private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
-            if (Enabled)
+            if (Enabled && (args.LeftButton == MouseButtonState.Pressed))
             {
                 AssociatedObject.DragMove();
             }

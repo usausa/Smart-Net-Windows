@@ -12,16 +12,13 @@
     /// </summary>
     public class ParameterCallMethodAction : TriggerAction<DependencyObject>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
+        private readonly List<MethodInfo> methods = new List<MethodInfo>();
+
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(OnTargetObjectChanged));
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ParameterCallMethodAction), new PropertyMetadata(OnMethodNameChanged));
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty MethodParameterProperty = DependencyProperty.Register("MethodParameter", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(null));
-
-        private readonly List<MethodInfo> methods = new List<MethodInfo>();
 
         /// <summary>
         ///

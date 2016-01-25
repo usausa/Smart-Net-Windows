@@ -11,7 +11,6 @@
     /// </summary>
     public class MessageTrigger : TriggerBase<FrameworkElement>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
             "Messenger",
             typeof(Messenger),

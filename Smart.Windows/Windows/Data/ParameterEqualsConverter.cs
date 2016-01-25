@@ -19,7 +19,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value != null) && value.Equals(parameter);
+            return Equals(value, parameter);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value != null) && value.Equals(true) ? parameter : Binding.DoNothing;
+            return Equals(value, true) ? parameter : Binding.DoNothing;
         }
     }
 }

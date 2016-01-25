@@ -15,7 +15,8 @@
         /// <param name="reference"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        public static T FindFromPoint<T>(this UIElement reference, Point point) where T : DependencyObject
+        public static T FindFromPoint<T>(this UIElement reference, Point point)
+            where T : DependencyObject
         {
             if (reference == null)
             {

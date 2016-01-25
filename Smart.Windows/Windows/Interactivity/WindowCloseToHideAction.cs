@@ -9,7 +9,6 @@
     /// </summary>
     public class WindowCloseToHideAction : TriggerAction<Window>
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "DependencyProperty")]
         public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("Closable", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(null));
 
         /// <summary>

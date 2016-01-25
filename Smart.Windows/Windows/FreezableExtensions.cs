@@ -14,7 +14,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="freezable"></param>
         /// <returns></returns>
-        public static T ToFrozen<T>(this T freezable) where T : Freezable
+        public static T ToFrozen<T>(this T freezable)
+            where T : Freezable
         {
             if (!freezable.IsFrozen)
             {
