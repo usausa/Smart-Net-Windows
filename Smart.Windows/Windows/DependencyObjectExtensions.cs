@@ -10,42 +10,15 @@
     public static class DependencyObjectExtensions
     {
         // ------------------------------------------------------------
-        // 親
+        // Parent
         // ------------------------------------------------------------
 
         /// <summary>
         ///
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T FindParent<T>(this DependencyObject obj)
-            where T : DependencyObject
-        {
-            while (true)
-            {
-                var parent = GetParent(obj);
-                if (parent == null)
-                {
-                    return null;
-                }
-
-                var typedParent = parent as T;
-                if (typedParent != null)
-                {
-                    return typedParent;
-                }
-
-                obj = parent;
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static DependencyObject GetParent(this DependencyObject obj)
+        public static DependencyObject Parent(this DependencyObject obj)
         {
             if (obj == null)
             {
@@ -79,45 +52,43 @@
             return VisualTreeHelper.GetParent(obj);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T FindParent<T>(this DependencyObject obj)
+            where T : DependencyObject
+        {
+            while (true)
+            {
+                var parent = Parent(obj);
+                if (parent == null)
+                {
+                    return null;
+                }
+
+                var typedParent = parent as T;
+                if (typedParent != null)
+                {
+                    return typedParent;
+                }
+
+                obj = parent;
+            }
+        }
+
         // ------------------------------------------------------------
-        // 子
+        // Children
         // ------------------------------------------------------------
 
         /// <summary>
         ///
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static IEnumerable<T> FindChildrens<T>(this DependencyObject source)
-            where T : DependencyObject
-        {
-            if (source == null)
-            {
-                yield break;
-            }
-
-            foreach (var child in GetChildObjects(source))
-            {
-                var typedChild = child as T;
-                if (typedChild != null)
-                {
-                    yield return typedChild;
-                }
-
-                foreach (var descendant in FindChildrens<T>(child))
-                {
-                    yield return descendant;
-                }
-            }
-        }
-
-        /// <summary>
-        /// ContentElementを考慮したVisualTreeHelper.GetChild()
-        /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static IEnumerable<DependencyObject> GetChildObjects(this DependencyObject obj)
+        public static IEnumerable<DependencyObject> Children(this DependencyObject obj)
         {
             if (obj == null)
             {
@@ -126,7 +97,6 @@
 
             if ((obj is ContentElement) || (obj is FrameworkElement))
             {
-                // ContentElement、FrameworkElementについては論理ツリーを見る
                 foreach (var child in LogicalTreeHelper.GetChildren(obj))
                 {
                     var typedChild = child as DependencyObject;
@@ -141,6 +111,35 @@
                 for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
                 {
                     yield return VisualTreeHelper.GetChild(obj, i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> FindChildrens<T>(this DependencyObject source)
+            where T : DependencyObject
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            foreach (var child in Children(source))
+            {
+                var typedChild = child as T;
+                if (typedChild != null)
+                {
+                    yield return typedChild;
+                }
+
+                foreach (var descendant in FindChildrens<T>(child))
+                {
+                    yield return descendant;
                 }
             }
         }
