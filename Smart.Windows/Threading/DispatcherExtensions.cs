@@ -42,7 +42,7 @@
         /// <param name="dispatcher"></param>
         /// <param name="action"></param>
         /// <param name="arg"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:パブリック メソッドの引数の検証", Justification = "Ignore.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
         {
             if (action == null)
@@ -72,7 +72,7 @@
         /// <param name="dispatcher"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:パブリック メソッドの引数の検証", Justification = "Ignore.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
         {
             if (action == null)
