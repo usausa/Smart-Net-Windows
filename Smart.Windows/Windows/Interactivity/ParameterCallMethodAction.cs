@@ -14,10 +14,19 @@
     {
         private readonly List<MethodInfo> methods = new List<MethodInfo>();
 
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(OnTargetObjectChanged));
 
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ParameterCallMethodAction), new PropertyMetadata(OnMethodNameChanged));
 
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty MethodParameterProperty = DependencyProperty.Register("MethodParameter", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(null));
 
         /// <summary>
@@ -38,6 +47,9 @@
             set { SetValue(MethodNameProperty, value); }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public object MethodParameter
         {
             get { return GetValue(MethodParameterProperty); }

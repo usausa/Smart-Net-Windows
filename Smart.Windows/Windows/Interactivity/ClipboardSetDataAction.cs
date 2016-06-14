@@ -9,10 +9,19 @@
     /// </summary>
     public class ClipboardSetDataAction : TriggerAction<DependencyObject>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ClipboardSetDataAction));
 
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ClipboardSetDataAction));
 
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(ClipboardSetDataAction));
 
         /// <summary>

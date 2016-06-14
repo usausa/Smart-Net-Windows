@@ -11,6 +11,9 @@
     /// </summary>
     public class MessageTrigger : TriggerBase<FrameworkElement>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
             "Messenger",
             typeof(Messenger),

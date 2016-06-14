@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Usa.Smart.Windows.Reactive</id>
+    <version>0.0.1</version>
+    <title>Smart.Windows.Reactive .NET</title>
+    <authors>machi_pon</authors>
+    <owners>machi_pon</owners>
+    <description>Smart WPF support library for .NET</description>
+    <releaseNotes></releaseNotes>
+    <summary>Smart WPF support library for .NET</summary>
+    <projectUrl>https://github.com/usausa/Smart-Net-Windows</projectUrl>
+    <copyright></copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="Usa.Smart.Core" version="0.0.2" />
+      <dependency id="Usa.Smart.Windows" version="0.0.1" />
+      <dependency id="Rx-Main" version="2.2.5" />
+    </dependencies>
+    <tags>smart wpf mvvm rx</tags>
+  </metadata>
+  <files>
+    <!-- .NET 4.5.1 -->
+    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.dll" target="lib\net451\Smart.Windows.Reactive.dll" />
+    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.pdb" target="lib\net451\Smart.Windows.Reactive.pdb" />
+    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.xml" target="lib\net451\Smart.Windows.Reactive.xml" />
+  </files>
+</package>

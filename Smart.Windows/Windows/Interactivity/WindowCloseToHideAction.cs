@@ -9,6 +9,9 @@
     /// </summary>
     public class WindowCloseToHideAction : TriggerAction<Window>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("Closable", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(null));
 
         /// <summary>

@@ -10,6 +10,9 @@
     /// </summary>
     public class ScrollOnLastItemBehavior : Behavior<ItemsControl>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(true));
 
         /// <summary>

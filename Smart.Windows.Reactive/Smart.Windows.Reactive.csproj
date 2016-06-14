@@ -33,10 +33,11 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Smart.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\Smart.Windows.Reactive.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Smart, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Usa.Smart.Core.0.0.1\lib\net451\Smart.dll</HintPath>
+    <Reference Include="Smart, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Usa.Smart.Core.0.0.2\lib\net451\Smart.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

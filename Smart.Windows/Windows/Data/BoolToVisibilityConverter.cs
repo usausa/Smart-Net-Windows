@@ -11,8 +11,14 @@
     [ValueConversion(typeof(bool), typeof(Visibility))]
     public class BoolToVisibilityConverter : IValueConverter
     {
+        /// <summary>
+        ///
+        /// </summary>
         public Visibility TrueValue { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public Visibility FalseValue { get; set; }
 
         /// <summary>

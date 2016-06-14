@@ -7,6 +7,9 @@
     /// </summary>
     public class Messenger
     {
+        /// <summary>
+        ///
+        /// </summary>
         public event EventHandler<MessengerEventArgs> Recieved;
 
         /// <summary>
