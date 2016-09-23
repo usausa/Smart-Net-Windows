@@ -10,6 +10,9 @@
     /// </summary>
     public class ListBoxSelectedItemsBehavior : Behavior<ListBox>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(ICollection), typeof(ListBoxSelectedItemsBehavior), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>

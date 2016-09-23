@@ -9,6 +9,9 @@
     /// </summary>
     public class CancelEventHandleAction : TriggerAction<Window>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty CancelProperty = DependencyProperty.Register("Cancel", typeof(bool), typeof(CancelEventHandleAction), new PropertyMetadata(null));
 
         /// <summary>

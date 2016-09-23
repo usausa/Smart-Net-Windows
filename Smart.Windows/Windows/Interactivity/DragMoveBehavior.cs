@@ -9,6 +9,9 @@
     /// </summary>
     public class DragMoveBehavior : Behavior<Window>
     {
+        /// <summary>
+        ///
+        /// </summary>
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(DragMoveBehavior), new PropertyMetadata(true));
 
         /// <summary>
