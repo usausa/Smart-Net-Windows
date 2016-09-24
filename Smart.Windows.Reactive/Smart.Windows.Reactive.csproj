@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Smart.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Smart.Windows.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Smart.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Smart.Windows.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release\Smart.Windows.Reactive.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>

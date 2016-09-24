@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows", "Smart.Windows\Smart.Windows.csproj", "{096D42E1-E503-4BE7-971D-6351E60319E1}"
 EndProject
@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
-		Smart.ruleset = Smart.ruleset
 		Smart.Windows.nuspec = Smart.Windows.nuspec
 		Smart.Windows.Reactive.nuspec = Smart.Windows.Reactive.nuspec
+		Smart.Windows.ruleset = Smart.Windows.ruleset
 		Smart.Windows.sln.DotSettings = Smart.Windows.sln.DotSettings
 	EndProjectSection
 EndProject
