@@ -19,8 +19,8 @@
   </metadata>
   <files>
     <!-- .NET 4.5.1 -->
-    <file src="Smart.Windows\bin\Release\Smart.Windows.dll" target="lib\net451\Smart.Windows.dll" />
-    <file src="Smart.Windows\bin\Release\Smart.Windows.pdb" target="lib\net451\Smart.Windows.pdb" />
-    <file src="Smart.Windows\bin\Release\Smart.Windows.xml" target="lib\net451\Smart.Windows.xml" />
+    <file src="Smart.Windows\bin\Release\Smart.Windows.dll" target="lib\net462\Smart.Windows.dll" />
+    <file src="Smart.Windows\bin\Release\Smart.Windows.pdb" target="lib\net462\Smart.Windows.pdb" />
+    <file src="Smart.Windows\bin\Release\Smart.Windows.xml" target="lib\net462\Smart.Windows.xml" />
   </files>
 </package>
