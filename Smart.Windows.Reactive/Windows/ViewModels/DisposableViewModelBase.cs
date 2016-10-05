@@ -3,19 +3,37 @@
     using System;
     using System.Reactive.Disposables;
 
+    using Smart.Windows.Messaging;
+
     /// <summary>
     ///
     /// </summary>
     public abstract class DisposableViewModelBase : ViewModelBase, IDisposable
     {
-        private readonly CompositeDisposable disposables = new CompositeDisposable();
+        private CompositeDisposable disposables;
 
         /// <summary>
         ///
         /// </summary>
         protected CompositeDisposable Disposables
         {
-            get { return disposables; }
+            get { return disposables ?? (disposables = new CompositeDisposable()); }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        protected DisposableViewModelBase()
+        {
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="messenger"></param>
+        protected DisposableViewModelBase(Messenger messenger)
+            : base(messenger)
+        {
         }
 
         /// <summary>
@@ -43,7 +61,7 @@
         {
             if (disposing)
             {
-                disposables.Dispose();
+                disposables?.Dispose();
             }
         }
     }
