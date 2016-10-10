@@ -89,6 +89,7 @@
     <Compile Include="Windows\DesignTime.cs" />
     <Compile Include="Windows\FreezableExtensions.cs" />
     <Compile Include="Windows\Input\DelegateCommand.cs" />
+    <Compile Include="Windows\Input\DelegateCommandT.cs" />
     <Compile Include="Windows\Interactivity\CancelEventHandleAction.cs" />
     <Compile Include="Windows\Interactivity\ClipboardSetDataAction.cs" />
     <Compile Include="Windows\Interactivity\DataContextDisposeAction.cs" />

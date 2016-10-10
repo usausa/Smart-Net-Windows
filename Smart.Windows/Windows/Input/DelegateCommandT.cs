@@ -6,18 +6,21 @@
     /// <summary>
     ///
     /// </summary>
-    public sealed class DelegateCommand : ICommand
+    /// <typeparam name="T"></typeparam>
+    public sealed class DelegateCommand<T> : ICommand
     {
-        private readonly Action execute;
+        private static readonly bool IsValueType = typeof(T).IsValueType;
 
-        private readonly Func<bool> canExecute;
+        private readonly Action<T> execute;
+
+        private readonly Func<T, bool> canExecute;
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="execute"></param>
-        public DelegateCommand(Action execute)
-            : this(execute, () => true)
+        public DelegateCommand(Action<T> execute)
+            : this(execute, _ => true)
         {
         }
 
@@ -26,7 +29,7 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
-        public DelegateCommand(Action execute, Func<bool> canExecute)
+        public DelegateCommand(Action<T> execute, Func<T, bool> canExecute)
         {
             this.execute = execute;
             this.canExecute = canExecute;
@@ -38,7 +41,7 @@
         /// <param name="parameter"></param>
         void ICommand.Execute(object parameter)
         {
-            execute();
+            execute(Cast(parameter));
         }
 
         /// <summary>
@@ -48,7 +51,22 @@
         /// <returns></returns>
         bool ICommand.CanExecute(object parameter)
         {
-            return canExecute();
+            return canExecute(Cast(parameter));
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        private static T Cast(object parameter)
+        {
+            if ((parameter == null) && IsValueType)
+            {
+                return default(T);
+            }
+
+            return (T)parameter;
         }
 
         /// <summary>
