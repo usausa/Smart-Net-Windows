@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class Messenger
+    public class Messenger : IMessenger
     {
         /// <summary>
         ///
@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="message"></param>
         /// <param name="parameter"></param>
-        public void Send(string message = null, object parameter = null)
+        public void Send(object message = null, object parameter = null)
         {
             Recieved?.Invoke(this, new MessengerEventArgs(message, parameter));
         }

@@ -89,7 +89,6 @@
     <Compile Include="Windows\DesignTime.cs" />
     <Compile Include="Windows\FreezableExtensions.cs" />
     <Compile Include="Windows\Input\DelegateCommand.cs" />
-    <Compile Include="Windows\Input\DelegateCommandT.cs" />
     <Compile Include="Windows\Interactivity\CancelEventHandleAction.cs" />
     <Compile Include="Windows\Interactivity\ClipboardSetDataAction.cs" />
     <Compile Include="Windows\Interactivity\DataContextDisposeAction.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Windows\Interactivity\WindowCloseAction.cs" />
     <Compile Include="Windows\Interactivity\WindowCloseToHideAction.cs" />
     <Compile Include="Windows\Messaging\CancelMessage.cs" />
+    <Compile Include="Windows\Messaging\IMessenger.cs" />
     <Compile Include="Windows\Messaging\Messenger.cs" />
     <Compile Include="Windows\Messaging\MessengerEventArgs.cs" />
     <Compile Include="Windows\UIElementExtensions.cs" />
