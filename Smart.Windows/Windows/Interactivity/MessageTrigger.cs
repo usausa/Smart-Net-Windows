@@ -66,6 +66,11 @@
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private static void MessengerChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue == e.NewValue)

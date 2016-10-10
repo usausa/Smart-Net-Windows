@@ -42,6 +42,10 @@
       <HintPath>..\packages\Usa.Smart.Core.0.5.1\lib\portable-net45+win8+wpa81\Smart.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Smart.Reactive, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Usa.Smart.Reactive.0.2.0\lib\net462\Smart.Reactive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
