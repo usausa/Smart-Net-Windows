@@ -13,7 +13,7 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(true));
+        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(ScrollOnLastItemBehavior), new PropertyMetadata(true));
 
         /// <summary>
         ///
