@@ -78,7 +78,7 @@
         /// </summary>
         /// <param name="execute"></param>
         public DelegateCommand(Action<T> execute)
-            : this(execute, _ => true)
+            : this(execute, x => true)
         {
         }
 
