@@ -38,12 +38,12 @@
     <DocumentationFile>bin\Release\Smart.Windows.Reactive.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Smart, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Usa.Smart.Core.0.5.2\lib\net462\Smart.dll</HintPath>
+    <Reference Include="Smart, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Usa.Smart.Core.0.6.1\lib\net462\Smart.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Smart.Reactive, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Usa.Smart.Reactive.0.2.0\lib\net462\Smart.Reactive.dll</HintPath>
+    <Reference Include="Smart.Reactive, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Usa.Smart.Reactive.0.2.1\lib\net462\Smart.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
