@@ -76,6 +76,7 @@
     <Compile Include="Windows\DependencyObjectExtensions.cs" />
     <Compile Include="Windows\DesignTime.cs" />
     <Compile Include="Windows\FreezableExtensions.cs" />
+    <Compile Include="Windows\Input\AsyncCommand.cs" />
     <Compile Include="Windows\Input\DelegateCommand.cs" />
     <Compile Include="Windows\Interactivity\CancelEventHandleAction.cs" />
     <Compile Include="Windows\Interactivity\ClipboardSetDataAction.cs" />
