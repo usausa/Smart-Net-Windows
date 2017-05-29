@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows", "Smart.Windows\Smart.Windows.csproj", "{096D42E1-E503-4BE7-971D-6351E60319E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows", "Smart.Windows\Smart.Windows.csproj", "{734E6D5E-F6FD-4684-9936-7CF8665C573F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows.Reactive", "Smart.Windows.Reactive\Smart.Windows.Reactive.csproj", "{FD0246AE-C63C-468F-A0BF-7C48777211C0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A61A538-8F01-454A-A3DA-E738B26C6608}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DB89B81-8A05-4E46-B1BD-8A86AE9A78A2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
@@ -18,20 +16,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Smart.Windows.sln.DotSettings = Smart.Windows.sln.DotSettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows.Reactive", "Smart.Windows.Reactive\Smart.Windows.Reactive.csproj", "{7537A7CA-1CA0-4E29-9F24-712434527638}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{096D42E1-E503-4BE7-971D-6351E60319E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{096D42E1-E503-4BE7-971D-6351E60319E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{096D42E1-E503-4BE7-971D-6351E60319E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{096D42E1-E503-4BE7-971D-6351E60319E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD0246AE-C63C-468F-A0BF-7C48777211C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD0246AE-C63C-468F-A0BF-7C48777211C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD0246AE-C63C-468F-A0BF-7C48777211C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD0246AE-C63C-468F-A0BF-7C48777211C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734E6D5E-F6FD-4684-9936-7CF8665C573F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734E6D5E-F6FD-4684-9936-7CF8665C573F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734E6D5E-F6FD-4684-9936-7CF8665C573F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734E6D5E-F6FD-4684-9936-7CF8665C573F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7537A7CA-1CA0-4E29-9F24-712434527638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7537A7CA-1CA0-4E29-9F24-712434527638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7537A7CA-1CA0-4E29-9F24-712434527638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7537A7CA-1CA0-4E29-9F24-712434527638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
