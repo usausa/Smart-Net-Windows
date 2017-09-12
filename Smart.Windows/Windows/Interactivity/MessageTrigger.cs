@@ -24,8 +24,8 @@
         /// </summary>
         public Messenger Messenger
         {
-            get { return (Messenger)GetValue(MessengerProperty); }
-            set { SetValue(MessengerProperty, value); }
+            get => (Messenger)GetValue(MessengerProperty);
+            set => SetValue(MessengerProperty, value);
         }
 
         /// <summary>

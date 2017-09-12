@@ -29,8 +29,8 @@
         /// </summary>
         public object TargetObject
         {
-            get { return GetValue(TargetObjectProperty); }
-            set { SetValue(TargetObjectProperty, value); }
+            get => GetValue(TargetObjectProperty);
+            set => SetValue(TargetObjectProperty, value);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@
         /// </summary>
         public string MethodName
         {
-            get { return (string)GetValue(MethodNameProperty); }
-            set { SetValue(MethodNameProperty, value); }
+            get => (string)GetValue(MethodNameProperty);
+            set => SetValue(MethodNameProperty, value);
         }
 
         /// <summary>
@@ -47,8 +47,8 @@
         /// </summary>
         public string Format
         {
-            get { return (string)GetValue(FormatProperty); }
-            set { SetValue(FormatProperty, value); }
+            get => (string)GetValue(FormatProperty);
+            set => SetValue(FormatProperty, value);
         }
 
         /// <summary>

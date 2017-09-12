@@ -64,10 +64,7 @@
         /// <summary>
         ///
         /// </summary>
-        public Messenger Messenger
-        {
-            get { return messenger ?? (messenger = new Messenger()); }
-        }
+        public Messenger Messenger => messenger ?? (messenger = new Messenger());
 
         /// <summary>
         ///

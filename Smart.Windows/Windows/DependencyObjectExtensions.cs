@@ -26,8 +26,7 @@
             }
 
             // ContentElement
-            var contentElement = obj as ContentElement;
-            if (contentElement != null)
+            if (obj is ContentElement contentElement)
             {
                 var parent = ContentOperations.GetParent(contentElement);
                 if (parent != null)
@@ -39,8 +38,7 @@
             }
 
             // FrameworkElement
-            var frameworkElement = obj as FrameworkElement;
-            if (frameworkElement != null)
+            if (obj is FrameworkElement frameworkElement)
             {
                 var parent = frameworkElement.Parent;
                 if (parent != null)
@@ -53,7 +51,7 @@
         }
 
         /// <summary>
-        /// TODO
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
@@ -69,8 +67,7 @@
                     return null;
                 }
 
-                var typedParent = parent as T;
-                if (typedParent != null)
+                if (parent is T typedParent)
                 {
                     return typedParent;
                 }
@@ -99,8 +96,7 @@
             {
                 foreach (var child in LogicalTreeHelper.GetChildren(obj))
                 {
-                    var typedChild = child as DependencyObject;
-                    if (typedChild != null)
+                    if (child is DependencyObject typedChild)
                     {
                         yield return typedChild;
                     }
@@ -131,8 +127,7 @@
 
             foreach (var child in Children(source))
             {
-                var typedChild = child as T;
-                if (typedChild != null)
+                if (child is T typedChild)
                 {
                     yield return typedChild;
                 }

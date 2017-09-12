@@ -19,8 +19,8 @@
         /// </summary>
         public bool Cancel
         {
-            get { return (bool)GetValue(CancelProperty); }
-            set { SetValue(CancelProperty, value); }
+            get => (bool)GetValue(CancelProperty);
+            set => SetValue(CancelProperty, value);
         }
 
         /// <summary>

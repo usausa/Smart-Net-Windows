@@ -13,12 +13,6 @@
         /// <summary>
         ///
         /// </summary>
-        public static bool IsInDesignMode
-        {
-            get
-            {
-                return isInDesignMode ?? (isInDesignMode = DesignerProperties.GetIsInDesignMode(new DependencyObject())).Value;
-            }
-        }
+        public static bool IsInDesignMode => isInDesignMode ?? (isInDesignMode = DesignerProperties.GetIsInDesignMode(new DependencyObject())).Value;
     }
 }

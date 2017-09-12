@@ -23,19 +23,17 @@
                 throw new ArgumentNullException(nameof(reference));
             }
 
-            var element = reference.InputHitTest(point) as DependencyObject;
-            if (element == null)
+            if (reference.InputHitTest(point) is DependencyObject element)
             {
-                return null;
+                if (element is T typeElememt)
+                {
+                    return typeElememt;
+                }
+
+                return element.FindParent<T>();
             }
 
-            var typeElememt = element as T;
-            if (typeElememt != null)
-            {
-                return typeElememt;
-            }
-
-            return element.FindParent<T>();
+            return null;
         }
     }
 }

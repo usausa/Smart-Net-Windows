@@ -19,8 +19,8 @@
         /// </summary>
         public bool Enabled
         {
-            get { return (bool)GetValue(EnabledProperty); }
-            set { SetValue(EnabledProperty, value); }
+            get => (bool)GetValue(EnabledProperty);
+            set => SetValue(EnabledProperty, value);
         }
 
         /// <summary>

@@ -19,8 +19,8 @@
         /// </summary>
         public bool Closable
         {
-            get { return (bool)GetValue(ClosableProperty); }
-            set { SetValue(ClosableProperty, value); }
+            get => (bool)GetValue(ClosableProperty);
+            set => SetValue(ClosableProperty, value);
         }
 
         /// <summary>

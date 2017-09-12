@@ -23,8 +23,7 @@
             {
                 element.Focus();
 
-                var message = parameter as CancelMessage;
-                if (message != null)
+                if (parameter is CancelMessage message)
                 {
                     message.Cancel = true;
                 }

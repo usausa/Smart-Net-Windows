@@ -15,10 +15,7 @@
         /// <summary>
         ///
         /// </summary>
-        protected CompositeDisposable Disposables
-        {
-            get { return disposables ?? (disposables = new CompositeDisposable()); }
-        }
+        protected CompositeDisposable Disposables => disposables ?? (disposables = new CompositeDisposable());
 
         /// <summary>
         ///

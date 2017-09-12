@@ -20,8 +20,8 @@
         /// </summary>
         public bool Enabled
         {
-            get { return (bool)GetValue(EnabledProperty); }
-            set { SetValue(EnabledProperty, value); }
+            get => (bool)GetValue(EnabledProperty);
+            set => SetValue(EnabledProperty, value);
         }
 
         /// <summary>
@@ -49,13 +49,10 @@
         /// <param name="e"></param>
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var incc = AssociatedObject.ItemsSource as INotifyCollectionChanged;
-            if (incc == null)
+            if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
             {
-                return;
+                incc.CollectionChanged += OnCollectionChanged;
             }
-
-            incc.CollectionChanged += OnCollectionChanged;
         }
 
         /// <summary>
@@ -65,13 +62,10 @@
         /// <param name="e"></param>
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            var incc = AssociatedObject.ItemsSource as INotifyCollectionChanged;
-            if (incc == null)
+            if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
             {
-                return;
+                incc.CollectionChanged -= OnCollectionChanged;
             }
-
-            incc.CollectionChanged -= OnCollectionChanged;
         }
 
         /// <summary>

@@ -10,12 +10,12 @@
         /// <summary>
         ///
         /// </summary>
-        public object Message { get; private set; }
+        public object Message { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public object Parameter { get; private set; }
+        public object Parameter { get; }
 
         /// <summary>
         ///
