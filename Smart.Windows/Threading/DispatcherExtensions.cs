@@ -82,7 +82,7 @@
 
             if (dispatcher == null)
             {
-                return default(TResult);
+                return default;
             }
 
             if (dispatcher.CheckAccess())
