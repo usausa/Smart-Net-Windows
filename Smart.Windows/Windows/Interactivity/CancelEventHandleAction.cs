@@ -12,7 +12,11 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty CancelProperty = DependencyProperty.Register("Cancel", typeof(bool), typeof(CancelEventHandleAction), new PropertyMetadata(null));
+        public static readonly DependencyProperty CancelProperty = DependencyProperty.Register(
+            nameof(Cancel),
+            typeof(bool),
+            typeof(CancelEventHandleAction),
+            new PropertyMetadata(null));
 
         /// <summary>
         ///

@@ -12,7 +12,11 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("Closable", typeof(bool), typeof(WindowCloseToHideAction), new PropertyMetadata(null));
+        public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register(
+            nameof(Closable),
+            typeof(bool),
+            typeof(WindowCloseToHideAction),
+            new PropertyMetadata(null));
 
         /// <summary>
         ///

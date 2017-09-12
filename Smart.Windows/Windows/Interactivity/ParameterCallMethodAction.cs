@@ -17,17 +17,29 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(OnTargetObjectChanged));
+        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+            nameof(TargetObject),
+            typeof(object),
+            typeof(ParameterCallMethodAction),
+            new PropertyMetadata(OnTargetObjectChanged));
 
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ParameterCallMethodAction), new PropertyMetadata(OnMethodNameChanged));
+        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
+            nameof(MethodName),
+            typeof(string),
+            typeof(ParameterCallMethodAction),
+            new PropertyMetadata(OnMethodNameChanged));
 
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty MethodParameterProperty = DependencyProperty.Register("MethodParameter", typeof(object), typeof(ParameterCallMethodAction), new PropertyMetadata(null));
+        public static readonly DependencyProperty MethodParameterProperty = DependencyProperty.Register(
+            nameof(MethodParameter),
+            typeof(object),
+            typeof(ParameterCallMethodAction),
+            new PropertyMetadata(null));
 
         /// <summary>
         ///

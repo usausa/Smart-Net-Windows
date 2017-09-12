@@ -12,7 +12,11 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register("Enabled", typeof(bool), typeof(DragMoveBehavior), new PropertyMetadata(true));
+        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
+            nameof(Enabled),
+            typeof(bool),
+            typeof(DragMoveBehavior),
+            new PropertyMetadata(true));
 
         /// <summary>
         ///

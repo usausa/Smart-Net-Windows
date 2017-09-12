@@ -14,7 +14,7 @@
         ///
         /// </summary>
         public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
-            "Messenger",
+            nameof(Messenger),
             typeof(Messenger),
             typeof(MessageTrigger),
             new PropertyMetadata(MessengerChanged));

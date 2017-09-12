@@ -12,17 +12,26 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register("TargetObject", typeof(object), typeof(ClipboardSetDataAction));
+        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+            nameof(TargetObject),
+            typeof(object),
+            typeof(ClipboardSetDataAction));
 
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register("MethodName", typeof(string), typeof(ClipboardSetDataAction));
+        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
+            nameof(MethodName),
+            typeof(string),
+            typeof(ClipboardSetDataAction));
 
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(ClipboardSetDataAction));
+        public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(
+            nameof(Format),
+            typeof(string),
+            typeof(ClipboardSetDataAction));
 
         /// <summary>
         ///
