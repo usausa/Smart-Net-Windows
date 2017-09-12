@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Usa.Smart.Windows.Reactive</id>
-    <version>0.2.1</version>
+    <version>0.3.1</version>
     <title>Smart.Windows.Reactive .NET</title>
     <authors>machi_pon</authors>
     <owners>machi_pon</owners>
@@ -13,17 +13,16 @@
     <copyright></copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="System.Reactive" version="3.0.0" />
-      <dependency id="Usa.Smart.Core" version="0.6.1" />
-      <dependency id="Usa.Smart.Reactive" version="0.2.1" />
-      <dependency id="Usa.Smart.Windows" version="0.2.1" />
+      <dependency id="System.Reactive" version="3.1.1" />
+      <dependency id="Usa.Smart.Core" version="1.0.0" />
+      <dependency id="Usa.Smart.Windows" version="0.3.1" />
     </dependencies>
     <tags>smart wpf mvvm rx</tags>
   </metadata>
   <files>
-    <!-- .NET 4.6.2 -->
-    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.Reactive.dll" target="lib\net462\Smart.Windows.Reactive.dll" />
-    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.Reactive.pdb" target="lib\net462\Smart.Windows.Reactive.pdb" />
-    <file src="Smart.Windows.Reactive\bin\Release\Smart.Windows.Reactive.xml" target="lib\net462\Smart.Windows.Reactive.xml" />
+    <!-- .NET 4.7 -->
+    <file src="Smart.Windows.Reactive\bin\Release\net47\Smart.Windows.Reactive.dll" target="lib\net47\Smart.Windows.Reactive.dll" />
+    <!--<file src="Smart.Windows.Reactive\bin\Release\net47\Smart.Windows.Reactive.pdb" target="lib\net47\Smart.Windows.Reactive.pdb" />-->
+    <!--<file src="Smart.Windows.Reactive\bin\Release\net47\Smart.Windows.Reactive.xml" target="lib\net47\Smart.Windows.Reactive.xml" />-->
   </files>
 </package>
