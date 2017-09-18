@@ -9,7 +9,19 @@
         ///
         /// </summary>
         /// <param name="message"></param>
+        void Send(string message);
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="parameter"></param>
-        void Send(object message, object parameter);
+        void Send(object parameter);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="parameter"></param>
+        void Send(string message, object parameter);
     }
 }

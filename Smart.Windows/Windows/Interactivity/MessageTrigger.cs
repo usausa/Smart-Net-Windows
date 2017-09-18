@@ -1,5 +1,6 @@
 ﻿namespace Smart.Windows.Interactivity
 {
+    using System;
     using System.Windows;
     using System.Windows.Interactivity;
 
@@ -32,6 +33,11 @@
         ///
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public Type Type { get; set; }
 
         /// <summary>
         ///
@@ -98,7 +104,8 @@
         /// <param name="e"></param>
         private void MessengerOnRecieved(object sender, MessengerEventArgs e)
         {
-            if ((Message == null) || Message.Equals(e.Message))
+            if (((Message == null) || Message.Equals(e.Message)) &&
+                ((Type == null) || ((e.Parameter != null) && Type.IsInstanceOfType(e.Parameter))))
             {
                 InvokeActions(e.Parameter);
             }

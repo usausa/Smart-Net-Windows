@@ -25,7 +25,22 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((DateTime)value).ToString(Format, culture);
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            if (value is DateTimeOffset dateTimeOffset)
+            {
+                return dateTimeOffset.ToString(Format, culture);
+            }
+
+            if (value is DateTime dateTime)
+            {
+                return dateTime.ToString(Format, culture);
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -38,7 +53,13 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            var str = value as string;
+            if (String.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+
+            return DateTime.ParseExact(str, Format, culture);
         }
     }
 }

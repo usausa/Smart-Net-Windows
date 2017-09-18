@@ -7,7 +7,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class CancelEventHandleAction : TriggerAction<Window>
+    public class CancelEventHandleAction : TriggerAction<DependencyObject>
     {
         /// <summary>
         ///

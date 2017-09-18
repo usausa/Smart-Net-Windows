@@ -10,7 +10,7 @@
         /// <summary>
         ///
         /// </summary>
-        public object Message { get; }
+        public string Message { get; }
 
         /// <summary>
         ///
@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="message"></param>
         /// <param name="parameter"></param>
-        public MessengerEventArgs(object message, object parameter)
+        public MessengerEventArgs(string message, object parameter)
         {
             Message = message;
             Parameter = parameter;
