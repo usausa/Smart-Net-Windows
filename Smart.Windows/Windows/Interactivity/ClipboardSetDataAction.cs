@@ -7,6 +7,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(DependencyObject))]
     public class ClipboardSetDataAction : TriggerAction<DependencyObject>
     {
         /// <summary>

@@ -10,6 +10,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(DependencyObject))]
     public class ValidationErrorFocusAction : TriggerAction<DependencyObject>
     {
         /// <summary>

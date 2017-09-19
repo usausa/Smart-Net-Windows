@@ -9,6 +9,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(FrameworkElement))]
     public class MessageTrigger : TriggerBase<FrameworkElement>
     {
         /// <summary>

@@ -7,6 +7,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(Window))]
     public class DragMoveBehavior : Behavior<Window>
     {
         /// <summary>

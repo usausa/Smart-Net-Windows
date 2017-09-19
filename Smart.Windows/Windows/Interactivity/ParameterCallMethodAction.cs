@@ -10,6 +10,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(DependencyObject))]
     public class ParameterCallMethodAction : TriggerAction<DependencyObject>
     {
         private readonly List<MethodInfo> methods = new List<MethodInfo>();

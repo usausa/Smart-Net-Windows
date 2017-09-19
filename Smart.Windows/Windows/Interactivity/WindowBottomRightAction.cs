@@ -6,6 +6,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(Window))]
     public class WindowBottomRightAction : TriggerAction<Window>
     {
         /// <summary>

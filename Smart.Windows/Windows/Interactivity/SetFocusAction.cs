@@ -6,6 +6,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(FrameworkElement))]
     public class SetFocusAction : TriggerAction<FrameworkElement>
     {
         /// <summary>

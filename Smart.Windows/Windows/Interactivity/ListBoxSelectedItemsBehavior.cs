@@ -8,6 +8,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(ListBox))]
     public class ListBoxSelectedItemsBehavior : Behavior<ListBox>
     {
         /// <summary>

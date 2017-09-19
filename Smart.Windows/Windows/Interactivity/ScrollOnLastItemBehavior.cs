@@ -8,6 +8,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(ItemsControl))]
     public class ScrollOnLastItemBehavior : Behavior<ItemsControl>
     {
         /// <summary>

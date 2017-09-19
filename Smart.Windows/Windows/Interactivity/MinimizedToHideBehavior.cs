@@ -8,6 +8,7 @@
     /// <summary>
     ///
     /// </summary>
+    [TypeConstraint(typeof(Window))]
     public class MinimizedToHideBehavior : Behavior<Window>
     {
         private readonly HwndSourceHook hook;
