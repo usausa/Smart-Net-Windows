@@ -2,24 +2,28 @@
 {
     using System;
     using System.Globalization;
-    using System.Windows;
     using System.Windows.Data;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BoolToVisibilityConverter : IValueConverter
+    [ValueConversion(typeof(object), typeof(object))]
+    public class ConditionConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Visibility TrueValue { get; set; }
+        public Func<object, bool> Predicate { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Visibility FalseValue { get; set; }
+        public object TrueValue { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public object FalseValue { get; set; }
 
         /// <summary>
         ///
@@ -31,12 +35,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is bool))
-            {
-                return null;
-            }
-
-            return (bool)value ? TrueValue : FalseValue;
+            return (Predicate?.Invoke(value) ?? (bool)value) ? TrueValue : FalseValue;
         }
 
         /// <summary>
@@ -49,17 +48,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueValue))
-            {
-                return true;
-            }
-
-            if (Equals(value, FalseValue))
-            {
-                return false;
-            }
-
-            return Binding.DoNothing;
+            return Equals(value, TrueValue);
         }
     }
 }

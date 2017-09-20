@@ -8,8 +8,13 @@
     ///
     /// </summary>
     [ValueConversion(typeof(DateTime), typeof(string))]
+    [ValueConversion(typeof(DateTimeOffset), typeof(string))]
     public class DateFormatConverter : IValueConverter
     {
+        private static readonly Type DateTimeOffsetType = typeof(DateTimeOffset);
+
+        private static readonly Type DateTimeType = typeof(DateTime);
+
         /// <summary>
         ///
         /// </summary>
@@ -59,7 +64,17 @@
                 return null;
             }
 
-            return DateTime.ParseExact(str, Format, culture);
+            if (targetType == DateTimeOffsetType)
+            {
+                return DateTimeOffset.ParseExact(str, Format, culture);
+            }
+
+            if (targetType == DateTimeType)
+            {
+                return DateTime.ParseExact(str, Format, culture);
+            }
+
+            return null;
         }
     }
 }

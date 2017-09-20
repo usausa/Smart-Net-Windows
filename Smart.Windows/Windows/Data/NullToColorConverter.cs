@@ -2,24 +2,24 @@
 {
     using System;
     using System.Globalization;
-    using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Media;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BoolToVisibilityConverter : IValueConverter
+    [ValueConversion(typeof(object), typeof(Color))]
+    public class NullToColorConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Visibility TrueValue { get; set; }
+        public Color NullColor { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Visibility FalseValue { get; set; }
+        public Color NonNullColor { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
@@ -31,12 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is bool))
-            {
-                return null;
-            }
-
-            return (bool)value ? TrueValue : FalseValue;
+            return value == null ? NullColor : NonNullColor;
         }
 
         /// <summary>
@@ -49,17 +44,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueValue))
-            {
-                return true;
-            }
-
-            if (Equals(value, FalseValue))
-            {
-                return false;
-            }
-
-            return Binding.DoNothing;
+            throw new NotSupportedException();
         }
     }
 }

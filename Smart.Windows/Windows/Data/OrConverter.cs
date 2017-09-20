@@ -8,7 +8,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class BooleanAndConverter : IMultiValueConverter
+    public class OrConverter : IMultiValueConverter
     {
         /// <summary>
         ///
@@ -20,7 +20,7 @@
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return values.All(value => (value is bool) && (bool)value);
+            return values.Any(value => (value is bool) && (bool)value);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@
         /// <returns></returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

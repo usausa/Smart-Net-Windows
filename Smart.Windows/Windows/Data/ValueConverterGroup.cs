@@ -1,6 +1,7 @@
 ﻿namespace Smart.Windows.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Windows.Data;
@@ -8,32 +9,32 @@
     /// <summary>
     ///
     /// </summary>
-    public class BooleanOrConverter : IMultiValueConverter
+    public class ValueConverterGroup : List<IValueConverter>, IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        /// <param name="values"></param>
+        /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return values.Any(value => (value is bool) && (bool)value);
+            return this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
         }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="targetTypes"></param>
+        /// <param name="targetType"></param>
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }
