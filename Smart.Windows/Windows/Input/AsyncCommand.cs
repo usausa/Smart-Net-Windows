@@ -5,10 +5,12 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
+    using Smart.Windows.Internal;
+
     /// <summary>
     ///
     /// </summary>
-    public sealed class AsyncCommand : ICommand
+    public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand
     {
         private readonly Func<Task> execute;
 
@@ -21,7 +23,7 @@
         /// </summary>
         /// <param name="execute"></param>
         public AsyncCommand(Func<Task> execute)
-            : this(execute, () => true)
+            : this(execute, Actions.True)
         {
         }
 
@@ -33,6 +35,30 @@
         public AsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
             this.execute = execute;
+            this.canExecute = canExecute;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        public AsyncCommand(Action execute)
+            : this(execute, Actions.True)
+        {
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        public AsyncCommand(Action execute, Func<bool> canExecute)
+        {
+            this.execute = () =>
+            {
+                execute();
+                return Task.CompletedTask;
+            };
             this.canExecute = canExecute;
         }
 
@@ -53,6 +79,7 @@
         public async void Execute(object parameter)
         {
             executing = true;
+            RaiseCanExecuteChanged();
 
             try
             {
@@ -62,16 +89,8 @@
             finally
             {
                 executing = false;
+                RaiseCanExecuteChanged();
             }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
         }
     }
 
@@ -79,7 +98,7 @@
     ///
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class AsyncCommand<T> : ICommand
+    public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand
     {
         private static readonly bool IsValueType = typeof(T).GetTypeInfo().IsValueType;
 
@@ -94,7 +113,7 @@
         /// </summary>
         /// <param name="execute"></param>
         public AsyncCommand(Func<T, Task> execute)
-            : this(execute, x => true)
+            : this(execute, Actions<T>.True)
         {
         }
 
@@ -135,6 +154,7 @@
         private async void Execute(T parameter)
         {
             executing = true;
+            RaiseCanExecuteChanged();
 
             try
             {
@@ -144,6 +164,7 @@
             finally
             {
                 executing = false;
+                RaiseCanExecuteChanged();
             }
         }
 
@@ -160,15 +181,6 @@
             }
 
             return (T)parameter;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
         }
     }
 }

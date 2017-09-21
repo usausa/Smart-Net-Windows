@@ -3,10 +3,12 @@
     using System;
     using System.Windows.Input;
 
+    using Smart.Windows.Internal;
+
     /// <summary>
     ///
     /// </summary>
-    public sealed class DelegateCommand : ICommand
+    public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, ICommand
     {
         private readonly Action execute;
 
@@ -17,7 +19,7 @@
         /// </summary>
         /// <param name="execute"></param>
         public DelegateCommand(Action execute)
-            : this(execute, () => true)
+            : this(execute, Actions.True)
         {
         }
 
@@ -50,22 +52,13 @@
         {
             return canExecute();
         }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
     }
 
     /// <summary>
     ///
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class DelegateCommand<T> : ICommand
+    public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand
     {
         private static readonly bool IsValueType = typeof(T).IsValueType;
 
@@ -78,7 +71,7 @@
         /// </summary>
         /// <param name="execute"></param>
         public DelegateCommand(Action<T> execute)
-            : this(execute, x => true)
+            : this(execute, Actions<T>.True)
         {
         }
 
@@ -125,15 +118,6 @@
             }
 
             return (T)parameter;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
         }
     }
 }
