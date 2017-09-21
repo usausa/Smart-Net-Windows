@@ -131,6 +131,30 @@
         /// <summary>
         ///
         /// </summary>
+        /// <param name="execute"></param>
+        public AsyncCommand(Action<T> execute)
+            : this(execute, Actions<T>.True)
+        {
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        public AsyncCommand(Action<T> execute, Func<T, bool> canExecute)
+        {
+            this.execute = arg =>
+            {
+                execute(arg);
+                return Task.CompletedTask;
+            };
+            this.canExecute = canExecute;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
         bool ICommand.CanExecute(object parameter)
