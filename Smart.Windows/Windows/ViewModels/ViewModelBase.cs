@@ -23,15 +23,27 @@
 
         private bool isBusy;
 
+        // ------------------------------------------------------------
+        // Disposables
+        // ------------------------------------------------------------
+
         /// <summary>
         ///
         /// </summary>
         protected ICollection<IDisposable> Disposables => disposables ?? (disposables = new ListDisposable());
 
+        // ------------------------------------------------------------
+        // Messenger
+        // ------------------------------------------------------------
+
         /// <summary>
         ///
         /// </summary>
         public Messenger Messenger => messenger ?? (messenger = new Messenger());
+
+        // ------------------------------------------------------------
+        // Busy
+        // ------------------------------------------------------------
 
         /// <summary>
         ///
@@ -41,6 +53,10 @@
             get => isBusy;
             set => SetProperty(ref isBusy, value);
         }
+
+        // ------------------------------------------------------------
+        // Validation
+        // ------------------------------------------------------------
 
         /// <summary>
         ///
@@ -83,6 +99,10 @@
                 return String.Join(Environment.NewLine, results.Select(r => r.ErrorMessage));
             }
         }
+
+        // ------------------------------------------------------------
+        // Constructor
+        // ------------------------------------------------------------
 
         /// <summary>
         ///
@@ -137,46 +157,6 @@
         ///
         /// </summary>
         /// <param name="execute"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public void ExecuteBusy(Action execute)
-        {
-            try
-            {
-                IsBusy = true;
-
-                execute();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="execute"></param>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public TResult ExecuteBusy<TResult>(Func<TResult> execute)
-        {
-            try
-            {
-                IsBusy = true;
-
-                return execute();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="execute"></param>
         /// <returns></returns>
         public async Task ExecuteBusyAsync(Func<Task> execute)
         {
@@ -213,7 +193,7 @@
         }
 
         // ------------------------------------------------------------
-        // Command helper
+        // DelegateCommand helper
         // ------------------------------------------------------------
 
         /// <summary>
@@ -221,9 +201,9 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected AsyncCommand MakeBusyCommand(Func<Task> execute)
+        protected DelegateCommand MakeDelegateCommand(Action execute)
         {
-            return MakeBusyCommand(execute, Actions.True);
+            return MakeDelegateCommand(execute, Actions.True);
         }
 
         /// <summary>
@@ -232,7 +212,57 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected AsyncCommand MakeBusyCommand(Func<Task> execute, Func<bool> canExecute)
+        protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
+        {
+            return new DelegateCommand(execute, canExecute)
+                .RemoveObserverBy(Disposables);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="execute"></param>
+        /// <returns></returns>
+        protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
+        {
+            return MakeDelegateCommand(execute, Actions<TParameter>.True);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        /// <returns></returns>
+        protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
+        {
+            return new DelegateCommand<TParameter>(execute, canExecute)
+                .RemoveObserverBy(Disposables);
+        }
+
+        // ------------------------------------------------------------
+        // AsyncCommand helper
+        // ------------------------------------------------------------
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <returns></returns>
+        protected AsyncCommand MakeAsyncCommand(Func<Task> execute)
+        {
+            return MakeAsyncCommand(execute, Actions.True);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        /// <returns></returns>
+        protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
             return new AsyncCommand(
                 async () =>
@@ -257,9 +287,9 @@
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected AsyncCommand<TParameter> MakeBusyCommand<TParameter>(Func<TParameter, Task> execute)
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
         {
-            return MakeBusyCommand(execute, Actions<TParameter>.True);
+            return MakeAsyncCommand(execute, Actions<TParameter>.True);
         }
 
         /// <summary>
@@ -269,7 +299,7 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected AsyncCommand<TParameter> MakeBusyCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
         {
             return new AsyncCommand<TParameter>(
                 async parameter =>
@@ -278,6 +308,78 @@
                     try
                     {
                         await execute(parameter);
+                    }
+                    finally
+                    {
+                        IsBusy = false;
+                    }
+                }, parameter => !IsBusy && canExecute(parameter))
+                .Observe(this, nameof(IsBusy))
+                .RemoveObserverBy(Disposables);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <returns></returns>
+        protected AsyncCommand MakeAsyncCommand(Action execute)
+        {
+            return MakeAsyncCommand(execute, Actions.True);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        /// <returns></returns>
+        protected AsyncCommand MakeAsyncCommand(Action execute, Func<bool> canExecute)
+        {
+            return new AsyncCommand(
+                () =>
+                {
+                    IsBusy = true;
+                    try
+                    {
+                        execute();
+                    }
+                    finally
+                    {
+                        IsBusy = false;
+                    }
+                }, () => !IsBusy && canExecute())
+                .Observe(this, nameof(IsBusy))
+                .RemoveObserverBy(Disposables);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="execute"></param>
+        /// <returns></returns>
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Action<TParameter> execute)
+        {
+            return MakeAsyncCommand(execute, Actions<TParameter>.True);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
+        /// <returns></returns>
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
+        {
+            return new AsyncCommand<TParameter>(
+                parameter =>
+                {
+                    IsBusy = true;
+                    try
+                    {
+                        execute(parameter);
                     }
                     finally
                     {
@@ -307,18 +409,18 @@
         protected AsyncCommand MakeBusyCommand(Action execute, Func<bool> canExecute)
         {
             return new AsyncCommand(
-                () =>
-                {
-                    IsBusy = true;
-                    try
+                    () =>
                     {
-                        execute();
-                    }
-                    finally
-                    {
-                        IsBusy = false;
-                    }
-                }, () => !IsBusy && canExecute())
+                        IsBusy = true;
+                        try
+                        {
+                            execute();
+                        }
+                        finally
+                        {
+                            IsBusy = false;
+                        }
+                    }, () => !IsBusy && canExecute())
                 .Observe(this, nameof(IsBusy))
                 .RemoveObserverBy(Disposables);
         }
@@ -344,18 +446,18 @@
         protected AsyncCommand<TParameter> MakeBusyCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
         {
             return new AsyncCommand<TParameter>(
-                parameter =>
-                {
-                    IsBusy = true;
-                    try
+                    parameter =>
                     {
-                        execute(parameter);
-                    }
-                    finally
-                    {
-                        IsBusy = false;
-                    }
-                }, parameter => !IsBusy && canExecute(parameter))
+                        IsBusy = true;
+                        try
+                        {
+                            execute(parameter);
+                        }
+                        finally
+                        {
+                            IsBusy = false;
+                        }
+                    }, parameter => !IsBusy && canExecute(parameter))
                 .Observe(this, nameof(IsBusy))
                 .RemoveObserverBy(Disposables);
         }
