@@ -31,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? TrueColor : FalseColor;
+            return value != null && (bool)value ? TrueColor : FalseColor;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (Color)value == TrueColor;
+            return value != null && (Color)value == TrueColor;
         }
     }
 }
