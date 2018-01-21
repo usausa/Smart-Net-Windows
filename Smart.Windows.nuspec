@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Usa.Smart.Windows</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>Smart.Windows .NET</title>
     <authors>machi_pon</authors>
     <owners>machi_pon</owners>
@@ -13,14 +13,12 @@
     <copyright></copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Usa.Smart.Core" version="1.0.3" />
+      <dependency id="Usa.Smart.Core" version="1.2.0" />
     </dependencies>
     <tags>smart wpf mvvm</tags>
   </metadata>
   <files>
-    <!-- .NET 4.7 -->
-    <file src="Smart.Windows\bin\Release\net47\Smart.Windows.dll" target="lib\net47\Smart.Windows.dll" />
-    <!--<file src="Smart.Windows\bin\Release\net47\Smart.Windows.pdb" target="lib\net47\Smart.Windows.pdb" />-->
-    <!--<file src="Smart.Windows\bin\Release\net47\Smart.Windows.xml" target="lib\net47\Smart.Windows.xml" />-->
+    <!-- net462 -->
+    <file src="Smart.Windows\bin\Release\net462\Smart.Windows.dll" target="lib\net462" />
   </files>
 </package>
