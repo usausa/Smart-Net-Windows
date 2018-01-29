@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Usa.Smart.Windows.Resolver</id>
-    <version>1.2.0-beta1</version>
+    <version>1.2.0-beta2</version>
     <title>Smart.Windows.Resolver .NET</title>
     <authors>machi_pon</authors>
     <owners>machi_pon</owners>
@@ -13,9 +13,9 @@
     <copyright></copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="System.Resolver" version="3.1.1" />
       <dependency id="Usa.Smart.Core" version="1.5.0" />
-      <dependency id="Usa.Smart.Windows" version="1.2.0-beta1" />
+      <dependency id="Usa.Smart.Resolver" version="1.7.0" />
+      <dependency id="Usa.Smart.Windows" version="1.2.0-beta2" />
     </dependencies>
     <tags>smart wpf mvvm</tags>
   </metadata>
