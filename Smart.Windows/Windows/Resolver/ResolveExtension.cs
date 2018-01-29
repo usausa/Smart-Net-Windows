@@ -19,7 +19,7 @@
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return Activator.CreateInstance(Type);
+            return ResolveProvider.Default.Resolve(Type);
         }
     }
 }

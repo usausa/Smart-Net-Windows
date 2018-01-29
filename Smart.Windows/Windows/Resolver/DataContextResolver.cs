@@ -80,7 +80,7 @@
                     disposable.Dispose();
                 }
 
-                element.DataContext = e.NewValue != null ? ResolveProvider.Resolve((Type)e.NewValue) : null;
+                element.DataContext = e.NewValue != null ? ResolveProvider.Default.Resolve((Type)e.NewValue) : null;
             }
         }
     }

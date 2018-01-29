@@ -1,21 +1,23 @@
 ﻿namespace Smart.Windows.Resolver
 {
     using System;
+    using Smart.Resolver;
 
     /// <summary>
     ///
     /// </summary>
-    public class ResolveProvider : IResolveProvider
+    public class SmartResolveProvider : IResolveProvider
     {
-        /// <summary>
-        ///
-        /// </summary>
-        public static ResolveProvider Default { get; } = new ResolveProvider();
+        private readonly SmartResolver resolver;
 
         /// <summary>
         ///
         /// </summary>
-        public IResolveProvider Provider { get; set; } = DefaultResolveProvider.Default;
+        /// <param name="resolver"></param>
+        public SmartResolveProvider(SmartResolver resolver)
+        {
+            this.resolver = resolver;
+        }
 
         /// <summary>
         ///
@@ -24,7 +26,7 @@
         /// <returns></returns>
         public object Resolve(Type type)
         {
-            return Provider.Resolve(type);
+            return resolver.Get(type);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
@@ -11,8 +11,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
-    <PackageReference Include="System.Reactive" Version="3.1.1" />
     <PackageReference Include="Usa.Smart.Core" Version="1.5.0" />
+    <PackageReference Include="Usa.Smart.Resolver" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>

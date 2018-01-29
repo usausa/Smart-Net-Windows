@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Usa.Smart.Windows</id>
+    <id>Usa.Smart.Windows.Resolver</id>
     <version>1.2.0-beta1</version>
-    <title>Smart.Windows .NET</title>
+    <title>Smart.Windows.Resolver .NET</title>
     <authors>machi_pon</authors>
     <owners>machi_pon</owners>
-    <description>Smart WPF support library for .NET</description>
+    <description>Smart WPF support library resolver extensions for .NET</description>
     <releaseNotes></releaseNotes>
-    <summary>Smart WPF support library for .NET</summary>
+    <summary>Smart WPF support library resolver extensions for .NET</summary>
     <projectUrl>https://github.com/usausa/Smart-Net-Windows</projectUrl>
     <copyright></copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
+      <dependency id="System.Resolver" version="3.1.1" />
       <dependency id="Usa.Smart.Core" version="1.5.0" />
+      <dependency id="Usa.Smart.Windows" version="1.2.0-beta1" />
     </dependencies>
     <tags>smart wpf mvvm</tags>
   </metadata>
   <files>
     <!-- net462 -->
-    <file src="Smart.Windows\bin\Release\net462\Smart.Windows.dll" target="lib\net462" />
+    <file src="Smart.Windows.Resolver\bin\Release\net462\Smart.Windows.Resolver.dll" target="lib\net462" />
   </files>
 </package>
