@@ -15,7 +15,7 @@
             "Type",
             typeof(Type),
             typeof(DataContextResolver),
-            new PropertyMetadata(null, OnTypePropertyChanged));
+            new PropertyMetadata(null, HandleTypePropertyChanged));
 
         /// <summary>
         ///
@@ -71,7 +71,7 @@
         /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
-        private static void OnTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void HandleTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is FrameworkElement element)
             {
