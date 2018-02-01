@@ -1,6 +1,7 @@
 ﻿namespace Smart.Windows.Resolver
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
 
     /// <summary>
@@ -73,6 +74,11 @@
         /// <param name="e"></param>
         private static void HandleTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if (DesignerProperties.GetIsInDesignMode(d))
+            {
+                return;
+            }
+
             if (d is FrameworkElement element)
             {
                 if (element.DataContext is IDisposable disposable && GetDisposeOnChanged(d))
