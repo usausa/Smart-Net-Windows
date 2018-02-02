@@ -40,7 +40,7 @@
             nameof(MethodParameter),
             typeof(object),
             typeof(ParameterCallMethodAction),
-            new PropertyMetadata(null));
+            new PropertyMetadata(default(object)));
 
         /// <summary>
         ///

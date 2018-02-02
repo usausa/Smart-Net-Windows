@@ -14,7 +14,7 @@
             nameof(SelectedItem),
             typeof(object),
             typeof(ListBoxSingleSelectionBehavior),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         ///

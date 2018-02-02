@@ -17,7 +17,7 @@
             nameof(Cancel),
             typeof(bool),
             typeof(CancelEventHandleAction),
-            new PropertyMetadata(null));
+            new PropertyMetadata(default(bool)));
 
         /// <summary>
         ///
