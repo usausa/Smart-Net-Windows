@@ -3,18 +3,20 @@
     using System;
     using System.Windows.Markup;
 
+    [ContentProperty("Value")]
+    [MarkupExtensionReturnType(typeof(double))]
     public class DoubleExtension : MarkupExtension
     {
-        private readonly double value;
+        public double Value { get; set; }
 
         public DoubleExtension(double value)
         {
-            this.value = value;
+            Value = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return value;
+            return Value;
         }
     }
 }

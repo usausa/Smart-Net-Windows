@@ -3,18 +3,20 @@
     using System;
     using System.Windows.Markup;
 
+    [ContentProperty("Value")]
+    [MarkupExtensionReturnType(typeof(short))]
     public class Int16Extension : MarkupExtension
     {
-        private readonly short value;
+        public short Value { get; set; }
 
         public Int16Extension(short value)
         {
-            this.value = value;
+            Value = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return value;
+            return Value;
         }
     }
 }

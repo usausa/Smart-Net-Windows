@@ -3,18 +3,20 @@
     using System;
     using System.Windows.Markup;
 
+    [ContentProperty("Value")]
+    [MarkupExtensionReturnType(typeof(float))]
     public class FloatExtension : MarkupExtension
     {
-        private readonly float value;
+        public float Value { get; set; }
 
         public FloatExtension(float value)
         {
-            this.value = value;
+            Value = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return value;
+            return Value;
         }
     }
 }

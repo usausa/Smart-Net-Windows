@@ -3,18 +3,20 @@
     using System;
     using System.Windows.Markup;
 
+    [ContentProperty("Value")]
+    [MarkupExtensionReturnType(typeof(long))]
     public class Int64Extension : MarkupExtension
     {
-        private readonly long value;
+        public long Value { get; set; }
 
         public Int64Extension(long value)
         {
-            this.value = value;
+            Value = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return value;
+            return Value;
         }
     }
 }

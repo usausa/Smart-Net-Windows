@@ -3,18 +3,20 @@
     using System;
     using System.Windows.Markup;
 
+    [ContentProperty("Value")]
+    [MarkupExtensionReturnType(typeof(int))]
     public class Int32Extension : MarkupExtension
     {
-        private readonly int value;
+        public int Value { get; set; }
 
         public Int32Extension(int value)
         {
-            this.value = value;
+            Value = value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return value;
+            return Value;
         }
     }
 }
