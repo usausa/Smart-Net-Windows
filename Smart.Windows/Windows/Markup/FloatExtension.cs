@@ -1,13 +1,13 @@
-﻿namespace Smart.Windows.Extensions
+﻿namespace Smart.Windows.Markup
 {
     using System;
     using System.Windows.Markup;
 
-    public class Int64Extension : MarkupExtension
+    public class FloatExtension : MarkupExtension
     {
-        private readonly long value;
+        private readonly float value;
 
-        public Int64Extension(long value)
+        public FloatExtension(float value)
         {
             this.value = value;
         }

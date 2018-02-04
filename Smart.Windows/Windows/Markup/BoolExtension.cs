@@ -1,13 +1,13 @@
-﻿namespace Smart.Windows.Extensions
+﻿namespace Smart.Windows.Markup
 {
     using System;
     using System.Windows.Markup;
 
-    public class Int32Extension : MarkupExtension
+    public class BoolExtension : MarkupExtension
     {
-        private readonly int value;
+        private readonly bool value;
 
-        public Int32Extension(int value)
+        public BoolExtension(bool value)
         {
             this.value = value;
         }
