@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>..\Smart.Windows.ruleset</CodeAnalysisRuleSet>
     <RootNamespace>Smart</RootNamespace>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
