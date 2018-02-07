@@ -1,10 +1,17 @@
 ﻿namespace Smart.Windows.Messaging
 {
+    using System;
+
     /// <summary>
     ///
     /// </summary>
     public interface IMessenger
     {
+        /// <summary>
+        ///
+        /// </summary>
+        event EventHandler<MessengerEventArgs> Recieved;
+
         /// <summary>
         ///
         /// </summary>

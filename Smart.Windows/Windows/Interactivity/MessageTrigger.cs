@@ -17,16 +17,16 @@
         /// </summary>
         public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
             nameof(Messenger),
-            typeof(Messenger),
+            typeof(IMessenger),
             typeof(MessageTrigger),
             new PropertyMetadata(MessengerChanged));
 
         /// <summary>
         ///
         /// </summary>
-        public Messenger Messenger
+        public IMessenger Messenger
         {
-            get => (Messenger)GetValue(MessengerProperty);
+            get => (IMessenger)GetValue(MessengerProperty);
             set => SetValue(MessengerProperty, value);
         }
 
