@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(short))]
-    public class Int16Extension : MarkupExtension
+    public sealed class Int16Extension : MarkupExtension
     {
         public short Value { get; set; }
 

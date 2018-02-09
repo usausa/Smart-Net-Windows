@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
-    public class DataContextDisposeAction : TriggerAction<FrameworkElement>
+    public sealed class DataContextDisposeAction : TriggerAction<FrameworkElement>
     {
         /// <summary>
         ///

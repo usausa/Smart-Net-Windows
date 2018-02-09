@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(int))]
-    public class Int32Extension : MarkupExtension
+    public sealed class Int32Extension : MarkupExtension
     {
         public int Value { get; set; }
 

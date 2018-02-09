@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class EventRequestTrigger : EventRequestTriggerBase<EventArgs>
+    public sealed class EventRequestTrigger : EventRequestTriggerBase<EventArgs>
     {
         /// <summary>
         ///

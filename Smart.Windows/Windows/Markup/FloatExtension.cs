@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(float))]
-    public class FloatExtension : MarkupExtension
+    public sealed class FloatExtension : MarkupExtension
     {
         public float Value { get; set; }
 

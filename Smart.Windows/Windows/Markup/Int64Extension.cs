@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(long))]
-    public class Int64Extension : MarkupExtension
+    public sealed class Int64Extension : MarkupExtension
     {
         public long Value { get; set; }
 

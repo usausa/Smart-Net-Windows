@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
-    public class UpdateTargetAction : TriggerAction<FrameworkElement>
+    public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
     {
         public static readonly DependencyProperty PropertyNameProperty =
             DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction));

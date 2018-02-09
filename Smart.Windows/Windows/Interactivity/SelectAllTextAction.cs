@@ -4,7 +4,7 @@
     using System.Windows.Interactivity;
 
     [TypeConstraint(typeof(TextBoxBase))]
-    public class SelectAllTextAction : TriggerAction<TextBoxBase>
+    public sealed class SelectAllTextAction : TriggerAction<TextBoxBase>
     {
         protected override void Invoke(object parameter)
         {

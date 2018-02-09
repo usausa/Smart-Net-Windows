@@ -8,7 +8,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class OrConverter : IMultiValueConverter
+    public sealed class OrConverter : IMultiValueConverter
     {
         /// <summary>
         ///

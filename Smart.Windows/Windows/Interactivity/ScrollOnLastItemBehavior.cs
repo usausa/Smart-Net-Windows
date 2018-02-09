@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(ItemsControl))]
-    public class ScrollOnLastItemBehavior : Behavior<ItemsControl>
+    public sealed class ScrollOnLastItemBehavior : Behavior<ItemsControl>
     {
         /// <summary>
         ///

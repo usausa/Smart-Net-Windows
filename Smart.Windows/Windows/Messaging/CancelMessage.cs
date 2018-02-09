@@ -3,7 +3,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class CancelMessage
+    public sealed class CancelMessage
     {
         /// <summary>
         ///

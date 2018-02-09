@@ -7,7 +7,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(Window))]
-    public class WindowBottomRightAction : TriggerAction<Window>
+    public sealed class WindowBottomRightAction : TriggerAction<Window>
     {
         /// <summary>
         ///

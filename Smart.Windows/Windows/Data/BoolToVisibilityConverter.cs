@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BoolToVisibilityConverter : IValueConverter
+    public sealed class BoolToVisibilityConverter : IValueConverter
     {
         /// <summary>
         ///

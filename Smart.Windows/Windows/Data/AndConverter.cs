@@ -8,7 +8,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class AndConverter : IMultiValueConverter
+    public sealed class AndConverter : IMultiValueConverter
     {
         /// <summary>
         ///

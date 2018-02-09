@@ -6,7 +6,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class ResolveExtension : MarkupExtension
+    public sealed class ResolveExtension : MarkupExtension
     {
         /// <summary>
         ///

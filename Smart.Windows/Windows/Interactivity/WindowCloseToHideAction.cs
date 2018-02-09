@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(Window))]
-    public class WindowCloseToHideAction : TriggerAction<Window>
+    public sealed class WindowCloseToHideAction : TriggerAction<Window>
     {
         /// <summary>
         ///

@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class ResolveProvider : IResolveProvider
+    public sealed class ResolveProvider : IResolveProvider
     {
         /// <summary>
         ///

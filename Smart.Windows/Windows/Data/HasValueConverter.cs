@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(object), typeof(bool))]
-    public class HasValueConverter : IValueConverter
+    public sealed class HasValueConverter : IValueConverter
     {
         /// <summary>
         ///

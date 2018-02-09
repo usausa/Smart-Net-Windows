@@ -5,7 +5,7 @@
     using System.Windows.Data;
 
     [ValueConversion(typeof(string), typeof(string))]
-    public class ToUpperConverter : IValueConverter
+    public sealed class ToUpperConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(object), typeof(object))]
-    public class ConditionConverter : IValueConverter
+    public sealed class ConditionConverter : IValueConverter
     {
         /// <summary>
         ///

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class EventRequest : IEventRequest<EventArgs>
+    public sealed class EventRequest : IEventRequest<EventArgs>
     {
         public event EventHandler<EventArgs> Requested;
 
@@ -12,7 +12,7 @@
         }
     }
 
-    public class EventRequest<TEventAgrs> : IEventRequest<TEventAgrs>
+    public sealed class EventRequest<TEventAgrs> : IEventRequest<TEventAgrs>
         where TEventAgrs : EventArgs
     {
         public event EventHandler<TEventAgrs> Requested;

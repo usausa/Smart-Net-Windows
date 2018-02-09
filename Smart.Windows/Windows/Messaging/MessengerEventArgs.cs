@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class MessengerEventArgs : EventArgs
+    public sealed class MessengerEventArgs : EventArgs
     {
         /// <summary>
         ///

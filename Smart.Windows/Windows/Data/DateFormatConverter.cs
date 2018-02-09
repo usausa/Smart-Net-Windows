@@ -9,7 +9,7 @@
     /// </summary>
     [ValueConversion(typeof(DateTime), typeof(string))]
     [ValueConversion(typeof(DateTimeOffset), typeof(string))]
-    public class DateFormatConverter : IValueConverter
+    public sealed class DateFormatConverter : IValueConverter
     {
         private static readonly Type DateTimeOffsetType = typeof(DateTimeOffset);
 

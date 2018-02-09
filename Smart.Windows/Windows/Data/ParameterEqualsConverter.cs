@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(object), typeof(object))]
-    public class ParameterEqualsConverter : IValueConverter
+    public sealed class ParameterEqualsConverter : IValueConverter
     {
         /// <summary>
         ///

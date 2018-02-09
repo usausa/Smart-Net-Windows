@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(object), typeof(Color))]
-    public class NullToColorConverter : IValueConverter
+    public sealed class NullToColorConverter : IValueConverter
     {
         /// <summary>
         ///

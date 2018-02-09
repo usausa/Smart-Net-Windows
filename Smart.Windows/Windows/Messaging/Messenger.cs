@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class Messenger : IMessenger
+    public sealed class Messenger : IMessenger
     {
         /// <summary>
         ///

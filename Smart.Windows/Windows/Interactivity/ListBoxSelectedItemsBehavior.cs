@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(ListBox))]
-    public class ListBoxSelectedItemsBehavior : Behavior<ListBox>
+    public sealed class ListBoxSelectedItemsBehavior : Behavior<ListBox>
     {
         /// <summary>
         ///

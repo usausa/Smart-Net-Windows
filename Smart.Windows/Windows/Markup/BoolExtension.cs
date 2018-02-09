@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(bool))]
-    public class BoolExtension : MarkupExtension
+    public sealed class BoolExtension : MarkupExtension
     {
         public bool Value { get; set; }
 

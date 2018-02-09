@@ -9,7 +9,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(bool), typeof(Color))]
-    public class BoolToColorConverter : IValueConverter
+    public sealed class BoolToColorConverter : IValueConverter
     {
         /// <summary>
         ///

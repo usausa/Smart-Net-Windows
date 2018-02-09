@@ -8,7 +8,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class ListBoxSingleSelectionBehavior : Behavior<ListBox>
+    public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
     {
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
             nameof(SelectedItem),

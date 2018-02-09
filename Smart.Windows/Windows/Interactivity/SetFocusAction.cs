@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
-    public class SetFocusAction : TriggerAction<FrameworkElement>
+    public sealed class SetFocusAction : TriggerAction<FrameworkElement>
     {
         public static readonly DependencyProperty TargetProperty = DependencyProperty.Register(
             nameof(Target),

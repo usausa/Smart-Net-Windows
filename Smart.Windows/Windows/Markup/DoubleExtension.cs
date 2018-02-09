@@ -5,7 +5,7 @@
 
     [ContentProperty("Value")]
     [MarkupExtensionReturnType(typeof(double))]
-    public class DoubleExtension : MarkupExtension
+    public sealed class DoubleExtension : MarkupExtension
     {
         public double Value { get; set; }
 

@@ -10,7 +10,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
-    public class MessageTrigger : TriggerBase<FrameworkElement>
+    public sealed class MessageTrigger : TriggerBase<FrameworkElement>
     {
         /// <summary>
         ///

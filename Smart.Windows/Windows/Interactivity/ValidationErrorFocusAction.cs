@@ -11,7 +11,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(DependencyObject))]
-    public class ValidationErrorFocusAction : TriggerAction<DependencyObject>
+    public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
     {
         /// <summary>
         ///

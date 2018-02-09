@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class CancelEventRequestTrigger : EventRequestTriggerBase<CancelEventArgs>
+    public sealed class CancelEventRequestTrigger : EventRequestTriggerBase<CancelEventArgs>
     {
         /// <summary>
         ///

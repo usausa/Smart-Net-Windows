@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class DefaultResolveProvider : IResolveProvider
+    public sealed class DefaultResolveProvider : IResolveProvider
     {
         private Func<Type, object> defaultResolver = Activator.CreateInstance;
 

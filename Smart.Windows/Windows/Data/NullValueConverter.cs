@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(object), typeof(object))]
-    public class NullValueConverter : IValueConverter
+    public sealed class NullValueConverter : IValueConverter
     {
         /// <summary>
         ///

@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(DependencyObject))]
-    public class CancelEventHandleAction : TriggerAction<DependencyObject>
+    public sealed class CancelEventHandleAction : TriggerAction<DependencyObject>
     {
         /// <summary>
         ///
