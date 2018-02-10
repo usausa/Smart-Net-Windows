@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(UIElement))]
-    public sealed class SetFocusOnLoadBehavior : Behavior<UIElement>
+    public sealed class SetFocusBehavior : Behavior<UIElement>
     {
         /// <summary>
         ///

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Interactivity;
-
-namespace Smart.Windows.Interactivity
+﻿namespace Smart.Windows.Interactivity
 {
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Interactivity;
+
+    /// <summary>
+    ///
+    /// </summary>
     public sealed class EnterKeyToCommandBehavior : Behavior<FrameworkElement>
     {
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
@@ -23,18 +21,27 @@ namespace Smart.Windows.Interactivity
             typeof(EnterKeyToCommandBehavior),
             new PropertyMetadata(null));
 
+        /// <summary>
+        ///
+        /// </summary>
         public ICommand Command
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public object CommandParameter
         {
             get => GetValue(CommandParameterProperty);
             set => SetValue(CommandParameterProperty, value);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -42,6 +49,9 @@ namespace Smart.Windows.Interactivity
             AssociatedObject.KeyDown += OnKeyDown;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         protected override void OnDetaching()
         {
             AssociatedObject.KeyDown -= OnKeyDown;
@@ -49,6 +59,11 @@ namespace Smart.Windows.Interactivity
             base.OnDetaching();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (Command == null)

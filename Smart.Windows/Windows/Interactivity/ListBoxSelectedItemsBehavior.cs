@@ -35,6 +35,8 @@
         /// </summary>
         protected override void OnAttached()
         {
+            base.OnAttached();
+
             AssociatedObject.SelectionChanged += AssociatedObjectSelectionChanged;
             SelectedItems = AssociatedObject.SelectedItems;
         }
@@ -45,6 +47,8 @@
         protected override void OnDetaching()
         {
             AssociatedObject.SelectionChanged -= AssociatedObjectSelectionChanged;
+
+            base.OnDetaching();
         }
 
         /// <summary>

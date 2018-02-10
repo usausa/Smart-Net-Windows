@@ -54,11 +54,11 @@
         {
             if (ApplicationWide)
             {
-                Mouse.OverrideCursor = this.Cursor;
+                Mouse.OverrideCursor = Cursor;
             }
             else
             {
-                AssociatedObject.Cursor = this.Cursor;
+                AssociatedObject.Cursor = Cursor;
             }
         }
     }

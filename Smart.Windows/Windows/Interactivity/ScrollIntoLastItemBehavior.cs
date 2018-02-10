@@ -8,8 +8,8 @@
     /// <summary>
     ///
     /// </summary>
-    [TypeConstraint(typeof(ItemsControl))]
-    public sealed class ScrollIntoLastItemBehavior : Behavior<ItemsControl>
+    [TypeConstraint(typeof(ListBox))]
+    public sealed class ScrollIntoLastItemBehavior : Behavior<ListBox>
     {
         /// <summary>
         ///
@@ -93,7 +93,7 @@
                     return;
                 }
 
-                (AssociatedObject as ListBox)?.ScrollIntoView(AssociatedObject.Items[count - 1]);
+                AssociatedObject.ScrollIntoView(AssociatedObject.Items[count - 1]);
             }
         }
     }
