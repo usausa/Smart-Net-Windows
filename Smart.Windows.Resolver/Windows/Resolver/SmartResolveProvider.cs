@@ -7,7 +7,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class SmartResolveProvider : IResolveProvider
+    public sealed class SmartResolveProvider : IResolveProvider
     {
         private readonly SmartResolver resolver;
 
