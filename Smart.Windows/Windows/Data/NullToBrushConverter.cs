@@ -1,16 +1,26 @@
 ﻿namespace Smart.Windows.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Windows.Data;
+    using System.Windows.Media;
 
     /// <summary>
     ///
     /// </summary>
-    public sealed class ValueConverterGroup : List<IValueConverter>, IValueConverter
+    [ValueConversion(typeof(object), typeof(Brush))]
+    public sealed class NullToBrushConverter : IValueConverter
     {
+        /// <summary>
+        ///
+        /// </summary>
+        public Brush NullBrush { get; set; } = Brushes.Transparent;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public Brush NonNullBrush { get; set; } = Brushes.Transparent;
+
         /// <summary>
         ///
         /// </summary>
@@ -21,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
+            return value == null ? NullBrush : NonNullBrush;
         }
 
         /// <summary>

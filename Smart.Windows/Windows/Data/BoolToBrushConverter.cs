@@ -3,27 +3,23 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
+    using System.Windows.Media;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(object), typeof(object))]
-    public sealed class ConditionConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(Brush))]
+    public sealed class BoolToBrushConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Func<object, bool> Predicate { get; set; }
+        public Brush TrueBrush { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public object TrueValue { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public object FalseValue { get; set; }
+        public Brush FalseBrush { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
@@ -35,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (Predicate?.Invoke(value) ?? (bool)value) ? TrueValue : FalseValue;
+            return value != null && (bool)value ? TrueBrush : FalseBrush;
         }
 
         /// <summary>
@@ -48,7 +44,17 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Equals(value, TrueValue);
+            if (Equals(value, TrueBrush))
+            {
+                return true;
+            }
+
+            if (Equals(value, FalseBrush))
+            {
+                return false;
+            }
+
+            return Binding.DoNothing;
         }
     }
 }

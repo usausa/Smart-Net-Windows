@@ -8,8 +8,13 @@
     /// <summary>
     ///
     /// </summary>
-    public sealed class OrConverter : IMultiValueConverter
+    public sealed class AllConverter : IMultiValueConverter
     {
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Invert { get; set; }
+
         /// <summary>
         ///
         /// </summary>
@@ -20,7 +25,7 @@
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return values.Any(value => (value is bool) && (bool)value);
+            return values.All(value => (value is bool) && (bool)value) ? !Invert : Invert;
         }
 
         /// <summary>

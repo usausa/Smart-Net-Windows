@@ -2,18 +2,24 @@
 {
     using System;
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Data;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(object), typeof(object))]
-    public sealed class NullValueConverter : IValueConverter
+    [ValueConversion(typeof(object), typeof(Visibility))]
+    public sealed class NullToVisibilityConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public bool HandleEmptyString { get; set; }
+        public Visibility NulValue { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public Visibility NonNulValue { get; set; }
 
         /// <summary>
         ///
@@ -25,13 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((value == null) ||
-                (HandleEmptyString && String.IsNullOrEmpty(value as string)))
-            {
-                return parameter;
-            }
-
-            return value;
+            return value == null ? NulValue : NonNulValue;
         }
 
         /// <summary>
