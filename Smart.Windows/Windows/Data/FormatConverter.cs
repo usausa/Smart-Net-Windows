@@ -27,7 +27,12 @@
                 return string.Empty;
             }
 
-            return String.Format(culture, Format, value);
+            if (value is IFormattable formattable)
+            {
+                return formattable.ToString(Format, culture);
+            }
+
+            return value.ToString();
         }
 
         /// <summary>
