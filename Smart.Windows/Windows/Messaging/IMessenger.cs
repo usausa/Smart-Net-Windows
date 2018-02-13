@@ -15,20 +15,22 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="message"></param>
-        void Send(string message);
+        /// <param name="label"></param>
+        void Send(string label);
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="parameter"></param>
-        void Send(object parameter);
+        /// <typeparam name="T"></typeparam>
+        /// <param name="message"></param>
+        void Send<T>(T message);
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="message"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="label"></param>
         /// <param name="parameter"></param>
-        void Send(string message, object parameter);
+        void Send<T>(string label, T parameter);
     }
 }

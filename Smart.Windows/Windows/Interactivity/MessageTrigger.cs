@@ -33,12 +33,12 @@
         /// <summary>
         ///
         /// </summary>
-        public string Message { get; set; }
+        public string Label { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Type Type { get; set; }
+        public Type MessageType { get; set; }
 
         /// <summary>
         ///
@@ -105,10 +105,10 @@
         /// <param name="e"></param>
         private void MessengerOnRecieved(object sender, MessengerEventArgs e)
         {
-            if (((Message == null) || Message.Equals(e.Message)) &&
-                ((Type == null) || ((e.Parameter != null) && Type.IsInstanceOfType(e.Parameter))))
+            if (((Label == null) || Label.Equals(e.Label)) &&
+                ((MessageType == null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
             {
-                InvokeActions(e.Parameter);
+                InvokeActions(e.Message);
             }
         }
     }

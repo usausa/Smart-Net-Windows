@@ -10,22 +10,29 @@
         /// <summary>
         ///
         /// </summary>
-        public string Message { get; }
+        public string Label { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public object Parameter { get; }
+        public Type MessageType { get; }
 
         /// <summary>
         ///
         /// </summary>
+        public object Message { get; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="messageType"></param>
         /// <param name="message"></param>
-        /// <param name="parameter"></param>
-        public MessengerEventArgs(string message, object parameter)
+        public MessengerEventArgs(string label, Type messageType, object message)
         {
+            Label = label;
+            MessageType = messageType;
             Message = message;
-            Parameter = parameter;
         }
     }
 }

@@ -7,8 +7,8 @@
     /// <summary>
     ///
     /// </summary>
-    [TypeConstraint(typeof(FrameworkElement))]
-    public sealed class SetFocusAction : TriggerAction<FrameworkElement>
+    [TypeConstraint(typeof(DependencyObject))]
+    public sealed class SetFocusAction : TriggerAction<DependencyObject>
     {
         public static readonly DependencyProperty TargetProperty = DependencyProperty.Register(
             nameof(Target),
@@ -31,7 +31,7 @@
         /// <param name="parameter"></param>
         protected override void Invoke(object parameter)
         {
-            var element = Target ?? AssociatedObject;
+            var element = Target ?? (AssociatedObject as FrameworkElement);
             if (element == null)
             {
                 return;

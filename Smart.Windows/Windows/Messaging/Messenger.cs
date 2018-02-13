@@ -7,6 +7,8 @@
     /// </summary>
     public sealed class Messenger : IMessenger
     {
+        private static readonly Type ObjectType = typeof(object);
+
         /// <summary>
         ///
         /// </summary>
@@ -15,29 +17,31 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="message"></param>
-        public void Send(string message)
+        /// <param name="label"></param>
+        public void Send(string label)
         {
-            Recieved?.Invoke(this, new MessengerEventArgs(message, null));
+            Recieved?.Invoke(this, new MessengerEventArgs(label, ObjectType, null));
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="parameter"></param>
-        public void Send(object parameter)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="message"></param>
+        public void Send<T>(T message)
         {
-            Recieved?.Invoke(this, new MessengerEventArgs(string.Empty, parameter));
+            Recieved?.Invoke(this, new MessengerEventArgs(string.Empty, typeof(T), message));
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="message"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="label"></param>
         /// <param name="parameter"></param>
-        public void Send(string message, object parameter)
+        public void Send<T>(string label, T parameter)
         {
-            Recieved?.Invoke(this, new MessengerEventArgs(message, parameter));
+            Recieved?.Invoke(this, new MessengerEventArgs(label, typeof(T), parameter));
         }
     }
 }
