@@ -19,9 +19,9 @@
     {
         private ListDisposable disposables;
 
-        private Messenger messenger;
+        private IBusyState busyState;
 
-        private bool isBusy;
+        private IMessenger messenger;
 
         // ------------------------------------------------------------
         // Disposables
@@ -33,26 +33,22 @@
         protected ICollection<IDisposable> Disposables => disposables ?? (disposables = new ListDisposable());
 
         // ------------------------------------------------------------
-        // Messenger
-        // ------------------------------------------------------------
-
-        /// <summary>
-        ///
-        /// </summary>
-        public Messenger Messenger => messenger ?? (messenger = new Messenger());
-
-        // ------------------------------------------------------------
         // Busy
         // ------------------------------------------------------------
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsBusy
-        {
-            get => isBusy;
-            set => SetProperty(ref isBusy, value);
-        }
+        public IBusyState BusyState => busyState ?? (busyState = new BusyState());
+
+        // ------------------------------------------------------------
+        // Messenger
+        // ------------------------------------------------------------
+
+        /// <summary>
+        ///
+        /// </summary>
+        public IMessenger Messenger => messenger ?? (messenger = new Messenger());
 
         // ------------------------------------------------------------
         // Validation
@@ -114,9 +110,29 @@
         /// <summary>
         ///
         /// </summary>
+        /// <param name="busyState"></param>
+        protected ViewModelBase(IBusyState busyState)
+        {
+            this.busyState = busyState;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="messenger"></param>
         protected ViewModelBase(Messenger messenger)
         {
+            this.messenger = messenger;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="busyState"></param>
+        /// <param name="messenger"></param>
+        protected ViewModelBase(IBusyState busyState, IMessenger messenger)
+        {
+            this.busyState = busyState;
             this.messenger = messenger;
         }
 
@@ -158,18 +174,9 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <returns></returns>
-        public async Task ExecuteBusyAsync(Func<Task> execute)
+        public Task ExecuteBusyAsync(Func<Task> execute)
         {
-            try
-            {
-                IsBusy = true;
-
-                await execute();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            return BusyHelper.ExecuteBusyAsync(busyState, execute);
         }
 
         /// <summary>
@@ -178,18 +185,9 @@
         /// <typeparam name="TResult"></typeparam>
         /// <param name="execute"></param>
         /// <returns></returns>
-        public async Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
+        public Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
         {
-            try
-            {
-                IsBusy = true;
-
-                return await execute();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            return BusyHelper.ExecuteBusyAsync(busyState, execute);
         }
 
         // ------------------------------------------------------------
@@ -267,17 +265,17 @@
             return new AsyncCommand(
                 async () =>
                 {
-                    IsBusy = true;
+                    busyState.IsBusy = true;
                     try
                     {
                         await execute();
                     }
                     finally
                     {
-                        IsBusy = false;
+                        busyState.IsBusy = false;
                     }
-                }, () => !IsBusy && canExecute())
-                .Observe(this, nameof(IsBusy))
+                }, () => !busyState.IsBusy && canExecute())
+                .Observe(busyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
 
@@ -304,17 +302,17 @@
             return new AsyncCommand<TParameter>(
                 async parameter =>
                 {
-                    IsBusy = true;
+                    busyState.IsBusy = true;
                     try
                     {
                         await execute(parameter);
                     }
                     finally
                     {
-                        IsBusy = false;
+                        busyState.IsBusy = false;
                     }
-                }, parameter => !IsBusy && canExecute(parameter))
-                .Observe(this, nameof(IsBusy))
+                }, parameter => !busyState.IsBusy && canExecute(parameter))
+                .Observe(busyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
     }
