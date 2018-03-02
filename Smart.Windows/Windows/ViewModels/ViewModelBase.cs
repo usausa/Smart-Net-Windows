@@ -176,7 +176,7 @@
         /// <returns></returns>
         public Task ExecuteBusyAsync(Func<Task> execute)
         {
-            return BusyHelper.ExecuteBusyAsync(busyState, execute);
+            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@
         /// <returns></returns>
         public Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
         {
-            return BusyHelper.ExecuteBusyAsync(busyState, execute);
+            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
 
         // ------------------------------------------------------------
