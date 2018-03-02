@@ -212,8 +212,8 @@
         /// <returns></returns>
         protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
         {
-            return new DelegateCommand(execute, () => !busyState.IsBusy && canExecute())
-                .Observe(busyState, nameof(IBusyState.IsBusy))
+            return new DelegateCommand(execute, () => !BusyState.IsBusy && canExecute())
+                .Observe(BusyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
 
@@ -237,8 +237,8 @@
         /// <returns></returns>
         protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
         {
-            return new DelegateCommand<TParameter>(execute, x => !busyState.IsBusy && canExecute(x))
-                .Observe(busyState, nameof(IBusyState.IsBusy))
+            return new DelegateCommand<TParameter>(execute, x => !BusyState.IsBusy && canExecute(x))
+                .Observe(BusyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
 
@@ -267,17 +267,17 @@
             return new AsyncCommand(
                 async () =>
                 {
-                    busyState.IsBusy = true;
+                    BusyState.IsBusy = true;
                     try
                     {
                         await execute();
                     }
                     finally
                     {
-                        busyState.IsBusy = false;
+                        BusyState.IsBusy = false;
                     }
-                }, () => !busyState.IsBusy && canExecute())
-                .Observe(busyState, nameof(IBusyState.IsBusy))
+                }, () => !BusyState.IsBusy && canExecute())
+                .Observe(BusyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
 
@@ -304,17 +304,17 @@
             return new AsyncCommand<TParameter>(
                 async parameter =>
                 {
-                    busyState.IsBusy = true;
+                    BusyState.IsBusy = true;
                     try
                     {
                         await execute(parameter);
                     }
                     finally
                     {
-                        busyState.IsBusy = false;
+                        BusyState.IsBusy = false;
                     }
-                }, parameter => !busyState.IsBusy && canExecute(parameter))
-                .Observe(busyState, nameof(IBusyState.IsBusy))
+                }, parameter => !BusyState.IsBusy && canExecute(parameter))
+                .Observe(BusyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
     }
