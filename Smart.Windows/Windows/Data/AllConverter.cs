@@ -25,7 +25,7 @@
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return values.All(value => (value is bool) && (bool)value) ? !Invert : Invert;
+            return values.All(value => value is bool b && b) ? !Invert : Invert;
         }
 
         /// <summary>
