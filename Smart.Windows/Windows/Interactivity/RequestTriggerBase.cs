@@ -17,8 +17,8 @@
         /// <summary>
         ///
         /// </summary>
-        public static readonly DependencyProperty EventRequestProperty = DependencyProperty.Register(
-            nameof(EventRequest),
+        public static readonly DependencyProperty RequestProperty = DependencyProperty.Register(
+            nameof(Request),
             typeof(IEventRequest<TEventArgs>),
             typeof(RequestTriggerBase<TEventArgs>),
             new PropertyMetadata(RequestChanged));
@@ -26,10 +26,10 @@
         /// <summary>
         ///
         /// </summary>
-        public IEventRequest<TEventArgs> EventRequest
+        public IEventRequest<TEventArgs> Request
         {
-            get => (IEventRequest<TEventArgs>)GetValue(EventRequestProperty);
-            set => SetValue(EventRequestProperty, value);
+            get => (IEventRequest<TEventArgs>)GetValue(RequestProperty);
+            set => SetValue(RequestProperty, value);
         }
 
         /// <summary>
@@ -59,9 +59,9 @@
         /// <param name="routedEventArgs"></param>
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (EventRequest != null)
+            if (Request != null)
             {
-                EventRequest.Requested -= EventRequestOnRequested;
+                Request.Requested -= EventRequestOnRequested;
             }
         }
 
@@ -79,14 +79,14 @@
 
             var trigger = (RequestTriggerBase<TEventArgs>)obj;
 
-            if ((e.OldValue != null) && (trigger.EventRequest != null))
+            if ((e.OldValue != null) && (trigger.Request != null))
             {
-                trigger.EventRequest.Requested -= trigger.EventRequestOnRequested;
+                trigger.Request.Requested -= trigger.EventRequestOnRequested;
             }
 
-            if ((e.NewValue != null) && (trigger.EventRequest != null))
+            if ((e.NewValue != null) && (trigger.Request != null))
             {
-                trigger.EventRequest.Requested += trigger.EventRequestOnRequested;
+                trigger.Request.Requested += trigger.EventRequestOnRequested;
             }
         }
 

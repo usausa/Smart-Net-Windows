@@ -5,7 +5,7 @@
     /// <summary>
     ///
     /// </summary>
-    public sealed class ValueRequestTriggerBase : RequestTriggerBase<ValueHolderEventArgs>
+    public sealed class ValueRequestTrigger : RequestTriggerBase<ValueHolderEventArgs>
     {
         /// <summary>
         ///
