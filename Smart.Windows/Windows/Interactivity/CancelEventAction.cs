@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [TypeConstraint(typeof(DependencyObject))]
-    public sealed class CancelEventHandleAction : TriggerAction<DependencyObject>
+    public sealed class CancelEventAction : TriggerAction<DependencyObject>
     {
         /// <summary>
         ///
@@ -16,7 +16,7 @@
         public static readonly DependencyProperty CancelProperty = DependencyProperty.Register(
             nameof(Cancel),
             typeof(bool),
-            typeof(CancelEventHandleAction),
+            typeof(CancelEventAction),
             new PropertyMetadata(default(bool)));
 
         /// <summary>

@@ -1,20 +1,20 @@
 ﻿namespace Smart.Windows.Interactivity
 {
-    using Smart.Windows.Messaging;
+    using System;
 
     /// <summary>
     ///
     /// </summary>
-    public sealed class ResolveEventTriggerBase : EventRequestTriggerBase<ValueHolderEventArgs>
+    public sealed class RequestTrigger : RequestTriggerBase<EventArgs>
     {
         /// <summary>
         ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected override void OnEventRequest(object sender, ValueHolderEventArgs e)
+        protected override void OnEventRequest(object sender, EventArgs e)
         {
-            InvokeActions(e);
+            InvokeActions(null);
         }
     }
 }

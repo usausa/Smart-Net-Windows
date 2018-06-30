@@ -1,20 +1,20 @@
 ﻿namespace Smart.Windows.Interactivity
 {
-    using System;
+    using System.ComponentModel;
 
     /// <summary>
     ///
     /// </summary>
-    public sealed class EventRequestTrigger : EventRequestTriggerBase<EventArgs>
+    public sealed class CancelRequestTrigger : RequestTriggerBase<CancelEventArgs>
     {
         /// <summary>
         ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected override void OnEventRequest(object sender, EventArgs e)
+        protected override void OnEventRequest(object sender, CancelEventArgs e)
         {
-            InvokeActions(null);
+            InvokeActions(e);
         }
     }
 }

@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TEventArgs"></typeparam>
     [TypeConstraint(typeof(FrameworkElement))]
-    public abstract class EventRequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElement>
+    public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElement>
         where TEventArgs : EventArgs
     {
         /// <summary>
@@ -20,7 +20,7 @@
         public static readonly DependencyProperty EventRequestProperty = DependencyProperty.Register(
             nameof(EventRequest),
             typeof(IEventRequest<TEventArgs>),
-            typeof(EventRequestTriggerBase<TEventArgs>),
+            typeof(RequestTriggerBase<TEventArgs>),
             new PropertyMetadata(RequestChanged));
 
         /// <summary>
@@ -77,7 +77,7 @@
                 return;
             }
 
-            var trigger = (EventRequestTriggerBase<TEventArgs>)obj;
+            var trigger = (RequestTriggerBase<TEventArgs>)obj;
 
             if ((e.OldValue != null) && (trigger.EventRequest != null))
             {
