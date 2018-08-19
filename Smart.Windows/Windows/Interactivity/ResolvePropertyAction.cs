@@ -33,6 +33,8 @@
             set => SetValue(PropertyNameProperty, value);
         }
 
+        private PropertyInfo property;
+
         protected override void Invoke(object parameter)
         {
             var target = TargetObject ?? AssociatedObject;
@@ -42,9 +44,15 @@
                 return;
             }
 
+            if ((property == null) ||
+                (property.DeclaringType != target.GetType()) ||
+                (property.Name != propertyName))
+            {
+                property = target.GetType().GetRuntimeProperty(propertyName);
+            }
+
             var eventArgs = (ResultEventArgs)parameter;
-            var pi = target.GetType().GetRuntimeProperty(propertyName);
-            eventArgs.Result = pi.GetValue(target);
+            eventArgs.Result = property.GetValue(target);
         }
     }
 }
