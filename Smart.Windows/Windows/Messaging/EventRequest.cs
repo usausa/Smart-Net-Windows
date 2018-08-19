@@ -2,11 +2,11 @@
 {
     using System;
 
-    public sealed class EventRequest : IEventRequest<EventEventArgs>
+    public sealed class EventRequest : IEventRequest<ParameterEventArgs>
     {
-        private static readonly EventEventArgs EmptyArgs = new EventEventArgs(null);
+        private static readonly ParameterEventArgs EmptyArgs = new ParameterEventArgs(null);
 
-        public event EventHandler<EventEventArgs> Requested;
+        public event EventHandler<ParameterEventArgs> Requested;
 
         public void Request()
         {
@@ -14,13 +14,13 @@
         }
     }
 
-    public sealed class EventRequest<T> : IEventRequest<EventEventArgs>
+    public sealed class EventRequest<T> : IEventRequest<ParameterEventArgs>
     {
-        public event EventHandler<EventEventArgs> Requested;
+        public event EventHandler<ParameterEventArgs> Requested;
 
         public void Request(T value)
         {
-            Requested?.Invoke(this, new EventEventArgs(value));
+            Requested?.Invoke(this, new ParameterEventArgs(value));
         }
     }
 }

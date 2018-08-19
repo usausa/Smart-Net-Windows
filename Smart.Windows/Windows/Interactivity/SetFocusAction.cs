@@ -11,7 +11,7 @@
             nameof(TargetObject),
             typeof(FrameworkElement),
             typeof(SetFocusAction),
-            new PropertyMetadata(default(FrameworkElement)));
+            new PropertyMetadata(null));
 
         public FrameworkElement TargetObject
         {

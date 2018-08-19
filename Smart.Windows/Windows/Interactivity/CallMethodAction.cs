@@ -25,7 +25,7 @@
             nameof(MethodParameter),
             typeof(object),
             typeof(CallMethodAction),
-            new PropertyMetadata(default(object)));
+            new PropertyMetadata(null));
 
         public static readonly DependencyProperty ConverterProperty = DependencyProperty.Register(
             nameof(Converter),
@@ -69,7 +69,7 @@
             set => SetValue(ConverterParameterProperty, value);
         }
 
-        private MethodDescriptor cachedMethod;
+        private MethodInfo cachedMethod;
 
         protected override void Invoke(object parameter)
         {
@@ -81,8 +81,8 @@
             }
 
             if ((cachedMethod == null) ||
-                (cachedMethod.Method.DeclaringType != target.GetType() ||
-                 (cachedMethod.Method.Name != methodName)))
+                (cachedMethod.DeclaringType != target.GetType() ||
+                 (cachedMethod.Name != methodName)))
             {
                 var methodInfo = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
                     m.Name == methodName &&
@@ -95,20 +95,20 @@
                     return;
                 }
 
-                cachedMethod = new MethodDescriptor(methodInfo, methodInfo.GetParameters().Length > 0);
+                cachedMethod = methodInfo;
             }
 
-            if (cachedMethod.HasParameter)
+            if (cachedMethod.GetParameters().Length > 0)
             {
                 var methodParameter = MethodParameter;
                 var argument = (methodParameter != null) || this.IsSet(MethodNameProperty)
                     ? methodParameter
                     : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
-                cachedMethod.Method.Invoke(target, new[] { argument });
+                cachedMethod.Invoke(target, new[] { argument });
             }
             else
             {
-                cachedMethod.Method.Invoke(target, null);
+                cachedMethod.Invoke(target, null);
             }
         }
 

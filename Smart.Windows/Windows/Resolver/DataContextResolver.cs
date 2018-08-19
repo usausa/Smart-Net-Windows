@@ -16,7 +16,7 @@
             "Type",
             typeof(Type),
             typeof(DataContextResolver),
-            new PropertyMetadata(default(Type), HandleTypePropertyChanged));
+            new PropertyMetadata(HandleTypePropertyChanged));
 
         /// <summary>
         ///

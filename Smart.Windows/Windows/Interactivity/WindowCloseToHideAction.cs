@@ -11,7 +11,7 @@
             nameof(Closable),
             typeof(bool),
             typeof(WindowCloseToHideAction),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
         public bool Closable
         {

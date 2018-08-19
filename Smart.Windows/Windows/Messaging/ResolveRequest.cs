@@ -2,15 +2,15 @@
 {
     using System;
 
-    public sealed class ResolveRequest<T> : IEventRequest<ResolveEventArgs>
+    public sealed class ResolveRequest<T> : IEventRequest<ResultEventArgs>
     {
-        public event EventHandler<ResolveEventArgs> Requested;
+        public event EventHandler<ResultEventArgs> Requested;
 
         public T Resolve()
         {
-            var args = new ResolveEventArgs();
+            var args = new ResultEventArgs();
             Requested?.Invoke(this, args);
-            return (T)args.Value;
+            return (T)args.Result;
         }
     }
 }
