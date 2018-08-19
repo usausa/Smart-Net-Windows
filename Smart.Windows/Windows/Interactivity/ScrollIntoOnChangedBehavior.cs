@@ -6,18 +6,30 @@
     using System.Windows.Interactivity;
 
     [TypeConstraint(typeof(ListBox))]
-    public sealed class ScrollIntoLastItemBehavior : Behavior<ListBox>
+    public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
     {
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
             nameof(Enabled),
             typeof(bool),
-            typeof(ScrollIntoLastItemBehavior),
+            typeof(ScrollIntoOnChangedBehavior),
             new PropertyMetadata(true));
+
+        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
+            nameof(Position),
+            typeof(ScrollPosition),
+            typeof(ScrollIntoOnChangedBehavior),
+            new PropertyMetadata(ScrollPosition.Last));
 
         public bool Enabled
         {
             get => (bool)GetValue(EnabledProperty);
             set => SetValue(EnabledProperty, value);
+        }
+
+        public ScrollPosition Position
+        {
+            get => (ScrollPosition)GetValue(PositionProperty);
+            set => SetValue(PositionProperty, value);
         }
 
         protected override void OnAttached()
@@ -63,7 +75,9 @@
                     return;
                 }
 
-                AssociatedObject.ScrollIntoView(AssociatedObject.Items[count - 1]);
+                AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
+                    ? AssociatedObject.Items[0]
+                    : AssociatedObject.Items[count - 1]);
             }
         }
     }
