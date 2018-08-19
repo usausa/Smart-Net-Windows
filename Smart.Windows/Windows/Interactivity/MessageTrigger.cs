@@ -6,43 +6,25 @@
 
     using Smart.Windows.Messaging;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
     public sealed class MessageTrigger : TriggerBase<FrameworkElement>
     {
-        /// <summary>
-        ///
-        /// </summary>
         public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
             nameof(Messenger),
             typeof(IMessenger),
             typeof(MessageTrigger),
-            new PropertyMetadata(MessengerChanged));
+            new PropertyMetadata(HandleMessengerPropertyChanged));
 
-        /// <summary>
-        ///
-        /// </summary>
         public IMessenger Messenger
         {
             get => (IMessenger)GetValue(MessengerProperty);
             set => SetValue(MessengerProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         public string Label { get; set; }
 
-        /// <summary>
-        ///
-        /// </summary>
         public Type MessageType { get; set; }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -50,9 +32,6 @@
             AssociatedObject.Unloaded += OnUnloaded;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             AssociatedObject.Unloaded -= OnUnloaded;
@@ -60,11 +39,6 @@
             base.OnDetaching();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="routedEventArgs"></param>
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (Messenger != null)
@@ -73,12 +47,7 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
-        private static void MessengerChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        private static void HandleMessengerPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue == e.NewValue)
             {
@@ -98,11 +67,6 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MessengerOnRecieved(object sender, MessengerEventArgs e)
         {
             if (((Label == null) || Label.Equals(e.Label)) &&

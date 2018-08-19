@@ -7,16 +7,9 @@
 
     using Smart.Windows.Messaging;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(DependencyObject))]
     public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
     {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="parameter"></param>
         protected override void Invoke(object parameter)
         {
             var element = AssociatedObject.FindChildrens<UIElement>().FirstOrDefault(Validation.GetHasError);

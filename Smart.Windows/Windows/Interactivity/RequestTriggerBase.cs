@@ -6,35 +6,22 @@
 
     using Smart.Windows.Messaging;
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <typeparam name="TEventArgs"></typeparam>
     [TypeConstraint(typeof(FrameworkElement))]
     public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElement>
         where TEventArgs : EventArgs
     {
-        /// <summary>
-        ///
-        /// </summary>
         public static readonly DependencyProperty RequestProperty = DependencyProperty.Register(
             nameof(Request),
             typeof(IEventRequest<TEventArgs>),
             typeof(RequestTriggerBase<TEventArgs>),
-            new PropertyMetadata(RequestChanged));
+            new PropertyMetadata(HandleRequestPropertyChanged));
 
-        /// <summary>
-        ///
-        /// </summary>
         public IEventRequest<TEventArgs> Request
         {
             get => (IEventRequest<TEventArgs>)GetValue(RequestProperty);
             set => SetValue(RequestProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -42,9 +29,6 @@
             AssociatedObject.Unloaded += OnUnloaded;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             AssociatedObject.Unloaded -= OnUnloaded;
@@ -52,11 +36,6 @@
             base.OnDetaching();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="routedEventArgs"></param>
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (Request != null)
@@ -65,12 +44,7 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
-        private static void RequestChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        private static void HandleRequestPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue == e.NewValue)
             {
@@ -90,21 +64,11 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void EventRequestOnRequested(object sender, TEventArgs e)
         {
             OnEventRequest(sender, e);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected abstract void OnEventRequest(object sender, TEventArgs e);
     }
 }

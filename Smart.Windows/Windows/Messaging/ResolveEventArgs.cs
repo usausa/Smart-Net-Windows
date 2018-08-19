@@ -2,7 +2,7 @@
 {
     using System;
 
-    public sealed class ValueHolderEventArgs : EventArgs
+    public sealed class ResolveEventArgs : EventArgs
     {
         public object Value { get; set; }
     }

@@ -4,20 +4,21 @@
     using System.Windows;
     using System.Windows.Media;
 
-    /// <summary>
-    ///
-    /// </summary>
     public static class DependencyObjectExtensions
     {
+        // ------------------------------------------------------------
+        // Property
+        // ------------------------------------------------------------
+
+        public static bool IsSet(this DependencyObject obj, DependencyProperty dp)
+        {
+            return obj.ReadLocalValue(dp) != DependencyProperty.UnsetValue;
+        }
+
         // ------------------------------------------------------------
         // Parent
         // ------------------------------------------------------------
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public static DependencyObject Parent(this DependencyObject obj)
         {
             if (obj == null)
@@ -50,12 +51,6 @@
             return VisualTreeHelper.GetParent(obj);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public static T FindParent<T>(this DependencyObject obj)
             where T : DependencyObject
         {
@@ -80,11 +75,6 @@
         // Children
         // ------------------------------------------------------------
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public static IEnumerable<DependencyObject> Children(this DependencyObject obj)
         {
             if (obj == null)
@@ -111,12 +101,6 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
         public static IEnumerable<T> FindChildrens<T>(this DependencyObject source)
             where T : DependencyObject
         {

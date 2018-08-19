@@ -5,9 +5,6 @@
     using System.Windows.Controls;
     using System.Windows.Interactivity;
 
-    /// <summary>
-    ///
-    /// </summary>
     public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
     {
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
@@ -16,18 +13,12 @@
             typeof(ListBoxSingleSelectionBehavior),
             new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        /// <summary>
-        ///
-        /// </summary>
         public object SelectedItem
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -41,9 +32,6 @@
             AssociatedObject.SelectionChanged += OnSelectionChanged;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             if (AssociatedObject != null)
@@ -54,11 +42,6 @@
             base.OnDetaching();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is ListBox listBox)

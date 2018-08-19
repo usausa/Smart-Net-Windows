@@ -5,53 +5,33 @@
     using System.Windows.Controls;
     using System.Windows.Interactivity;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(ListBox))]
     public sealed class ScrollIntoLastItemBehavior : Behavior<ListBox>
     {
-        /// <summary>
-        ///
-        /// </summary>
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
             nameof(Enabled),
             typeof(bool),
             typeof(ScrollIntoLastItemBehavior),
             new PropertyMetadata(true));
 
-        /// <summary>
-        ///
-        /// </summary>
         public bool Enabled
         {
             get => (bool)GetValue(EnabledProperty);
             set => SetValue(EnabledProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             AssociatedObject.Loaded += OnLoaded;
             AssociatedObject.Unloaded += OnUnLoaded;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             AssociatedObject.Loaded -= OnLoaded;
             AssociatedObject.Unloaded -= OnUnLoaded;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
@@ -60,11 +40,6 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
             if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
@@ -73,11 +48,6 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (!Enabled)

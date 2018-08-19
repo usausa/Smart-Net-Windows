@@ -4,34 +4,24 @@
     using System.Windows.Input;
     using System.Windows.Interactivity;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(DependencyObject))]
     public sealed class SetFocusAction : TriggerAction<DependencyObject>
     {
-        public static readonly DependencyProperty TargetProperty = DependencyProperty.Register(
-            nameof(Target),
+        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+            nameof(TargetObject),
             typeof(FrameworkElement),
             typeof(SetFocusAction),
             new PropertyMetadata(default(FrameworkElement)));
 
-        /// <summary>
-        ///
-        /// </summary>
-        public FrameworkElement Target
+        public FrameworkElement TargetObject
         {
-            get => (FrameworkElement)GetValue(TargetProperty);
-            set => SetValue(TargetProperty, value);
+            get => (FrameworkElement)GetValue(TargetObjectProperty);
+            set => SetValue(TargetObjectProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="parameter"></param>
         protected override void Invoke(object parameter)
         {
-            var element = Target ?? (AssociatedObject as FrameworkElement);
+            var element = TargetObject ?? (AssociatedObject as FrameworkElement);
             if (element == null)
             {
                 return;

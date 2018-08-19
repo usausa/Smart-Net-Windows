@@ -4,15 +4,9 @@
     using System.Windows.Input;
     using System.Windows.Interactivity;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(UIElement))]
-    public sealed class SetFocusBehavior : Behavior<UIElement>
+    public sealed class DefaultFocusBehavior : Behavior<UIElement>
     {
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();

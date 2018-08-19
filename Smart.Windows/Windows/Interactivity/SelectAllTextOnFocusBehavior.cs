@@ -7,9 +7,6 @@
     [TypeConstraint(typeof(TextBox))]
     public sealed class SelectAllTextOnFocusBehavior : Behavior<TextBox>
     {
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -18,9 +15,6 @@
             AssociatedObject.GotMouseCapture += SelectAllText;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             base.OnDetaching();
@@ -28,11 +22,6 @@
             AssociatedObject.GotMouseCapture -= SelectAllText;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SelectAllText(object sender, RoutedEventArgs e)
         {
             AssociatedObject.SelectAll();

@@ -5,9 +5,6 @@
     using System.Windows;
     using System.Windows.Interactivity;
 
-    /// <summary>
-    ///
-    /// </summary>
     [TypeConstraint(typeof(FrameworkElement))]
     public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
     {
@@ -16,18 +13,12 @@
 
         private DependencyPropertyDescriptor dpd;
 
-        /// <summary>
-        ///
-        /// </summary>
         public string PropertyName
         {
             get => (string)GetValue(PropertyNameProperty);
             set => SetValue(PropertyNameProperty, value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -35,9 +26,6 @@
             UpdatePropertyDescriptor();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         protected override void OnDetaching()
         {
             dpd = null;
@@ -45,18 +33,11 @@
             base.OnDetaching();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             UpdatePropertyDescriptor();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         private void UpdatePropertyDescriptor()
         {
             dpd = null;
@@ -66,10 +47,6 @@
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="parameter"></param>
         protected override void Invoke(object parameter)
         {
             if (dpd == null)

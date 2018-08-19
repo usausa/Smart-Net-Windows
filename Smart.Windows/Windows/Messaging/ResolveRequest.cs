@@ -2,13 +2,13 @@
 {
     using System;
 
-    public sealed class ValueRequest<T> : IEventRequest<ValueHolderEventArgs>
+    public sealed class ResolveRequest<T> : IEventRequest<ResolveEventArgs>
     {
-        public event EventHandler<ValueHolderEventArgs> Requested;
+        public event EventHandler<ResolveEventArgs> Requested;
 
         public T Resolve()
         {
-            var args = new ValueHolderEventArgs();
+            var args = new ResolveEventArgs();
             Requested?.Invoke(this, args);
             return (T)args.Value;
         }
