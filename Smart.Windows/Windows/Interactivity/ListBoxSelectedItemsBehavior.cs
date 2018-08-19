@@ -12,7 +12,7 @@
             nameof(SelectedItems),
             typeof(ICollection),
             typeof(ListBoxSelectedItemsBehavior),
-            new FrameworkPropertyMetadata(default(ICollection), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Ignore")]
         public ICollection SelectedItems
