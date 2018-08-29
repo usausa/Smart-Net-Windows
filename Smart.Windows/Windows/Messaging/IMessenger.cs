@@ -4,7 +4,7 @@
 
     public interface IMessenger
     {
-        event EventHandler<MessengerEventArgs> Recieved;
+        event EventHandler<MessengerEventArgs> Received;
 
         void Send(string label);
 

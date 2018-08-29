@@ -46,17 +46,17 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
+            if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
             {
-                incc.CollectionChanged += OnCollectionChanged;
+                ncc.CollectionChanged += OnCollectionChanged;
             }
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            if (AssociatedObject.ItemsSource is INotifyCollectionChanged incc)
+            if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
             {
-                incc.CollectionChanged -= OnCollectionChanged;
+                ncc.CollectionChanged -= OnCollectionChanged;
             }
         }
 

@@ -25,7 +25,7 @@
                 }
                 else
                 {
-                    throw new InvalidOperationException("Object can not freez.");
+                    throw new InvalidOperationException("Object can not freeze.");
                 }
             }
 

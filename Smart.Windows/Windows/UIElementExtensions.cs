@@ -25,9 +25,9 @@
 
             if (reference.InputHitTest(point) is DependencyObject element)
             {
-                if (element is T typeElememt)
+                if (element is T typeElement)
                 {
-                    return typeElememt;
+                    return typeElement;
                 }
 
                 return element.FindParent<T>();

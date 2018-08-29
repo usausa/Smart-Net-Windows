@@ -12,7 +12,7 @@
     {
         protected override void Invoke(object parameter)
         {
-            var element = AssociatedObject.FindChildrens<UIElement>().FirstOrDefault(Validation.GetHasError);
+            var element = AssociatedObject.FindChildren<UIElement>().FirstOrDefault(Validation.GetHasError);
             if (element != null)
             {
                 element.Focus();

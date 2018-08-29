@@ -101,7 +101,7 @@
             }
         }
 
-        public static IEnumerable<T> FindChildrens<T>(this DependencyObject source)
+        public static IEnumerable<T> FindChildren<T>(this DependencyObject source)
             where T : DependencyObject
         {
             if (source == null)
@@ -116,7 +116,7 @@
                     yield return typedChild;
                 }
 
-                foreach (var descendant in FindChildrens<T>(child))
+                foreach (var descendant in FindChildren<T>(child))
                 {
                     yield return descendant;
                 }

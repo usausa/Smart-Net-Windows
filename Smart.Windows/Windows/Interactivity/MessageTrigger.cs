@@ -43,7 +43,7 @@
         {
             if (Messenger != null)
             {
-                Messenger.Recieved -= MessengerOnRecieved;
+                Messenger.Received -= MessengerOnReceived;
             }
         }
 
@@ -58,16 +58,16 @@
 
             if ((e.OldValue != null) && (trigger.Messenger != null))
             {
-                trigger.Messenger.Recieved -= trigger.MessengerOnRecieved;
+                trigger.Messenger.Received -= trigger.MessengerOnReceived;
             }
 
             if ((e.NewValue != null) && (trigger.Messenger != null))
             {
-                trigger.Messenger.Recieved += trigger.MessengerOnRecieved;
+                trigger.Messenger.Received += trigger.MessengerOnReceived;
             }
         }
 
-        private void MessengerOnRecieved(object sender, MessengerEventArgs e)
+        private void MessengerOnReceived(object sender, MessengerEventArgs e)
         {
             if (((Label == null) || Label.Equals(e.Label)) &&
                 ((MessageType == null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
