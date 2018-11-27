@@ -174,7 +174,7 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <returns></returns>
-        public Task ExecuteBusyAsync(Func<Task> execute)
+        protected virtual Task ExecuteBusyAsync(Func<Task> execute)
         {
             return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
@@ -185,7 +185,7 @@
         /// <typeparam name="TResult"></typeparam>
         /// <param name="execute"></param>
         /// <returns></returns>
-        public Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
+        protected virtual Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
         {
             return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
@@ -199,7 +199,7 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected DelegateCommand MakeDelegateCommand(Action execute)
+        protected virtual DelegateCommand MakeDelegateCommand(Action execute)
         {
             return MakeDelegateCommand(execute, Actions.True);
         }
@@ -210,7 +210,7 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
+        protected virtual DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
         {
             return new DelegateCommand(execute, () => !BusyState.IsBusy && canExecute())
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
@@ -223,7 +223,7 @@
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
+        protected virtual DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
         {
             return MakeDelegateCommand(execute, Actions<TParameter>.True);
         }
@@ -235,7 +235,7 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
+        protected virtual DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
         {
             return new DelegateCommand<TParameter>(execute, x => !BusyState.IsBusy && canExecute(x))
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
@@ -251,7 +251,7 @@
         /// </summary>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected AsyncCommand MakeAsyncCommand(Func<Task> execute)
+        protected virtual AsyncCommand MakeAsyncCommand(Func<Task> execute)
         {
             return MakeAsyncCommand(execute, Actions.True);
         }
@@ -262,7 +262,7 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
+        protected virtual AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
             return new AsyncCommand(
                 async () =>
@@ -287,7 +287,7 @@
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="execute"></param>
         /// <returns></returns>
-        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
+        protected virtual AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
         {
             return MakeAsyncCommand(execute, Actions<TParameter>.True);
         }
@@ -299,7 +299,7 @@
         /// <param name="execute"></param>
         /// <param name="canExecute"></param>
         /// <returns></returns>
-        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
+        protected virtual AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
         {
             return new AsyncCommand<TParameter>(
                 async parameter =>
