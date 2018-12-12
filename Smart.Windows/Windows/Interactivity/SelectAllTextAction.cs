@@ -1,7 +1,8 @@
 ﻿namespace Smart.Windows.Interactivity
 {
     using System.Windows.Controls.Primitives;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(TextBoxBase))]
     public sealed class SelectAllTextAction : TriggerAction<TextBoxBase>

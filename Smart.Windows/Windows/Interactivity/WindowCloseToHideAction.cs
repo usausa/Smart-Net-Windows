@@ -2,7 +2,8 @@
 {
     using System.ComponentModel;
     using System.Windows;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(Window))]
     public sealed class WindowCloseToHideAction : TriggerAction<Window>

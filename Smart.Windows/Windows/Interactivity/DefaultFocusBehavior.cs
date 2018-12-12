@@ -2,7 +2,8 @@
 {
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(UIElement))]
     public sealed class DefaultFocusBehavior : Behavior<UIElement>

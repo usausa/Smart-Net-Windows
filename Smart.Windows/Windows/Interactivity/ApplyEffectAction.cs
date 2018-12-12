@@ -1,8 +1,9 @@
 ﻿namespace Smart.Windows.Interactivity
 {
     using System.Windows;
-    using System.Windows.Interactivity;
     using System.Windows.Media.Effects;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(FrameworkElement))]
     public sealed class ApplyEffectAction : TriggerAction<FrameworkElement>
