@@ -2,8 +2,9 @@
 {
     using System;
     using System.Windows;
-    using System.Windows.Interactivity;
     using System.Windows.Interop;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(Window))]
     public sealed class MinimizedToHideBehavior : Behavior<Window>

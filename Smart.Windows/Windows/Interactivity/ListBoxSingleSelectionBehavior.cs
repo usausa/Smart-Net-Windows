@@ -3,7 +3,8 @@
     using System.Collections;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
     {

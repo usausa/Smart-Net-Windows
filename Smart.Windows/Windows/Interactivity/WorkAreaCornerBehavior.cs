@@ -1,7 +1,8 @@
 ﻿namespace Smart.Windows.Interactivity
 {
     using System.Windows;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(Window))]
     public sealed class WorkAreaCornerBehavior : Behavior<Window>

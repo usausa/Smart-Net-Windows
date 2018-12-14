@@ -2,7 +2,8 @@
 {
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(Button))]
     public sealed class DialogResultBehavior : Behavior<Button>

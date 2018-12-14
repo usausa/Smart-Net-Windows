@@ -3,7 +3,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     using Smart.Windows.Messaging;
 

@@ -3,7 +3,8 @@
     using System.Collections.Specialized;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(ListBox))]
     public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>

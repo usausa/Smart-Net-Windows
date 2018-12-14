@@ -3,7 +3,8 @@
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
-    using System.Windows.Interactivity;
+
+    using Microsoft.Xaml.Behaviors;
 
     [TypeConstraint(typeof(DependencyObject))]
     public sealed class ExecuteCommandAction : TriggerAction<DependencyObject>
