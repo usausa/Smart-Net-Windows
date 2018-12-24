@@ -13,12 +13,24 @@
             nameof(Interval),
             typeof(TimeSpan),
             typeof(TimerTrigger),
-            new FrameworkPropertyMetadata(default(TimeSpan)));
+            new FrameworkPropertyMetadata(TimeSpan.FromSeconds(1)));
+
+        public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
+            nameof(Parameter),
+            typeof(object),
+            typeof(TimerTrigger),
+            new FrameworkPropertyMetadata(null));
 
         public TimeSpan Interval
         {
             get => (TimeSpan)GetValue(IntervalProperty);
             set => SetValue(IntervalProperty, value);
+        }
+
+        public object Parameter
+        {
+            get => GetValue(ParameterProperty);
+            set => SetValue(ParameterProperty, value);
         }
 
         private DispatcherTimer timer;
@@ -71,7 +83,7 @@
 
         private void OnTick(object sender, EventArgs e)
         {
-            InvokeActions(null);
+            InvokeActions(Parameter);
         }
     }
 }
