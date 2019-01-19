@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smart.Windows.Reactive", "Smart.Windows.Reactive\Smart.Windows.Reactive.csproj", "{7537A7CA-1CA0-4E29-9F24-712434527638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Windows.Resolver", "Smart.Windows.Resolver\Smart.Windows.Resolver.csproj", "{387995C3-8712-491C-9000-1845813A1AB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smart.Windows.Resolver", "Smart.Windows.Resolver\Smart.Windows.Resolver.csproj", "{387995C3-8712-491C-9000-1845813A1AB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
