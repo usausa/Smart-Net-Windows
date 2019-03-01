@@ -1,0 +1,19 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
+    <NullableReferenceTypes>True</NullableReferenceTypes>
+    <Version>1.6.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+
+</Project>
