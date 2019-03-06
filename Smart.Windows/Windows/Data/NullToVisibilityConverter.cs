@@ -14,12 +14,17 @@
         /// <summary>
         ///
         /// </summary>
-        public Visibility NulValue { get; set; }
+        public Visibility NullValue { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Visibility NonNulValue { get; set; }
+        public Visibility NonNullValue { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool HandleEmptyString { get; set; }
 
         /// <summary>
         ///
@@ -31,7 +36,13 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null ? NulValue : NonNulValue;
+            if ((value == null) ||
+                (HandleEmptyString && String.IsNullOrEmpty(value as string)))
+            {
+                return NullValue;
+            }
+
+            return NonNullValue;
         }
 
         /// <summary>

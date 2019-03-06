@@ -8,7 +8,7 @@
     ///
     /// </summary>
     [ValueConversion(typeof(bool), typeof(bool))]
-    public sealed class NotConverter : IValueConverter
+    public sealed class ReverseConverter : IValueConverter
     {
         /// <summary>
         ///
@@ -20,7 +20,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && !(bool)value;
+            return value is bool boolValue ? !boolValue : value;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && !(bool)value;
+            return value is bool boolValue ? !boolValue : value;
         }
     }
 }

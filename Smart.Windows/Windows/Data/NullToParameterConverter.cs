@@ -13,6 +13,11 @@
         /// <summary>
         ///
         /// </summary>
+        public bool Invert { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
         public bool HandleEmptyString { get; set; }
 
         /// <summary>
@@ -28,10 +33,10 @@
             if ((value == null) ||
                 (HandleEmptyString && String.IsNullOrEmpty(value as string)))
             {
-                return parameter;
+                return Invert ? value : parameter;
             }
 
-            return value;
+            return Invert ? parameter : value;
         }
 
         /// <summary>

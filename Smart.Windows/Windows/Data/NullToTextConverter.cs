@@ -23,6 +23,11 @@
         /// <summary>
         ///
         /// </summary>
+        public bool HandleEmptyString { get; set; }
+
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -30,7 +35,13 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null ? NullText : NonNullText;
+            if ((value == null) ||
+                (HandleEmptyString && String.IsNullOrEmpty(value as string)))
+            {
+                return NullText;
+            }
+
+            return NonNullText;
         }
 
         /// <summary>
