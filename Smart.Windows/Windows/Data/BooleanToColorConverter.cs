@@ -14,12 +14,12 @@
         /// <summary>
         ///
         /// </summary>
-        public Color TrueColor { get; set; } = Colors.Transparent;
+        public Color TrueValue { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Color FalseColor { get; set; } = Colors.Transparent;
+        public Color FalseValue { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueColor : FalseColor;
+            return value != null && (bool)value ? TrueValue : FalseValue;
         }
 
         /// <summary>
@@ -44,12 +44,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueColor))
+            if (Equals(value, TrueValue))
             {
                 return true;
             }
 
-            if (Equals(value, FalseColor))
+            if (Equals(value, FalseValue))
             {
                 return false;
             }

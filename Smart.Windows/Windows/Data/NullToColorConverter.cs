@@ -14,12 +14,12 @@
         /// <summary>
         ///
         /// </summary>
-        public Color NullColor { get; set; } = Colors.Transparent;
+        public Color NullValue { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Color NonNullColor { get; set; } = Colors.Transparent;
+        public Color NonNullValue { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
@@ -39,10 +39,10 @@
             if ((value == null) ||
                 (HandleEmptyString && String.IsNullOrEmpty(value as string)))
             {
-                return NullColor;
+                return NullValue;
             }
 
-            return NonNullColor;
+            return NonNullValue;
         }
 
         /// <summary>

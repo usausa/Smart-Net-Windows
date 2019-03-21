@@ -14,12 +14,12 @@
         /// <summary>
         ///
         /// </summary>
-        public Brush TrueBrush { get; set; } = Brushes.Transparent;
+        public Brush TrueValue { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Brush FalseBrush { get; set; } = Brushes.Transparent;
+        public Brush FalseValue { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueBrush : FalseBrush;
+            return value != null && (bool)value ? TrueValue : FalseValue;
         }
 
         /// <summary>
@@ -44,12 +44,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueBrush))
+            if (Equals(value, TrueValue))
             {
                 return true;
             }
 
-            if (Equals(value, FalseBrush))
+            if (Equals(value, FalseValue))
             {
                 return false;
             }

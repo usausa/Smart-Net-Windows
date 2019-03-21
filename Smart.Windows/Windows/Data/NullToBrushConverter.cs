@@ -14,12 +14,12 @@
         /// <summary>
         ///
         /// </summary>
-        public Brush NullBrush { get; set; } = Brushes.Transparent;
+        public Brush NullValue { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Brush NonNullBrush { get; set; } = Brushes.Transparent;
+        public Brush NonNullValue { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
@@ -39,10 +39,10 @@
             if ((value == null) ||
                 (HandleEmptyString && String.IsNullOrEmpty(value as string)))
             {
-                return NullBrush;
+                return NullValue;
             }
 
-            return NonNullBrush;
+            return NonNullValue;
         }
 
         /// <summary>

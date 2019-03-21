@@ -13,12 +13,12 @@
         /// <summary>
         ///
         /// </summary>
-        public string NullText { get; set; }
+        public string NullValue { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public string NonNullText { get; set; }
+        public string NonNullValue { get; set; }
 
         /// <summary>
         ///
@@ -38,10 +38,10 @@
             if ((value == null) ||
                 (HandleEmptyString && String.IsNullOrEmpty(value as string)))
             {
-                return NullText;
+                return NullValue;
             }
 
-            return NonNullText;
+            return NonNullValue;
         }
 
         /// <summary>

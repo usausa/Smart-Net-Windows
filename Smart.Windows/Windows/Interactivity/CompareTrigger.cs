@@ -7,24 +7,24 @@
     using Smart.Windows.Expressions;
 
     [TypeConstraint(typeof(DependencyObject))]
-    public class CompareExpressionTrigger : TriggerBase<DependencyObject>
+    public class CompareTrigger : TriggerBase<DependencyObject>
     {
         public static readonly DependencyProperty BindingProperty = DependencyProperty.Register(
             nameof(Binding),
             typeof(object),
-            typeof(CompareExpressionTrigger),
+            typeof(CompareTrigger),
             new PropertyMetadata(HandlePropertyChanged));
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value),
             typeof(object),
-            typeof(CompareExpressionTrigger),
+            typeof(CompareTrigger),
             new PropertyMetadata(HandlePropertyChanged));
 
         public static readonly DependencyProperty ExpressionProperty = DependencyProperty.Register(
             nameof(Expression),
             typeof(ICompareExpression),
-            typeof(CompareExpressionTrigger),
+            typeof(CompareTrigger),
             new PropertyMetadata(CompareExpressions.Equal));
 
         public object Binding
@@ -52,7 +52,7 @@
                 return;
             }
 
-            ((CompareExpressionTrigger)d).HandlePropertyChanged();
+            ((CompareTrigger)d).HandlePropertyChanged();
         }
 
         private void HandlePropertyChanged()
