@@ -3,23 +3,22 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
-    using System.Windows.Media;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(Color))]
-    public sealed class BoolToColorConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(string))]
+    public sealed class BooleanToTextConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Color TrueColor { get; set; } = Colors.Transparent;
+        public string TrueText { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Color FalseColor { get; set; } = Colors.Transparent;
+        public string FalseText { get; set; }
 
         /// <summary>
         ///
@@ -31,7 +30,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueColor : FalseColor;
+            return value != null && (bool)value ? TrueText : FalseText;
         }
 
         /// <summary>
@@ -44,12 +43,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueColor))
+            if (Equals(value, TrueText))
             {
                 return true;
             }
 
-            if (Equals(value, FalseColor))
+            if (Equals(value, FalseText))
             {
                 return false;
             }

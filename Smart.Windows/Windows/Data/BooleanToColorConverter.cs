@@ -8,18 +8,18 @@
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(Brush))]
-    public sealed class BoolToBrushConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(Color))]
+    public sealed class BooleanToColorConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Brush TrueBrush { get; set; } = Brushes.Transparent;
+        public Color TrueColor { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Brush FalseBrush { get; set; } = Brushes.Transparent;
+        public Color FalseColor { get; set; } = Colors.Transparent;
 
         /// <summary>
         ///
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueBrush : FalseBrush;
+            return value != null && (bool)value ? TrueColor : FalseColor;
         }
 
         /// <summary>
@@ -44,12 +44,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueBrush))
+            if (Equals(value, TrueColor))
             {
                 return true;
             }
 
-            if (Equals(value, FalseBrush))
+            if (Equals(value, FalseColor))
             {
                 return false;
             }

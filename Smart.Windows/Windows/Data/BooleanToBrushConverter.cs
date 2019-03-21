@@ -2,24 +2,24 @@
 {
     using System;
     using System.Globalization;
-    using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Media;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(Visibility))]
-    public sealed class BoolToVisibilityConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(Brush))]
+    public sealed class BooleanToBrushConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public Visibility TrueValue { get; set; }
+        public Brush TrueBrush { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
         /// </summary>
-        public Visibility FalseValue { get; set; }
+        public Brush FalseBrush { get; set; } = Brushes.Transparent;
 
         /// <summary>
         ///
@@ -31,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueValue : FalseValue;
+            return value != null && (bool)value ? TrueBrush : FalseBrush;
         }
 
         /// <summary>
@@ -44,12 +44,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueValue))
+            if (Equals(value, TrueBrush))
             {
                 return true;
             }
 
-            if (Equals(value, FalseValue))
+            if (Equals(value, FalseBrush))
             {
                 return false;
             }

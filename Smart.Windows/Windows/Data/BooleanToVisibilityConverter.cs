@@ -2,23 +2,24 @@
 {
     using System;
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Data;
 
     /// <summary>
     ///
     /// </summary>
-    [ValueConversion(typeof(bool), typeof(string))]
-    public sealed class BoolToTextConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public sealed class BooleanToVisibilityConverter : IValueConverter
     {
         /// <summary>
         ///
         /// </summary>
-        public string TrueText { get; set; }
+        public Visibility TrueValue { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public string FalseText { get; set; }
+        public Visibility FalseValue { get; set; }
 
         /// <summary>
         ///
@@ -30,7 +31,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null && (bool)value ? TrueText : FalseText;
+            return value != null && (bool)value ? TrueValue : FalseValue;
         }
 
         /// <summary>
@@ -43,12 +44,12 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Equals(value, TrueText))
+            if (Equals(value, TrueValue))
             {
                 return true;
             }
 
-            if (Equals(value, FalseText))
+            if (Equals(value, FalseValue))
             {
                 return false;
             }
