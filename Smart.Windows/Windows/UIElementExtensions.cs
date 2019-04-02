@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows
+namespace Smart.Windows
 {
     using System;
     using System.Windows;
@@ -18,7 +18,7 @@
         public static T FindFromPoint<T>(this UIElement reference, Point point)
             where T : DependencyObject
         {
-            if (reference == null)
+            if (reference is null)
             {
                 throw new ArgumentNullException(nameof(reference));
             }

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Windows;
     using System.Windows.Input;
@@ -23,7 +23,7 @@
         protected override void Invoke(object parameter)
         {
             var element = TargetObject ?? (AssociatedObject as FrameworkElement);
-            if (element == null)
+            if (element is null)
             {
                 return;
             }

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Input
+namespace Smart.Windows.Input
 {
     using System;
     using System.Windows.Input;
@@ -112,7 +112,7 @@
         /// <returns></returns>
         private static T Cast(object parameter)
         {
-            if ((parameter == null) && IsValueType)
+            if ((parameter is null) && IsValueType)
             {
                 return default;
             }

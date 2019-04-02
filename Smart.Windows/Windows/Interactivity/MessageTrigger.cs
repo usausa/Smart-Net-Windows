@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System;
     using System.Windows;
@@ -70,8 +70,8 @@
 
         private void MessengerOnReceived(object sender, MessengerEventArgs e)
         {
-            if (((Label == null) || Label.Equals(e.Label)) &&
-                ((MessageType == null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
+            if (((Label is null) || Label.Equals(e.Label)) &&
+                ((MessageType is null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
             {
                 InvokeActions(e.Message);
             }

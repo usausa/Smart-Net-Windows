@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Windows;
 
@@ -91,7 +91,7 @@
         private void HandlePropertyChanged()
         {
             var target = TargetObject ?? AssociatedObject;
-            if (target == null)
+            if (target is null)
             {
                 return;
             }

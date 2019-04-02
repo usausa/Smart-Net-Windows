@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Linq;
     using System.Reflection;
@@ -41,19 +41,19 @@
         {
             var target = TargetObject ?? AssociatedObject;
             var methodName = MethodName;
-            if ((target == null) || (methodName == null))
+            if ((target is null) || (methodName is null))
             {
                 return;
             }
 
-            if ((cachedMethod == null) ||
+            if ((cachedMethod is null) ||
                 (cachedMethod.DeclaringType != target.GetType() ||
                  (cachedMethod.Name != methodName)))
             {
                 var methodInfo = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
                     m.Name == methodName &&
                     (m.GetParameters().Length == 0));
-                if (methodInfo == null)
+                if (methodInfo is null)
                 {
                     return;
                 }

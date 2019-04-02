@@ -1,4 +1,4 @@
-﻿namespace Smart.Threading
+namespace Smart.Threading
 {
     using System;
     using System.Windows.Threading;
@@ -15,12 +15,12 @@
         /// <param name="action"></param>
         public static void Invoke(this DispatcherObject dispatcher, Action action)
         {
-            if (action == null)
+            if (action is null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
 
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 return;
             }
@@ -45,12 +45,12 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
         {
-            if (action == null)
+            if (action is null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
 
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 return;
             }
@@ -75,12 +75,12 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
         {
-            if (action == null)
+            if (action is null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
 
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 return default;
             }

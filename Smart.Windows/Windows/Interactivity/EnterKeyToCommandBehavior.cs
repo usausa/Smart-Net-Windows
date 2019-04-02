@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Windows;
     using System.Windows.Input;
@@ -47,7 +47,7 @@
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (Command == null)
+            if (Command is null)
             {
                 return;
             }

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Expressions
+namespace Smart.Windows.Expressions
 {
     using System;
     using System.Globalization;
@@ -33,7 +33,7 @@
                         convertedValue = null;
                     }
 
-                    if (convertedValue == null)
+                    if (convertedValue is null)
                     {
                         return WhenRightIsNull();
                     }

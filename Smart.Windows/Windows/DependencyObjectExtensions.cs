@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows
+namespace Smart.Windows
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -21,7 +21,7 @@
 
         public static DependencyObject Parent(this DependencyObject obj)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 return null;
             }
@@ -57,7 +57,7 @@
             while (true)
             {
                 var parent = Parent(obj);
-                if (parent == null)
+                if (parent is null)
                 {
                     return null;
                 }
@@ -77,7 +77,7 @@
 
         public static IEnumerable<DependencyObject> Children(this DependencyObject obj)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 yield break;
             }
@@ -104,7 +104,7 @@
         public static IEnumerable<T> FindChildren<T>(this DependencyObject source)
             where T : DependencyObject
         {
-            if (source == null)
+            if (source is null)
             {
                 yield break;
             }

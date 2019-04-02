@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Data
+namespace Smart.Windows.Data
 {
     using System;
     using System.Globalization;
@@ -22,7 +22,7 @@
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value is null)
             {
                 return string.Empty;
             }

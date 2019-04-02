@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Collections;
     using System.Windows;
@@ -24,7 +24,7 @@
         {
             base.OnAttached();
 
-            if (AssociatedObject == null)
+            if (AssociatedObject is null)
             {
                 return;
             }

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Reflection;
     using System.Windows;
@@ -40,12 +40,12 @@
         {
             var target = TargetObject ?? AssociatedObject;
             var propertyName = PropertyName;
-            if ((target == null) || (propertyName == null))
+            if ((target is null) || (propertyName is null))
             {
                 return;
             }
 
-            if ((property == null) ||
+            if ((property is null) ||
                 (property.DeclaringType != target.GetType()) ||
                 (property.Name != propertyName))
             {
