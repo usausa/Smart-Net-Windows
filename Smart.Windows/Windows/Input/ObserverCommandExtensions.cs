@@ -6,19 +6,8 @@ namespace Smart.Windows.Input
     using Smart.ComponentModel;
     using Smart.Windows.Internal;
 
-    /// <summary>
-    ///
-    /// </summary>
     public static class ObserverCommandExtensions
     {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="TCommand"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="command"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Ignore")]
         public static TCommand Observe<TCommand, TValue>(this TCommand command, NotificationValue<TValue> value)
             where TCommand : ObserveCommandBase<TCommand>
@@ -36,13 +25,6 @@ namespace Smart.Windows.Input
             return command.Observe(value, nameof(value.Value));
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="TCommand"></typeparam>
-        /// <param name="command"></param>
-        /// <param name="disposables"></param>
-        /// <returns></returns>
         public static TCommand RemoveObserverBy<TCommand>(this TCommand command, ICollection<IDisposable> disposables)
             where TCommand : ObserveCommandBase<TCommand>
         {

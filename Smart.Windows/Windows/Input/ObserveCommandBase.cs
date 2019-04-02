@@ -6,10 +6,6 @@ namespace Smart.Windows.Input
     using System.ComponentModel;
     using System.Windows.Input;
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public abstract class ObserveCommandBase<T>
         where T : ObserveCommandBase<T>
     {
@@ -19,9 +15,6 @@ namespace Smart.Windows.Input
 
         private EventHandler canExecuteChanged;
 
-        /// <summary>
-        ///
-        /// </summary>
         public event EventHandler CanExecuteChanged
         {
             add
@@ -36,18 +29,12 @@ namespace Smart.Windows.Input
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Ignore")]
         public void RaiseCanExecuteChanged()
         {
             canExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         private void PrepareObserveProperties()
         {
             if (observeProperties is null)
@@ -56,9 +43,6 @@ namespace Smart.Windows.Input
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         private void PrepareObserveCollections()
         {
             if (observeCollections is null)
@@ -67,12 +51,6 @@ namespace Smart.Windows.Input
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
         public T Observe(INotifyPropertyChanged target, string propertyName)
         {
             if (target is null)
@@ -99,11 +77,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
         public T Observe(INotifyCollectionChanged target)
         {
             if (target is null)
@@ -122,12 +95,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
         public T RemoveObserver(INotifyPropertyChanged target, string propertyName)
         {
             if (target is null)
@@ -157,11 +124,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
         public T RemoveObserver(INotifyPropertyChanged target)
         {
             if (target is null)
@@ -180,11 +142,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
         public T RemoveObserver(INotifyCollectionChanged target)
         {
             if (target is null)
@@ -204,10 +161,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public T RemoveObserver()
         {
             if (observeProperties != null)
@@ -233,11 +186,6 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var properties = observeProperties[(INotifyPropertyChanged)sender];
@@ -247,11 +195,6 @@ namespace Smart.Windows.Input
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RaiseCanExecuteChanged();

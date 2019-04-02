@@ -1,19 +1,10 @@
-﻿namespace Smart.Windows
+namespace Smart.Windows
 {
     using System;
     using System.Windows;
 
-    /// <summary>
-    ///
-    /// </summary>
     public static class FreezableExtensions
     {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="freezable"></param>
-        /// <returns></returns>
         public static T ToFrozen<T>(this T freezable)
             where T : Freezable
         {
