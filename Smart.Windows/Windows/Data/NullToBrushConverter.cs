@@ -1,4 +1,4 @@
-namespace Smart.Windows.Data
+﻿namespace Smart.Windows.Data
 {
     using System;
     using System.Globalization;

@@ -1,4 +1,4 @@
-namespace Smart.Windows.Interactivity
+﻿namespace Smart.Windows.Interactivity
 {
     using System.Windows;
     using System.Windows.Data;

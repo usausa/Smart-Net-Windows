@@ -1,4 +1,4 @@
-namespace Smart.Windows.Expressions
+﻿namespace Smart.Windows.Expressions
 {
     using System;
     using System.Globalization;

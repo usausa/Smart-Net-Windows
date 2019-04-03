@@ -1,4 +1,4 @@
-namespace Smart.Windows
+﻿namespace Smart.Windows
 {
     using System.ComponentModel;
     using System.Windows;

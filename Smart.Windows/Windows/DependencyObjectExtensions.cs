@@ -1,4 +1,4 @@
-namespace Smart.Windows
+﻿namespace Smart.Windows
 {
     using System.Collections.Generic;
     using System.Windows;
