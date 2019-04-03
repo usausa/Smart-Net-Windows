@@ -35,7 +35,7 @@
 
                     if (convertedValue is null)
                     {
-                        return WhenRightIsNull();
+                        return WhenRightIsUnmatch();
                     }
 
                     return EvalComparison(comparable.CompareTo(convertedValue));
@@ -44,7 +44,7 @@
                 return WhenNotComparable(left, right);
             }
 
-            protected abstract bool WhenRightIsNull();
+            protected abstract bool WhenRightIsUnmatch();
 
             protected abstract bool EvalComparison(int comparison);
 
@@ -53,7 +53,7 @@
 
         private sealed class EqualExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => false;
+            protected override bool WhenRightIsUnmatch() => false;
 
             protected override bool EvalComparison(int comparison) => comparison == 0;
 
@@ -62,7 +62,7 @@
 
         private sealed class NotEqualExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => true;
+            protected override bool WhenRightIsUnmatch() => true;
 
             protected override bool EvalComparison(int comparison) => comparison != 0;
 
@@ -71,7 +71,7 @@
 
         private sealed class LessThanExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => false;
+            protected override bool WhenRightIsUnmatch() => false;
 
             protected override bool EvalComparison(int comparison) => comparison < 0;
 
@@ -80,7 +80,7 @@
 
         private sealed class LessThanOrEqualExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => false;
+            protected override bool WhenRightIsUnmatch() => false;
 
             protected override bool EvalComparison(int comparison) => comparison <= 0;
 
@@ -89,7 +89,7 @@
 
         private sealed class GreaterThanExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => false;
+            protected override bool WhenRightIsUnmatch() => false;
 
             protected override bool EvalComparison(int comparison) => comparison > 0;
 
@@ -98,7 +98,7 @@
 
         private sealed class GreaterThanOrEqualExpression : CompareExpression
         {
-            protected override bool WhenRightIsNull() => false;
+            protected override bool WhenRightIsUnmatch() => false;
 
             protected override bool EvalComparison(int comparison) => comparison >= 0;
 
