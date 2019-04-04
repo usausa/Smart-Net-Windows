@@ -8,7 +8,6 @@
 
     public static class ObserverCommandExtensions
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Ignore")]
         public static TCommand Observe<TCommand, TValue>(this TCommand command, NotificationValue<TValue> value)
             where TCommand : ObserveCommandBase<TCommand>
         {

@@ -27,7 +27,6 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
         {
             if (action is null)
@@ -50,7 +49,6 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore.")]
         public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
         {
             if (action is null)

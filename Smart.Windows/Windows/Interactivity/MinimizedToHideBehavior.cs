@@ -42,7 +42,6 @@
             (PresentationSource.FromVisual(AssociatedObject) as HwndSource)?.RemoveHook(hook);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Compatibility.")]
         private IntPtr WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // WM_SYSCOMMAND, SC_MINIMIZE
