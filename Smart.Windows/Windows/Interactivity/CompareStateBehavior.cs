@@ -20,8 +20,8 @@
             typeof(CompareStateBehavior),
             new PropertyMetadata(HandlePropertyChanged));
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value),
+        public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
+            nameof(Parameter),
             typeof(object),
             typeof(CompareStateBehavior),
             new PropertyMetadata(HandlePropertyChanged));
@@ -54,10 +54,10 @@
             set => SetValue(BindingProperty, value);
         }
 
-        public object Value
+        public object Parameter
         {
-            get => GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
+            get => GetValue(ParameterProperty);
+            set => SetValue(ParameterProperty, value);
         }
 
         public ICompareExpression Expression
@@ -96,7 +96,7 @@
                 return;
             }
 
-            var stateName = Expression.Eval(Binding, Value) ? TrueState : FalseState;
+            var stateName = Expression.Eval(Binding, Parameter) ? TrueState : FalseState;
             VisualStateUtilities.GoToState(target, stateName, true);
         }
     }

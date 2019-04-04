@@ -31,6 +31,7 @@
             return !executing && canExecute();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         public async void Execute(object parameter)
         {
             executing = true;
@@ -80,6 +81,7 @@
             Execute(Cast(parameter));
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         private async void Execute(T parameter)
         {
             executing = true;

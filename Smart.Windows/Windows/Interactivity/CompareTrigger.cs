@@ -15,8 +15,8 @@
             typeof(CompareTrigger),
             new PropertyMetadata(HandlePropertyChanged));
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value),
+        public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
+            nameof(Parameter),
             typeof(object),
             typeof(CompareTrigger),
             new PropertyMetadata(HandlePropertyChanged));
@@ -33,10 +33,10 @@
             set => SetValue(BindingProperty, value);
         }
 
-        public object Value
+        public object Parameter
         {
-            get => GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
+            get => GetValue(ParameterProperty);
+            set => SetValue(ParameterProperty, value);
         }
 
         public ICompareExpression Expression
@@ -57,7 +57,7 @@
 
         private void HandlePropertyChanged()
         {
-            if (Expression.Eval(Binding, Value))
+            if (Expression.Eval(Binding, Parameter))
             {
                 InvokeActions(null);
             }

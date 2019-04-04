@@ -70,7 +70,7 @@
 
         private void MessengerOnReceived(object sender, MessengerEventArgs e)
         {
-            if (((Label is null) || Label.Equals(e.Label)) &&
+            if (((Label is null) || Label.Equals(e.Label, StringComparison.Ordinal)) &&
                 ((MessageType is null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
             {
                 InvokeActions(e.Message);
