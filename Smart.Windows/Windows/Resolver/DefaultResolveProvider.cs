@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Resolver
+namespace Smart.Windows.Resolver
 {
     using System;
 
@@ -17,9 +17,6 @@
             defaultResolver = resolver;
         }
 
-        public object Resolve(Type type)
-        {
-            return defaultResolver(type);
-        }
+        public object Resolve(Type type) => defaultResolver(type);
     }
 }

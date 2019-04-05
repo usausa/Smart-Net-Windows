@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Resolver
+namespace Smart.Windows.Resolver
 {
     using System;
 
@@ -13,9 +13,6 @@
             this.resolver = resolver;
         }
 
-        public object Resolve(Type type)
-        {
-            return resolver.Get(type);
-        }
+        public object Resolve(Type type) => resolver.Get(type);
     }
 }

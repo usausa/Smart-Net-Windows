@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Input
+namespace Smart.Windows.Input
 {
     using System;
     using System.Windows.Input;
@@ -27,10 +27,7 @@
             execute();
         }
 
-        bool ICommand.CanExecute(object parameter)
-        {
-            return canExecute();
-        }
+        bool ICommand.CanExecute(object parameter) => canExecute();
     }
 
     public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand
@@ -57,10 +54,7 @@
             execute(Cast(parameter));
         }
 
-        bool ICommand.CanExecute(object parameter)
-        {
-            return canExecute(Cast(parameter));
-        }
+        bool ICommand.CanExecute(object parameter) => canExecute(Cast(parameter));
 
         private static T Cast(object parameter)
         {

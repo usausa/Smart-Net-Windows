@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Internal
+namespace Smart.Windows.Internal
 {
     using System;
     using System.Collections;
@@ -22,25 +22,16 @@
             disposables.Clear();
         }
 
-        public IEnumerator<IDisposable> GetEnumerator()
-        {
-            return disposables.GetEnumerator();
-        }
+        public IEnumerator<IDisposable> GetEnumerator() => disposables.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public void Add(IDisposable item)
         {
             disposables.Add(item);
         }
 
-        public bool Remove(IDisposable item)
-        {
-            return disposables.Remove(item);
-        }
+        public bool Remove(IDisposable item) => disposables.Remove(item);
 
         public void Clear()
         {
@@ -52,10 +43,7 @@
             disposables.Clear();
         }
 
-        public bool Contains(IDisposable item)
-        {
-            return disposables.Contains(item);
-        }
+        public bool Contains(IDisposable item) => disposables.Contains(item);
 
         public void CopyTo(IDisposable[] array, int arrayIndex)
         {

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup
 {
     using System;
     using System.Windows.Markup;
@@ -14,9 +14,6 @@
             Value = value;
         }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return Value;
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>  Value;
     }
 }

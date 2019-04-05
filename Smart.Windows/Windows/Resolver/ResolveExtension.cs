@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Resolver
+namespace Smart.Windows.Resolver
 {
     using System;
     using System.Windows.Markup;
@@ -17,9 +17,6 @@
             Type = type;
         }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return ResolveProvider.Default.Resolve(Type);
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.Resolve(Type);
     }
 }

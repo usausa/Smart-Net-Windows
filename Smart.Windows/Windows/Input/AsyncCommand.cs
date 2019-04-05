@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Input
+namespace Smart.Windows.Input
 {
     using System;
     using System.Reflection;
@@ -26,10 +26,7 @@
             this.canExecute = canExecute;
         }
 
-        bool ICommand.CanExecute(object parameter)
-        {
-            return !executing && canExecute();
-        }
+        bool ICommand.CanExecute(object parameter) => !executing && canExecute();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         public async void Execute(object parameter)
@@ -71,10 +68,7 @@
             this.canExecute = canExecute;
         }
 
-        bool ICommand.CanExecute(object parameter)
-        {
-            return !executing && canExecute(Cast(parameter));
-        }
+        bool ICommand.CanExecute(object parameter) => !executing && canExecute(Cast(parameter));
 
         public void Execute(object parameter)
         {
