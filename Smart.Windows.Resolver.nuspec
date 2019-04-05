@@ -21,7 +21,7 @@
     <tags>smart wpf mvvm</tags>
   </metadata>
   <files>
-    <!-- net462 -->
-    <file src="Smart.Windows.Resolver\bin\Release\net462\Smart.Windows.Resolver.dll" target="lib\net462" />
+    <!-- net472 -->
+    <file src="Smart.Windows.Resolver\bin\Release\net472\Smart.Windows.Resolver.dll" target="lib\net472" />
   </files>
 </package>

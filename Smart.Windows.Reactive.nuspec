@@ -21,7 +21,7 @@
     <tags>smart wpf mvvm rx</tags>
   </metadata>
   <files>
-    <!-- net462 -->
-    <file src="Smart.Windows.Reactive\bin\Release\net462\Smart.Windows.Reactive.dll" target="lib\net462" />
+    <!-- net472 -->
+    <file src="Smart.Windows.Reactive\bin\Release\net472\Smart.Windows.Reactive.dll" target="lib\net472" />
   </files>
 </package>
