@@ -14,6 +14,6 @@ namespace Smart.Windows.Markup
             Value = value;
         }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>  Value;
+        public override object ProvideValue(IServiceProvider serviceProvider) => Value;
     }
 }
