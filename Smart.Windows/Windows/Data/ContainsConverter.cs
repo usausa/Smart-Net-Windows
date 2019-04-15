@@ -20,7 +20,7 @@ namespace Smart.Windows.Data
                 return list.Contains(value) ? TrueValue : FalseValue;
             }
 
-            return DependencyProperty.UnsetValue;
+            return FalseValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
