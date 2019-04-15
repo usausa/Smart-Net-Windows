@@ -15,12 +15,7 @@ namespace Smart.Windows.Data
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is IList list)
-            {
-                return list.Contains(value) ? TrueValue : FalseValue;
-            }
-
-            return FalseValue;
+            return parameter is IList list && list.Contains(value) ? TrueValue : FalseValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
