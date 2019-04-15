@@ -1,8 +1,9 @@
-﻿namespace Smart.Windows.Data
+namespace Smart.Windows.Data
 {
     using System;
     using System.Drawing;
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Data;
 
     [ValueConversion(typeof(Color), typeof(Color))]
@@ -30,7 +31,7 @@
         {
             if (!(value is Color))
             {
-                return null;
+                return DependencyProperty.UnsetValue;
             }
 
             var color = (Color)value;
