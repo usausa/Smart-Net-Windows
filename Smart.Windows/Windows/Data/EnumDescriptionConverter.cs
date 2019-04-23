@@ -12,7 +12,7 @@ namespace Smart.Windows.Data
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value is null)
             {
                 return DependencyProperty.UnsetValue;
             }

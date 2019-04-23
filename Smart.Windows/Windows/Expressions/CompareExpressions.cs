@@ -1,7 +1,8 @@
 namespace Smart.Windows.Expressions
 {
     using System;
-    using System.Globalization;
+
+    using Smart.Windows.Internal;
 
     public static class CompareExpressions
     {
@@ -24,16 +25,7 @@ namespace Smart.Windows.Expressions
             {
                 if ((left is IComparable comparable) && (right != null))
                 {
-                    object convertedValue;
-                    try
-                    {
-                        convertedValue = Convert.ChangeType(right, left.GetType(), CultureInfo.CurrentCulture);
-                    }
-                    catch
-                    {
-                        convertedValue = null;
-                    }
-
+                    object convertedValue = ConvertHelper.Convert(left.GetType(), right);
                     if (convertedValue is null)
                     {
                         return WhenRightIsUnmatch();
