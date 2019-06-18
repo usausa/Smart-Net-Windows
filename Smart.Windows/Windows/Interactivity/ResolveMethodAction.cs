@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Linq;
     using System.Reflection;
@@ -37,6 +37,7 @@
 
         private MethodInfo cachedMethod;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         protected override void Invoke(object parameter)
         {
             var target = TargetObject ?? AssociatedObject;

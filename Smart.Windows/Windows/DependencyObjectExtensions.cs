@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows
+namespace Smart.Windows
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -10,6 +10,7 @@
         // Property
         // ------------------------------------------------------------
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static bool IsSet(this DependencyObject obj, DependencyProperty dp)
         {
             return obj.ReadLocalValue(dp) != DependencyProperty.UnsetValue;

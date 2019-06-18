@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.ViewModels
+namespace Smart.Windows.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -170,6 +170,7 @@
             return MakeAsyncCommand(execute, Actions.True);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
             return new AsyncCommand(
@@ -194,6 +195,7 @@
             return MakeAsyncCommand(execute, Actions<TParameter>.True);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
         {
             return new AsyncCommand<TParameter>(

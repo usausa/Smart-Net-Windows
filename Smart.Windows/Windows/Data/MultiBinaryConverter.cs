@@ -10,6 +10,7 @@ namespace Smart.Windows.Data
     {
         public IBinaryExpression Expression { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var value = values[0];
