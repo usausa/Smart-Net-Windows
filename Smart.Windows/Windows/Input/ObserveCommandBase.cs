@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Input
+namespace Smart.Windows.Input
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,8 @@
     public abstract class ObserveCommandBase<T>
         where T : ObserveCommandBase<T>
     {
+        private HashSet<INotifyPropertyChanged> observeObjects;
+
         private Dictionary<INotifyPropertyChanged, HashSet<string>> observeProperties;
 
         private HashSet<INotifyCollectionChanged> observeCollections;
@@ -35,6 +37,14 @@
             canExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        private void PrepareObserveObjects()
+        {
+            if (observeObjects is null)
+            {
+                observeObjects = new HashSet<INotifyPropertyChanged>();
+            }
+        }
+
         private void PrepareObserveProperties()
         {
             if (observeProperties is null)
@@ -49,6 +59,24 @@
             {
                 observeCollections = new HashSet<INotifyCollectionChanged>();
             }
+        }
+
+        public T Observe(INotifyPropertyChanged target)
+        {
+            if (target is null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            PrepareObserveObjects();
+
+            if (!observeObjects.Contains(target))
+            {
+                observeObjects.Add(target);
+                target.PropertyChanged += HandleAllPropertyChanged;
+            }
+
+            return (T)this;
         }
 
         public T Observe(INotifyPropertyChanged target, string propertyName)
@@ -77,7 +105,7 @@
             return (T)this;
         }
 
-        public T Observe(INotifyCollectionChanged target)
+        public T ObserveCollection(INotifyCollectionChanged target)
         {
             if (target is null)
             {
@@ -131,6 +159,14 @@
                 throw new ArgumentNullException(nameof(target));
             }
 
+            if (observeObjects != null)
+            {
+                if (observeObjects.Remove(target))
+                {
+                    target.PropertyChanged -= HandleAllPropertyChanged;
+                }
+            }
+
             if (observeProperties != null)
             {
                 if (observeProperties.Remove(target))
@@ -142,7 +178,7 @@
             return (T)this;
         }
 
-        public T RemoveObserver(INotifyCollectionChanged target)
+        public T RemoveCollectionObserver(INotifyCollectionChanged target)
         {
             if (target is null)
             {
@@ -163,6 +199,16 @@
 
         public T RemoveObserver()
         {
+            if (observeObjects != null)
+            {
+                foreach (var target in observeObjects)
+                {
+                    target.PropertyChanged -= HandleAllPropertyChanged;
+                }
+
+                observeObjects.Clear();
+            }
+
             if (observeProperties != null)
             {
                 foreach (var target in observeProperties.Keys)
@@ -184,6 +230,11 @@
             }
 
             return (T)this;
+        }
+
+        private void HandleAllPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseCanExecuteChanged();
         }
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
