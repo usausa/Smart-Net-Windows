@@ -24,19 +24,19 @@ namespace Smart.Windows.ViewModels
         // Disposables
         // ------------------------------------------------------------
 
-        protected ICollection<IDisposable> Disposables => disposables ?? (disposables = new ListDisposable());
+        protected ICollection<IDisposable> Disposables => disposables ??= new ListDisposable();
 
         // ------------------------------------------------------------
         // Busy
         // ------------------------------------------------------------
 
-        public IBusyState BusyState => busyState ?? (busyState = new BusyState());
+        public IBusyState BusyState => busyState ??= new BusyState();
 
         // ------------------------------------------------------------
         // Messenger
         // ------------------------------------------------------------
 
-        public IMessenger Messenger => messenger ?? (messenger = new Messenger());
+        public IMessenger Messenger => messenger ??= new Messenger();
 
         // ------------------------------------------------------------
         // Validation
