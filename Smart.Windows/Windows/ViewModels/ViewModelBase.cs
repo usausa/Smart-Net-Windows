@@ -123,12 +123,12 @@ namespace Smart.Windows.ViewModels
         // Execute helper
         // ------------------------------------------------------------
 
-        protected Task ExecuteBusyAsync(Func<Task> execute)
+        protected ValueTask ExecuteBusyAsync(Func<ValueTask> execute)
         {
             return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
 
-        protected Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
+        protected ValueTask<TResult> ExecuteBusyAsync<TResult>(Func<ValueTask<TResult>> execute)
         {
             return BusyHelper.ExecuteBusyAsync(BusyState, execute);
         }
@@ -190,13 +190,13 @@ namespace Smart.Windows.ViewModels
                 .RemoveObserverBy(Disposables);
         }
 
-        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, ValueTask> execute)
         {
             return MakeAsyncCommand(execute, Actions<TParameter>.True);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, ValueTask> execute, Func<TParameter, bool> canExecute)
         {
             return new AsyncCommand<TParameter>(
                 async parameter =>
