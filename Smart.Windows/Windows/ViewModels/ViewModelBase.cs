@@ -123,6 +123,16 @@ namespace Smart.Windows.ViewModels
         // Execute helper
         // ------------------------------------------------------------
 
+        protected Task ExecuteBusyAsync(Func<Task> execute)
+        {
+            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
+        }
+
+        protected Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
+        {
+            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
+        }
+
         protected ValueTask ExecuteBusyAsync(Func<ValueTask> execute)
         {
             return BusyHelper.ExecuteBusyAsync(BusyState, execute);
@@ -186,6 +196,31 @@ namespace Smart.Windows.ViewModels
                         BusyState.IsBusy = false;
                     }
                 }, () => !BusyState.IsBusy && canExecute())
+                .Observe(BusyState, nameof(IBusyState.IsBusy))
+                .RemoveObserverBy(Disposables);
+        }
+
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
+        {
+            return MakeAsyncCommand(execute, Actions<TParameter>.True);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
+        protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
+        {
+            return new AsyncCommand<TParameter>(
+                    async parameter =>
+                    {
+                        BusyState.IsBusy = true;
+                        try
+                        {
+                            await execute(parameter);
+                        }
+                        finally
+                        {
+                            BusyState.IsBusy = false;
+                        }
+                    }, parameter => !BusyState.IsBusy && canExecute(parameter))
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
                 .RemoveObserverBy(Disposables);
         }
