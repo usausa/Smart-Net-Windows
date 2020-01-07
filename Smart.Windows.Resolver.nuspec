@@ -14,14 +14,14 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.3" />
-      <dependency id="Usa.Smart.Core" version="1.7.9" />
-      <dependency id="Usa.Smart.Resolver" version="1.8.5" />
+      <dependency id="Usa.Smart.Core" version="1.8.0" />
+      <dependency id="Usa.Smart.Resolver" version="1.9.0" />
       <dependency id="Usa.Smart.Windows" version="1.8.5" />
     </dependencies>
     <tags>smart wpf mvvm</tags>
   </metadata>
   <files>
-    <!-- net472 -->
-    <file src="Smart.Windows.Resolver\bin\Release\net472\Smart.Windows.Resolver.dll" target="lib\net472" />
+    <!-- netcoreapp3.1 -->
+    <file src="Smart.Windows.Resolver\bin\Release\netcoreapp3.1\Smart.Windows.Resolver.dll" target="lib\netcoreapp3.1" />
   </files>
 </package>
