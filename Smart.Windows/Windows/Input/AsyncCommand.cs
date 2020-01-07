@@ -9,18 +9,18 @@ namespace Smart.Windows.Input
 
     public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand
     {
-        private readonly Func<ValueTask> execute;
+        private readonly Func<Task> execute;
 
         private readonly Func<bool> canExecute;
 
         private bool executing;
 
-        public AsyncCommand(Func<ValueTask> execute)
+        public AsyncCommand(Func<Task> execute)
             : this(execute, Actions.True)
         {
         }
 
-        public AsyncCommand(Func<ValueTask> execute, Func<bool> canExecute)
+        public AsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
             this.execute = execute;
             this.canExecute = canExecute;
@@ -51,18 +51,18 @@ namespace Smart.Windows.Input
     {
         private static readonly bool IsValueType = typeof(T).GetTypeInfo().IsValueType;
 
-        private readonly Func<T, ValueTask> execute;
+        private readonly Func<T, Task> execute;
 
         private readonly Func<T, bool> canExecute;
 
         private bool executing;
 
-        public AsyncCommand(Func<T, ValueTask> execute)
+        public AsyncCommand(Func<T, Task> execute)
             : this(execute, Actions<T>.True)
         {
         }
 
-        public AsyncCommand(Func<T, ValueTask> execute, Func<T, bool> canExecute)
+        public AsyncCommand(Func<T, Task> execute, Func<T, bool> canExecute)
         {
             this.execute = execute;
             this.canExecute = canExecute;
