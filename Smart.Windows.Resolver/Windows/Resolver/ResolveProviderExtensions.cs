@@ -1,7 +1,6 @@
-using System;
-
 namespace Smart.Windows.Resolver
 {
+    using System;
     using System.ComponentModel.Design;
 
     using Smart.Resolver;
