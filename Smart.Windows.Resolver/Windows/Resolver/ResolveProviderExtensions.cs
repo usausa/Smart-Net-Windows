@@ -1,3 +1,5 @@
+using System;
+
 namespace Smart.Windows.Resolver
 {
     using System.ComponentModel.Design;
@@ -9,14 +11,14 @@ namespace Smart.Windows.Resolver
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static void UseSmartResolver(this ResolveProvider provider, SmartResolver resolver)
         {
-            provider.Provider = new SmartResolverProvider(resolver);
+            provider.Provider = new SmartResolveProvider(resolver);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public static void UseSmartResolver(this ResolveProvider provider, IServiceContainer services)
+        public static void UseSmartResolver(this ResolveProvider provider, IServiceProvider services)
         {
             var resolver = (SmartResolver)services.GetService(typeof(SmartResolver));
-            provider.Provider = new SmartResolverProvider(resolver);
+            provider.Provider = new SmartResolveProvider(resolver);
         }
     }
 }

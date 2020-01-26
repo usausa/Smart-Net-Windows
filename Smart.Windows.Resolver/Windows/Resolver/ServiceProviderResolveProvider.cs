@@ -2,11 +2,11 @@ namespace Smart.Windows.Resolver
 {
     using System;
 
-    public sealed class ServiceProviderResolverProvider : IResolveProvider
+    public sealed class ServiceProviderResolveProvider : IResolveProvider
     {
         private readonly IServiceProvider provider;
 
-        public ServiceProviderResolverProvider(IServiceProvider provider)
+        public ServiceProviderResolveProvider(IServiceProvider provider)
         {
             this.provider = provider;
         }
