@@ -15,10 +15,9 @@ namespace Smart.Windows.Resolver
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public static void UseSmartResolver(this ResolveProvider provider, IServiceProvider services)
+        public static void UseServiceProvider(this ResolveProvider provider, IServiceProvider services)
         {
-            var resolver = (SmartResolver)services.GetService(typeof(SmartResolver));
-            provider.Provider = new SmartResolveProvider(resolver);
+            provider.Provider = new ServiceProviderResolveProvider(services);
         }
     }
 }
