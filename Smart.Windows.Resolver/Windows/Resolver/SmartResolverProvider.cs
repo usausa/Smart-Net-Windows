@@ -4,11 +4,11 @@ namespace Smart.Windows.Resolver
 
     using Smart.Resolver;
 
-    public sealed class SmartResolveProvider : IResolveProvider
+    public sealed class SmartResolverProvider : IResolveProvider
     {
         private readonly SmartResolver resolver;
 
-        public SmartResolveProvider(SmartResolver resolver)
+        public SmartResolverProvider(SmartResolver resolver)
         {
             this.resolver = resolver;
         }
