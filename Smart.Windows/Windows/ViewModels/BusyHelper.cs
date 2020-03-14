@@ -11,13 +11,13 @@ namespace Smart.Windows.ViewModels
         {
             try
             {
-                state.IsBusy = true;
+                state.Require();
 
                 await execute();
             }
             finally
             {
-                state.IsBusy = false;
+                state.Release();
             }
         }
 
@@ -27,13 +27,13 @@ namespace Smart.Windows.ViewModels
         {
             try
             {
-                state.IsBusy = true;
+                state.Require();
 
                 return await execute();
             }
             finally
             {
-                state.IsBusy = false;
+                state.Release();
             }
         }
     }

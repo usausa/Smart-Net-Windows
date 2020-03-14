@@ -176,14 +176,14 @@ namespace Smart.Windows.ViewModels
             return new AsyncCommand(
                 async () =>
                 {
-                    BusyState.IsBusy = true;
+                    BusyState.Require();
                     try
                     {
                         await execute();
                     }
                     finally
                     {
-                        BusyState.IsBusy = false;
+                        BusyState.Release();
                     }
                 }, () => !BusyState.IsBusy && canExecute())
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
@@ -201,14 +201,14 @@ namespace Smart.Windows.ViewModels
             return new AsyncCommand<TParameter>(
                     async parameter =>
                     {
-                        BusyState.IsBusy = true;
+                        BusyState.Require();
                         try
                         {
                             await execute(parameter);
                         }
                         finally
                         {
-                            BusyState.IsBusy = false;
+                            BusyState.Release();
                         }
                     }, parameter => !BusyState.IsBusy && canExecute(parameter))
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
