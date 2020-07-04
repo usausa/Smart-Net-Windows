@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-    <PackageReference Include="Usa.Smart.Core" Version="1.8.2" />
-    <PackageReference Include="Usa.Smart.Resolver" Version="1.9.3" />
+    <PackageReference Include="Usa.Smart.Core" Version="1.8.8" />
+    <PackageReference Include="Usa.Smart.Resolver" Version="1.9.4" />
   </ItemGroup>
 
   <ItemGroup>
