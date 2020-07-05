@@ -37,30 +37,6 @@ namespace Smart.Windows.Input
             canExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private void PrepareObserveObjects()
-        {
-            if (observeObjects is null)
-            {
-                observeObjects = new HashSet<INotifyPropertyChanged>();
-            }
-        }
-
-        private void PrepareObserveProperties()
-        {
-            if (observeProperties is null)
-            {
-                observeProperties = new Dictionary<INotifyPropertyChanged, HashSet<string>>();
-            }
-        }
-
-        private void PrepareObserveCollections()
-        {
-            if (observeCollections is null)
-            {
-                observeCollections = new HashSet<INotifyCollectionChanged>();
-            }
-        }
-
         public T Observe(INotifyPropertyChanged target)
         {
             if (target is null)
@@ -68,8 +44,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(target));
             }
 
-            PrepareObserveObjects();
-
+            observeObjects ??= new HashSet<INotifyPropertyChanged>();
             if (!observeObjects.Contains(target))
             {
                 observeObjects.Add(target);
@@ -91,8 +66,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(propertyName));
             }
 
-            PrepareObserveProperties();
-
+            observeProperties ??= new Dictionary<INotifyPropertyChanged, HashSet<string>>();
             if (!observeProperties.TryGetValue(target, out var properties))
             {
                 properties = new HashSet<string>();
@@ -112,8 +86,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(target));
             }
 
-            PrepareObserveCollections();
-
+            observeCollections ??= new HashSet<INotifyCollectionChanged>();
             if (!observeCollections.Contains(target))
             {
                 observeCollections.Add(target);
