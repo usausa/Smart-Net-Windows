@@ -1,5 +1,7 @@
 # Smart.Windows .NET - MVVM helper library for WPF
 
+[![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows)](https://www.nuget.org/packages/Usa.Smart.Windows/)
+
 ## What does if contain ?
 
 * Basic converters.
@@ -12,11 +14,11 @@
 
 ## NuGet
 
-| Id                         | Note                       |
-|----------------------------|----------------------------|
-| Usa.Smart.Windows          | Core libyrary              |
-| Usa.Smart.Windows.Reactive | Reactive helpers           |
-| Usa.Smart.Windows.Resolver | Smart.Resolver integration |
+| Package | Note  |
+|-|-|
+| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows)](https://www.nuget.org/packages/Usa.Smart.Windows/) | Core libyrary |
+| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows.Reactive)](https://www.nuget.org/packages/Usa.Smart.Windows.Reactive/) | Reactive helpers |
+| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows.Resolver)](https://www.nuget.org/packages/Usa.Smart.Windows.Resolver/) | Smart.Resolver integration |
 
 ## Link
 
