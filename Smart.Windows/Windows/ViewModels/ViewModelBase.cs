@@ -120,20 +120,6 @@ namespace Smart.Windows.ViewModels
         }
 
         // ------------------------------------------------------------
-        // Execute helper
-        // ------------------------------------------------------------
-
-        protected Task ExecuteBusyAsync(Func<Task> execute)
-        {
-            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
-        }
-
-        protected Task<TResult> ExecuteBusyAsync<TResult>(Func<Task<TResult>> execute)
-        {
-            return BusyHelper.ExecuteBusyAsync(BusyState, execute);
-        }
-
-        // ------------------------------------------------------------
         // DelegateCommand helper
         // ------------------------------------------------------------
 
@@ -176,14 +162,9 @@ namespace Smart.Windows.ViewModels
             return new AsyncCommand(
                 async () =>
                 {
-                    BusyState.Require();
-                    try
+                    using (BusyState.Begin())
                     {
                         await execute();
-                    }
-                    finally
-                    {
-                        BusyState.Release();
                     }
                 }, () => !BusyState.IsBusy && canExecute())
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
@@ -201,14 +182,9 @@ namespace Smart.Windows.ViewModels
             return new AsyncCommand<TParameter>(
                     async parameter =>
                     {
-                        BusyState.Require();
-                        try
+                        using (BusyState.Begin())
                         {
                             await execute(parameter);
-                        }
-                        finally
-                        {
-                            BusyState.Release();
                         }
                     }, parameter => !BusyState.IsBusy && canExecute(parameter))
                 .Observe(BusyState, nameof(IBusyState.IsBusy))
