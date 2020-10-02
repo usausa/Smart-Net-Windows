@@ -3,7 +3,7 @@
     using System;
     using System.Windows.Input;
 
-    public sealed class WaitCursor : IDisposable
+    public struct WaitCursor : IDisposable
     {
         private readonly Cursor oldCursor;
 
