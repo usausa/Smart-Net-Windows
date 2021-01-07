@@ -17,7 +17,7 @@ namespace Smart.Windows.Data
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((value is null) ||
-                (HandleEmptyString && String.IsNullOrEmpty(value as string)))
+                (HandleEmptyString && value is string { Length: 0 }))
             {
                 return NullValue;
             }

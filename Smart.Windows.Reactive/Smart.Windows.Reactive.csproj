@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <CodeAnalysisRuleSet>..\Smart.Windows.ruleset</CodeAnalysisRuleSet>
     <RootNamespace>Smart</RootNamespace>

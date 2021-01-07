@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System;
     using System.Windows;
@@ -70,6 +70,7 @@
             OnEventRequest(sender, e);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "Ignore")]
         protected abstract void OnEventRequest(object sender, TEventArgs e);
     }
 }

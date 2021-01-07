@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Data
+namespace Smart.Windows.Data
 {
     using System;
     using System.Globalization;
@@ -14,7 +14,7 @@
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((value is null) ||
-                (HandleEmptyString && String.IsNullOrEmpty(value as string)))
+                (HandleEmptyString && value is string { Length: 0 }))
             {
                 return Invert ? value : parameter;
             }

@@ -16,11 +16,6 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(command));
             }
 
-            if (values is null)
-            {
-                throw new ArgumentNullException(nameof(values));
-            }
-
             foreach (var value in values)
             {
                 command.Observe(value);

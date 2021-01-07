@@ -36,7 +36,12 @@ namespace Smart.Windows
                     return parent;
                 }
 
-                return (contentElement as FrameworkContentElement)?.Parent;
+                if (contentElement is FrameworkContentElement frameworkContentElement)
+                {
+                    return frameworkContentElement.Parent;
+                }
+
+                return null;
             }
 
             // FrameworkElement
