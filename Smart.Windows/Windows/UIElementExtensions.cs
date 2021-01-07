@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows
+namespace Smart.Windows
 {
     using System;
     using System.Windows;
@@ -13,6 +13,7 @@
                 throw new ArgumentNullException(nameof(reference));
             }
 
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (reference.InputHitTest(point) is DependencyObject element)
             {
                 if (element is T typeElement)

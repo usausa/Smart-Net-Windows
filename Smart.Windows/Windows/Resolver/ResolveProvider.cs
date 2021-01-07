@@ -4,7 +4,7 @@ namespace Smart.Windows.Resolver
 
     public sealed class ResolveProvider : IResolveProvider
     {
-        public static ResolveProvider Default { get; } = new ResolveProvider();
+        public static ResolveProvider Default { get; } = new();
 
         public IResolveProvider Provider { get; set; } = DefaultResolveProvider.Default;
 

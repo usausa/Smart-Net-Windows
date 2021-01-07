@@ -31,7 +31,7 @@ namespace Smart.Windows
             if (obj is ContentElement contentElement)
             {
                 var parent = ContentOperations.GetParent(contentElement);
-                if (parent != null)
+                if (parent is not null)
                 {
                     return parent;
                 }
@@ -43,7 +43,7 @@ namespace Smart.Windows
             if (obj is FrameworkElement frameworkElement)
             {
                 var parent = frameworkElement.Parent;
-                if (parent != null)
+                if (parent is not null)
                 {
                     return parent;
                 }

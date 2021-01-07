@@ -42,7 +42,7 @@
 
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (Messenger != null)
+            if (Messenger is not null)
             {
                 Messenger.Received -= MessengerOnReceived;
             }
@@ -57,12 +57,12 @@
 
             var trigger = (MessageTrigger)obj;
 
-            if ((e.OldValue != null) && (trigger.Messenger != null))
+            if ((e.OldValue is not null) && (trigger.Messenger is not null))
             {
                 trigger.Messenger.Received -= trigger.MessengerOnReceived;
             }
 
-            if ((e.NewValue != null) && (trigger.Messenger != null))
+            if ((e.NewValue is not null) && (trigger.Messenger is not null))
             {
                 trigger.Messenger.Received += trigger.MessengerOnReceived;
             }
@@ -71,7 +71,7 @@
         private void MessengerOnReceived(object sender, MessengerEventArgs e)
         {
             if (((Label is null) || Label.Equals(e.Label, StringComparison.Ordinal)) &&
-                ((MessageType is null) || ((e.MessageType != null) && MessageType.IsAssignableFrom(e.MessageType))))
+                ((MessageType is null) || ((e.MessageType is not null) && MessageType.IsAssignableFrom(e.MessageType))))
             {
                 InvokeActions(e.Message);
             }

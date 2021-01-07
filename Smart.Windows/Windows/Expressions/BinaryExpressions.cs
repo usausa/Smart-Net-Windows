@@ -19,7 +19,7 @@ namespace Smart.Windows.Expressions
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Ignore")]
             public object Eval(object left, object right)
             {
-                if ((left is IComparable comparable) && (right != null))
+                if ((left is IComparable comparable) && (right is not null))
                 {
                     var convertedValue = ConvertHelper.Convert(left.GetType(), right);
                     if (convertedValue is null)
@@ -62,7 +62,7 @@ namespace Smart.Windows.Expressions
                 }
 
                 var mi = left.GetType().GetMethod(MethodName);
-                if ((mi != null) &&
+                if ((mi is not null) &&
                     (mi.GetParameters().Length == 2) &&
                     (mi.GetParameters()[0].ParameterType == left.GetType()))
                 {

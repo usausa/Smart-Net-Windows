@@ -39,7 +39,7 @@
 
         private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (Request != null)
+            if (Request is not null)
             {
                 Request.Requested -= EventRequestOnRequested;
             }
@@ -54,12 +54,12 @@
 
             var trigger = (RequestTriggerBase<TEventArgs>)obj;
 
-            if ((e.OldValue != null) && (trigger.Request != null))
+            if ((e.OldValue is not null) && (trigger.Request is not null))
             {
                 trigger.Request.Requested -= trigger.EventRequestOnRequested;
             }
 
-            if ((e.NewValue != null) && (trigger.Request != null))
+            if ((e.NewValue is not null) && (trigger.Request is not null))
             {
                 trigger.Request.Requested += trigger.EventRequestOnRequested;
             }

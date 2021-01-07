@@ -1,10 +1,10 @@
-﻿namespace Smart.Windows.Messaging
+namespace Smart.Windows.Messaging
 {
     using System;
 
     public sealed class EventRequest : IEventRequest<ParameterEventArgs>
     {
-        private static readonly ParameterEventArgs EmptyArgs = new ParameterEventArgs(null);
+        private static readonly ParameterEventArgs EmptyArgs = new(null);
 
         public event EventHandler<ParameterEventArgs> Requested;
 

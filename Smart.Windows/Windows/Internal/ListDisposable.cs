@@ -6,7 +6,7 @@ namespace Smart.Windows.Internal
 
     internal sealed class ListDisposable : ICollection<IDisposable>, IDisposable
     {
-        private readonly List<IDisposable> disposables = new List<IDisposable>();
+        private readonly List<IDisposable> disposables = new();
 
         public int Count => disposables.Count;
 

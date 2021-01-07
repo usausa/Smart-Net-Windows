@@ -66,7 +66,7 @@
             }
 
             var commandParameter = CommandParameter;
-            var argument = (commandParameter != null) || this.IsSet(CommandParameterProperty)
+            var argument = (commandParameter is not null) || this.IsSet(CommandParameterProperty)
                 ? commandParameter
                 : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
             if (command.CanExecute(argument))

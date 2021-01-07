@@ -35,7 +35,7 @@
 
         protected override void OnDetaching()
         {
-            if (AssociatedObject != null)
+            if (AssociatedObject is not null)
             {
                 AssociatedObject.SelectionChanged -= OnSelectionChanged;
             }

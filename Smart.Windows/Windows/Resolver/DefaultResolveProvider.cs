@@ -6,7 +6,7 @@ namespace Smart.Windows.Resolver
     {
         private Func<Type, object> defaultResolver = Activator.CreateInstance;
 
-        public static DefaultResolveProvider Default { get; } = new DefaultResolveProvider();
+        public static DefaultResolveProvider Default { get; } = new();
 
         private DefaultResolveProvider()
         {

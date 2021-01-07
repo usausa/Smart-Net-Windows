@@ -20,11 +20,11 @@ namespace Smart.Windows.Data
             if (value is Enum)
             {
                 var type = value.GetType();
-                var mis = type.GetMember(value.ToString());
+                var mis = type.GetMember(value.ToString()!);
                 if (mis.Length > 0)
                 {
                     var attr = mis[0].GetCustomAttribute<DescriptionAttribute>();
-                    if (attr != null)
+                    if (attr is not null)
                     {
                         return attr.Description;
                     }

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity
 {
     using System.Reflection;
     using System.Windows;
@@ -45,7 +45,7 @@
         {
             var method = TargetObject.GetType().GetMethod(MethodName, BindingFlags.Instance | BindingFlags.Public);
             var result = method.Invoke(TargetObject, null);
-            Clipboard.SetData(Format, result);
+            Clipboard.SetData(Format, result!);
         }
     }
 }

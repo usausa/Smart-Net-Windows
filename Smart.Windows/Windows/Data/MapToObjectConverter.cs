@@ -17,18 +17,18 @@ namespace Smart.Windows.Data
 
     public class MapToObjectConverter<T> : IValueConverter
     {
-        public Collection<MapEntry<T>> Entries { get; } = new Collection<MapEntry<T>>(new List<MapEntry<T>>());
+        public Collection<MapEntry<T>> Entries { get; } = new(new List<MapEntry<T>>());
 
         public T DefaultValue { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
+            if (value is not null)
             {
                 if (value is IComparable comparable)
                 {
                     var entry = Entries.FirstOrDefault(x => comparable.CompareTo(x.Key) == 0);
-                    if (entry != null)
+                    if (entry is not null)
                     {
                         return entry.Value;
                     }
@@ -36,7 +36,7 @@ namespace Smart.Windows.Data
                 else
                 {
                     var entry = Entries.FirstOrDefault(x => Equals(value, x.Key));
-                    if (entry != null)
+                    if (entry is not null)
                     {
                         return entry.Value;
                     }

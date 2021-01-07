@@ -14,7 +14,7 @@
         protected override void Invoke(object parameter)
         {
             var element = AssociatedObject.FindChildren<UIElement>().FirstOrDefault(Validation.GetHasError);
-            if (element != null)
+            if (element is not null)
             {
                 element.Focus();
 

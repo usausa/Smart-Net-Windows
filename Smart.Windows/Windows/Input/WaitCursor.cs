@@ -1,21 +1,16 @@
-﻿namespace Smart.Windows.Input
+namespace Smart.Windows.Input
 {
     using System;
     using System.Windows.Input;
 
-    public struct WaitCursor : IDisposable
+    public readonly struct WaitCursor : IDisposable
     {
         private readonly Cursor oldCursor;
 
-        public WaitCursor()
-            : this(Cursors.Wait)
-        {
-        }
-
-        public WaitCursor(Cursor cursor)
+        public WaitCursor(Cursor cursor = null)
         {
             oldCursor = Mouse.OverrideCursor;
-            Mouse.OverrideCursor = cursor;
+            Mouse.OverrideCursor = cursor ?? Cursors.Wait;
         }
 
         public void Dispose()

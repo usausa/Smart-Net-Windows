@@ -42,7 +42,7 @@
         private void UpdatePropertyDescriptor()
         {
             dpd = null;
-            if ((AssociatedObject != null) && !String.IsNullOrEmpty(PropertyName))
+            if ((AssociatedObject is not null) && !String.IsNullOrEmpty(PropertyName))
             {
                 dpd = DependencyPropertyDescriptor.FromName(PropertyName, AssociatedObject.GetType(), AssociatedObject.GetType());
             }

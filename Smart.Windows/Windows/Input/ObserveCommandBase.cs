@@ -108,7 +108,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(propertyName));
             }
 
-            if (observeProperties != null)
+            if (observeProperties is not null)
             {
                 if (observeProperties.TryGetValue(target, out var properties))
                 {
@@ -132,7 +132,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (observeObjects != null)
+            if (observeObjects is not null)
             {
                 if (observeObjects.Remove(target))
                 {
@@ -140,7 +140,7 @@ namespace Smart.Windows.Input
                 }
             }
 
-            if (observeProperties != null)
+            if (observeProperties is not null)
             {
                 if (observeProperties.Remove(target))
                 {
@@ -158,7 +158,7 @@ namespace Smart.Windows.Input
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (observeCollections != null)
+            if (observeCollections is not null)
             {
                 if (observeCollections.Contains(target))
                 {
@@ -172,7 +172,7 @@ namespace Smart.Windows.Input
 
         public T RemoveObserver()
         {
-            if (observeObjects != null)
+            if (observeObjects is not null)
             {
                 foreach (var target in observeObjects)
                 {
@@ -182,7 +182,7 @@ namespace Smart.Windows.Input
                 observeObjects.Clear();
             }
 
-            if (observeProperties != null)
+            if (observeProperties is not null)
             {
                 foreach (var target in observeProperties.Keys)
                 {
@@ -192,7 +192,7 @@ namespace Smart.Windows.Input
                 observeProperties.Clear();
             }
 
-            if (observeCollections != null)
+            if (observeCollections is not null)
             {
                 foreach (var target in observeCollections)
                 {

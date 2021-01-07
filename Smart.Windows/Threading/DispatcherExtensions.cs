@@ -1,4 +1,4 @@
-﻿namespace Smart.Threading
+namespace Smart.Threading
 {
     using System;
     using System.Windows.Threading;
@@ -10,11 +10,6 @@
             if (action is null)
             {
                 throw new ArgumentNullException(nameof(action));
-            }
-
-            if (dispatcher is null)
-            {
-                return;
             }
 
             if (dispatcher.CheckAccess())
@@ -34,11 +29,6 @@
                 throw new ArgumentNullException(nameof(action));
             }
 
-            if (dispatcher is null)
-            {
-                return;
-            }
-
             if (dispatcher.CheckAccess())
             {
                 action(arg);
@@ -54,11 +44,6 @@
             if (action is null)
             {
                 throw new ArgumentNullException(nameof(action));
-            }
-
-            if (dispatcher is null)
-            {
-                return default;
             }
 
             if (dispatcher.CheckAccess())
