@@ -1,4 +1,4 @@
-namespace Smart.Windows.Expressions
+﻿namespace Smart.Windows.Expressions
 {
     using System;
 
@@ -25,7 +25,7 @@ namespace Smart.Windows.Expressions
             {
                 if ((left is IComparable comparable) && (right is not null))
                 {
-                    object convertedValue = ConvertHelper.Convert(left.GetType(), right);
+                    var convertedValue = ConvertHelper.Convert(left.GetType(), right);
                     if (convertedValue is null)
                     {
                         return WhenRightIsUnmatch();

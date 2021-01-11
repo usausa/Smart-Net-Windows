@@ -42,7 +42,7 @@
             (PresentationSource.FromVisual(AssociatedObject) as HwndSource)?.RemoveHook(hook);
         }
 
-        private IntPtr WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // WM_SYSCOMMAND, SC_MINIMIZE
             if ((msg == 0x0112) && (wParam.ToInt32() == 0xf020))
