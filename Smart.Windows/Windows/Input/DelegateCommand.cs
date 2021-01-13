@@ -1,4 +1,4 @@
-namespace Smart.Windows.Input
+﻿namespace Smart.Windows.Input
 {
     using System;
     using System.Windows.Input;
@@ -12,7 +12,7 @@ namespace Smart.Windows.Input
         private readonly Func<bool> canExecute;
 
         public DelegateCommand(Action execute)
-            : this(execute, Actions.True)
+            : this(execute, Functions.True)
         {
         }
 
@@ -39,7 +39,7 @@ namespace Smart.Windows.Input
         private readonly Func<T, bool> canExecute;
 
         public DelegateCommand(Action<T> execute)
-            : this(execute, Actions<T>.True)
+            : this(execute, Functions<T>.True)
         {
         }
 

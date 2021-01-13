@@ -2,9 +2,9 @@
 {
     using System;
 
-    public interface IEventRequest<TEventAgrs>
-        where TEventAgrs : EventArgs
+    public interface IEventRequest<TEventArgs>
+        where TEventArgs : EventArgs
     {
-        event EventHandler<TEventAgrs> Requested;
+        event EventHandler<TEventArgs> Requested;
     }
 }

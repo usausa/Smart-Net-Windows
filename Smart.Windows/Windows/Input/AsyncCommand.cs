@@ -1,4 +1,4 @@
-namespace Smart.Windows.Input
+﻿namespace Smart.Windows.Input
 {
     using System;
     using System.Reflection;
@@ -16,7 +16,7 @@ namespace Smart.Windows.Input
         private bool executing;
 
         public AsyncCommand(Func<Task> execute)
-            : this(execute, Actions.True)
+            : this(execute, Functions.True)
         {
         }
 
@@ -58,7 +58,7 @@ namespace Smart.Windows.Input
         private bool executing;
 
         public AsyncCommand(Func<T, Task> execute)
-            : this(execute, Actions<T>.True)
+            : this(execute, Functions<T>.True)
         {
         }
 

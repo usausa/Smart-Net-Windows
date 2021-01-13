@@ -1,4 +1,4 @@
-namespace Smart.Windows.ViewModels
+﻿namespace Smart.Windows.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -125,7 +125,7 @@ namespace Smart.Windows.ViewModels
 
         protected DelegateCommand MakeDelegateCommand(Action execute)
         {
-            return MakeDelegateCommand(execute, Actions.True);
+            return MakeDelegateCommand(execute, Functions.True);
         }
 
         protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
@@ -137,7 +137,7 @@ namespace Smart.Windows.ViewModels
 
         protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
         {
-            return MakeDelegateCommand(execute, Actions<TParameter>.True);
+            return MakeDelegateCommand(execute, Functions<TParameter>.True);
         }
 
         protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
@@ -153,7 +153,7 @@ namespace Smart.Windows.ViewModels
 
         protected AsyncCommand MakeAsyncCommand(Func<Task> execute)
         {
-            return MakeAsyncCommand(execute, Actions.True);
+            return MakeAsyncCommand(execute, Functions.True);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
@@ -173,7 +173,7 @@ namespace Smart.Windows.ViewModels
 
         protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
         {
-            return MakeAsyncCommand(execute, Actions<TParameter>.True);
+            return MakeAsyncCommand(execute, Functions<TParameter>.True);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
