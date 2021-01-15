@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.ViewModels
+namespace Smart.Windows.ViewModels
 {
     using Smart.ComponentModel;
 

@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Resolver
+namespace Smart.Windows.Resolver
 {
     using System;
 

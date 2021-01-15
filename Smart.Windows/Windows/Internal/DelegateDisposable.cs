@@ -1,4 +1,4 @@
-﻿namespace Smart.Windows.Internal
+namespace Smart.Windows.Internal
 {
     using System;
 
