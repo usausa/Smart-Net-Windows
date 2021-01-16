@@ -24,22 +24,20 @@ namespace Smart.Windows.ViewModels
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         public static async Task UsingAsync(this IBusyState state, Func<Task> execute)
         {
             using (state.Begin())
             {
-                await execute();
+                await execute().ConfigureAwait(false);
             }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         public static async Task<TResult> UsingAsync<TResult>(this IBusyState state, Func<Task<TResult>> execute)
         {
             using (state.Begin())
             {
-                return await execute();
+                return await execute().ConfigureAwait(false);
             }
         }
 
