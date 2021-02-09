@@ -6,7 +6,7 @@ namespace Smart.Windows.Markup
     using Smart.Windows.Data;
 
     [MarkupExtensionReturnType(typeof(string))]
-    public sealed class BoolToTextConverterExtension : MarkupExtension
+    public sealed class BoolToTextExtension : MarkupExtension
     {
         public string True { get; set; }
 

@@ -7,7 +7,7 @@ namespace Smart.Windows.Markup
     using Smart.Windows.Data;
 
     [MarkupExtensionReturnType(typeof(Color))]
-    public sealed class BoolToColorConverterExtension : MarkupExtension
+    public sealed class BoolToColorExtension : MarkupExtension
     {
         public Color True { get; set; } = Colors.Transparent;
 

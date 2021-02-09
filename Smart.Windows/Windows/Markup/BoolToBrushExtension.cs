@@ -7,7 +7,7 @@ namespace Smart.Windows.Markup
     using Smart.Windows.Data;
 
     [MarkupExtensionReturnType(typeof(Brush))]
-    public sealed class BoolToBrushConverterExtension : MarkupExtension
+    public sealed class BoolToBrushExtension : MarkupExtension
     {
         public Brush True { get; set; } = Brushes.Transparent;
 
