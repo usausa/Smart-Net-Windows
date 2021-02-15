@@ -6,7 +6,7 @@ namespace Smart.Windows.Data
     using System.Windows.Data;
     using System.Windows.Media;
 
-    public class BooleanToObjectConverter<T> : IValueConverter
+    public class BoolToObjectConverter<T> : IValueConverter
     {
         public T TrueValue { get; set; }
 
@@ -39,19 +39,19 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(bool), typeof(string))]
-    public sealed class BooleanToTextConverter : BooleanToObjectConverter<string>
+    public sealed class BoolToTextConverter : BoolToObjectConverter<string>
     {
     }
 
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public sealed class BooleanToVisibilityConverter : BooleanToObjectConverter<Visibility>
+    public sealed class BoolToVisibilityConverter : BoolToObjectConverter<Visibility>
     {
     }
 
     [ValueConversion(typeof(bool), typeof(Brush))]
-    public sealed class BooleanToBrushConverter : BooleanToObjectConverter<Brush>
+    public sealed class BoolToBrushConverter : BoolToObjectConverter<Brush>
     {
-        public BooleanToBrushConverter()
+        public BoolToBrushConverter()
         {
             TrueValue = Brushes.Transparent;
             FalseValue = Brushes.Transparent;
@@ -59,9 +59,9 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(bool), typeof(Color))]
-    public sealed class BooleanToColorConverter : BooleanToObjectConverter<Color>
+    public sealed class BoolToColorConverter : BoolToObjectConverter<Color>
     {
-        public BooleanToColorConverter()
+        public BoolToColorConverter()
         {
             TrueValue = Colors.Transparent;
             FalseValue = Colors.Transparent;
