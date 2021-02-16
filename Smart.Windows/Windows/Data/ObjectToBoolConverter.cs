@@ -4,7 +4,7 @@ namespace Smart.Windows.Data
     using System.Globalization;
     using System.Windows.Data;
 
-    public class ObjectToBooleanConverter<T> : IValueConverter
+    public class ObjectToBoolConverter<T> : IValueConverter
     {
         public T TrueValue { get; set; }
 
@@ -22,12 +22,12 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(string), typeof(bool))]
-    public sealed class TextToBooleanConverter : ObjectToBooleanConverter<string>
+    public sealed class TextToBoolConverter : ObjectToBoolConverter<string>
     {
     }
 
     [ValueConversion(typeof(int), typeof(bool))]
-    public sealed class IntegerToBooleanConverter : ObjectToBooleanConverter<int>
+    public sealed class IntegerToBoolConverter : ObjectToBoolConverter<int>
     {
     }
 }

@@ -25,9 +25,9 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(object), typeof(bool))]
-    public sealed class ContainsToBooleanConverter : ContainsConverter<bool>
+    public sealed class ContainsToBoolConverter : ContainsConverter<bool>
     {
-        public ContainsToBooleanConverter()
+        public ContainsToBoolConverter()
         {
             TrueValue = true;
             FalseValue = false;

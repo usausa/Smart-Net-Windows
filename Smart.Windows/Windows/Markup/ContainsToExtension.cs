@@ -1,0 +1,72 @@
+namespace Smart.Windows.Markup
+{
+    using System;
+    using System.Windows;
+    using System.Windows.Markup;
+    using System.Windows.Media;
+
+    using Smart.Windows.Data;
+
+    [MarkupExtensionReturnType(typeof(bool))]
+    public sealed class ContainsToBoolExtension : MarkupExtension
+    {
+        public bool Invert { get; set; }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return new ContainsToBoolConverter { TrueValue = !Invert, FalseValue = Invert };
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(string))]
+    public sealed class ContainsToTextExtension : MarkupExtension
+    {
+        public string True { get; set; }
+
+        public string False { get; set; }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return new ContainsToTextConverter { TrueValue = True, FalseValue = False };
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(Visibility))]
+    public sealed class ContainsToVisibilityExtension : MarkupExtension
+    {
+        public Visibility True { get; set; }
+
+        public Visibility False { get; set; }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return new ContainsToVisibilityConverter { TrueValue = True, FalseValue = False };
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(Brush))]
+    public sealed class ContainsToBrushExtension : MarkupExtension
+    {
+        public Brush True { get; set; } = Brushes.Transparent;
+
+        public Brush False { get; set; } = Brushes.Transparent;
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return new ContainsToBrushConverter { TrueValue = True, FalseValue = False };
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(Color))]
+    public sealed class ContainsToColorExtension : MarkupExtension
+    {
+        public Color True { get; set; } = Colors.Transparent;
+
+        public Color False { get; set; } = Colors.Transparent;
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return new ContainsToColorConverter { TrueValue = True, FalseValue = False };
+        }
+    }
+}

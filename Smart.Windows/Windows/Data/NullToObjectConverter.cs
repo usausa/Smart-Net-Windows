@@ -32,9 +32,9 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(object), typeof(bool))]
-    public sealed class NullToBooleanConverter : NullToObjectConverter<bool>
+    public sealed class NullToBoolConverter : NullToObjectConverter<bool>
     {
-        public NullToBooleanConverter()
+        public NullToBoolConverter()
         {
             NullValue = false;
             NonNullValue = true;

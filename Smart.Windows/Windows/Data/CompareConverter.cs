@@ -28,9 +28,9 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(object), typeof(bool))]
-    public sealed class CompareToBooleanConverter : CompareConverter<bool>
+    public sealed class CompareToBoolConverter : CompareConverter<bool>
     {
-        public CompareToBooleanConverter()
+        public CompareToBoolConverter()
         {
             TrueValue = true;
             FalseValue = false;
