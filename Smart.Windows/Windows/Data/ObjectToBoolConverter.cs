@@ -27,7 +27,7 @@ namespace Smart.Windows.Data
     }
 
     [ValueConversion(typeof(int), typeof(bool))]
-    public sealed class IntegerToBoolConverter : ObjectToBoolConverter<int>
+    public sealed class IntToBoolConverter : ObjectToBoolConverter<int>
     {
     }
 }
