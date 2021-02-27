@@ -13,10 +13,8 @@ namespace Smart.Windows.Markup
     {
         public ICompareExpression Expression { get; set; }
 
-        public bool Invert { get; set; }
-
         public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new CompareToBoolConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = !Invert, FalseValue = Invert };
+            new CompareToBoolConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = true, FalseValue = false };
     }
 
     [MarkupExtensionReturnType(typeof(CompareToTextConverter))]
