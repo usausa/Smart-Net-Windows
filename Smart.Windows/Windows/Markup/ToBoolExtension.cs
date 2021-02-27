@@ -12,10 +12,8 @@ namespace Smart.Windows.Markup
 
         public string False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new TextToBoolConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new TextToBoolConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(IntToBoolConverter))]
@@ -25,9 +23,7 @@ namespace Smart.Windows.Markup
 
         public int False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new IntToBoolConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new IntToBoolConverter { TrueValue = True, FalseValue = False };
     }
 }

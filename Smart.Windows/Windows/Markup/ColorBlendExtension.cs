@@ -13,9 +13,7 @@ namespace Smart.Windows.Markup
 
         public double Raito { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ColorBlendConverter { Color = Color, Raito = Raito };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ColorBlendConverter { Color = Color, Raito = Raito };
     }
 }

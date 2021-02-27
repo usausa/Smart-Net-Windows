@@ -17,9 +17,7 @@ namespace Smart.Windows.Markup
 
         public bool ReplaceAll { get; set; } = true;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new TextReplaceConverter { Pattern = Pattern, Replacement = Replacement, Options = Options, ReplaceAll = ReplaceAll };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new TextReplaceConverter { Pattern = Pattern, Replacement = Replacement, Options = Options, ReplaceAll = ReplaceAll };
     }
 }

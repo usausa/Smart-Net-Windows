@@ -12,10 +12,8 @@ namespace Smart.Windows.Markup
     {
         public bool Invert { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ContainsToBoolConverter { TrueValue = !Invert, FalseValue = Invert };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ContainsToBoolConverter { TrueValue = !Invert, FalseValue = Invert };
     }
 
     [MarkupExtensionReturnType(typeof(ContainsToTextConverter))]
@@ -25,10 +23,8 @@ namespace Smart.Windows.Markup
 
         public string False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ContainsToTextConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ContainsToTextConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(ContainsToVisibilityConverter))]
@@ -38,10 +34,8 @@ namespace Smart.Windows.Markup
 
         public Visibility False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ContainsToVisibilityConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ContainsToVisibilityConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(ContainsToBrushConverter))]
@@ -51,10 +45,8 @@ namespace Smart.Windows.Markup
 
         public Brush False { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ContainsToBrushConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ContainsToBrushConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(ContainsToColorConverter))]
@@ -64,9 +56,7 @@ namespace Smart.Windows.Markup
 
         public Color False { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ContainsToColorConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new ContainsToColorConverter { TrueValue = True, FalseValue = False };
     }
 }

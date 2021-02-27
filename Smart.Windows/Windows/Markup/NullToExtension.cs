@@ -14,10 +14,8 @@ namespace Smart.Windows.Markup
 
         public bool HandleEmptyString { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new NullToBoolConverter { NullValue = !Invert, NonNullValue = Invert, HandleEmptyString = HandleEmptyString };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new NullToBoolConverter { NullValue = !Invert, NonNullValue = Invert, HandleEmptyString = HandleEmptyString };
     }
 
     [MarkupExtensionReturnType(typeof(NullToTextConverter))]
@@ -29,10 +27,8 @@ namespace Smart.Windows.Markup
 
         public bool HandleEmptyString { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new NullToTextConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new NullToTextConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
     }
 
     [MarkupExtensionReturnType(typeof(NullToVisibilityConverter))]
@@ -44,10 +40,8 @@ namespace Smart.Windows.Markup
 
         public bool HandleEmptyString { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new NullToVisibilityConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new NullToVisibilityConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
     }
 
     [MarkupExtensionReturnType(typeof(NullToBrushConverter))]
@@ -59,10 +53,8 @@ namespace Smart.Windows.Markup
 
         public bool HandleEmptyString { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new NullToBrushConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new NullToBrushConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
     }
 
     [MarkupExtensionReturnType(typeof(NullToColorConverter))]
@@ -74,9 +66,7 @@ namespace Smart.Windows.Markup
 
         public bool HandleEmptyString { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new NullToColorConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new NullToColorConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
     }
 }

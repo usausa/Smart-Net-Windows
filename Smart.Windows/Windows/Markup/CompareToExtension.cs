@@ -15,10 +15,8 @@ namespace Smart.Windows.Markup
 
         public bool Invert { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new CompareToBoolConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = !Invert, FalseValue = Invert };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new CompareToBoolConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = !Invert, FalseValue = Invert };
     }
 
     [MarkupExtensionReturnType(typeof(CompareToTextConverter))]
@@ -30,10 +28,8 @@ namespace Smart.Windows.Markup
 
         public string False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new CompareToTextConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new CompareToTextConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(CompareToVisibilityConverter))]
@@ -45,10 +41,8 @@ namespace Smart.Windows.Markup
 
         public Visibility False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new CompareToVisibilityConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new CompareToVisibilityConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(CompareToBrushConverter))]
@@ -60,10 +54,8 @@ namespace Smart.Windows.Markup
 
         public Brush False { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new CompareToBrushConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new CompareToBrushConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(CompareToColorConverter))]
@@ -75,9 +67,7 @@ namespace Smart.Windows.Markup
 
         public Color False { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new CompareToColorConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new CompareToColorConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
     }
 }

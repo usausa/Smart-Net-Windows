@@ -14,10 +14,8 @@ namespace Smart.Windows.Markup
 
         public string False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new BoolToTextConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new BoolToTextConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(BoolToVisibilityExtension))]
@@ -27,10 +25,8 @@ namespace Smart.Windows.Markup
 
         public Visibility False { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new BoolToVisibilityConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new BoolToVisibilityConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(BoolToBrushExtension))]
@@ -40,10 +36,8 @@ namespace Smart.Windows.Markup
 
         public Brush False { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new BoolToBrushConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new BoolToBrushConverter { TrueValue = True, FalseValue = False };
     }
 
     [MarkupExtensionReturnType(typeof(BoolToColorConverter))]
@@ -53,9 +47,7 @@ namespace Smart.Windows.Markup
 
         public Color False { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new BoolToColorConverter { TrueValue = True, FalseValue = False };
-        }
+        public override object ProvideValue(IServiceProvider serviceProvider) =>
+            new BoolToColorConverter { TrueValue = True, FalseValue = False };
     }
 }
