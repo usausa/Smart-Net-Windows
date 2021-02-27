@@ -20,7 +20,7 @@ namespace Smart.Windows.Markup
         }
     }
 
-    [MarkupExtensionReturnType(typeof(BoolToColorConverter))]
+    [MarkupExtensionReturnType(typeof(BoolToVisibilityExtension))]
     public sealed class BoolToVisibilityExtension : MarkupExtension
     {
         public Visibility True { get; set; }
@@ -33,7 +33,7 @@ namespace Smart.Windows.Markup
         }
     }
 
-    [MarkupExtensionReturnType(typeof(BoolToColorConverter))]
+    [MarkupExtensionReturnType(typeof(BoolToBrushExtension))]
     public sealed class BoolToBrushExtension : MarkupExtension
     {
         public Brush True { get; set; } = Brushes.Transparent;
