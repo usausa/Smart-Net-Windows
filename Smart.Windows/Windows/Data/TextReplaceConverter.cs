@@ -8,11 +8,33 @@ namespace Smart.Windows.Data
     [ValueConversion(typeof(string), typeof(string))]
     public sealed class TextReplaceConverter : IValueConverter
     {
-        public string Pattern { get; set; }
+        private string pattern;
+
+        private RegexOptions options;
+
+        private Regex regex;
+
+        public string Pattern
+        {
+            get => pattern;
+            set
+            {
+                pattern = value;
+                regex = null;
+            }
+        }
+
+        public RegexOptions Options
+        {
+            get => options;
+            set
+            {
+                options = value;
+                regex = null;
+            }
+        }
 
         public string Replacement { get; set; }
-
-        public RegexOptions Options { get; set; }
 
         public bool ReplaceAll { get; set; } = true;
 
@@ -24,7 +46,7 @@ namespace Smart.Windows.Data
                 return value;
             }
 
-            var regex = new Regex(Pattern, Options);
+            regex ??= new Regex(pattern, options);
             return regex.Replace(str, Replacement ?? string.Empty, ReplaceAll ? -1 : 1);
         }
 
