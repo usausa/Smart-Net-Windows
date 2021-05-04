@@ -29,12 +29,11 @@ namespace Smart.Windows.Data
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Color))
+            if (value is not Color color)
             {
                 return DependencyProperty.UnsetValue;
             }
 
-            var color = (Color)value;
             var r = Math.Min((byte)Math.Round(color.R + ((Color.R - color.R) * raito)), (byte)255);
             var g = Math.Min((byte)Math.Round(color.G + ((Color.G - color.G) * raito)), (byte)255);
             var b = Math.Min((byte)Math.Round(color.B + ((Color.B - color.B) * raito)), (byte)255);

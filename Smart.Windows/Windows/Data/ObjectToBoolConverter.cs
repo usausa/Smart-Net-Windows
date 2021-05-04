@@ -17,7 +17,7 @@ namespace Smart.Windows.Data
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is bool boolValue && boolValue ? TrueValue : FalseValue;
+            return value is true ? TrueValue : FalseValue;
         }
     }
 
