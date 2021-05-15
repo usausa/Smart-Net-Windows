@@ -11,7 +11,7 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(CompareToBoolConverter))]
     public sealed class CompareToBoolExtension : MarkupExtension
     {
-        public ICompareExpression Expression { get; set; }
+        public ICompareExpression? Expression { get; set; }
 
         public override object ProvideValue(IServiceProvider serviceProvider) =>
             new CompareToBoolConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = true, FalseValue = false };
@@ -20,11 +20,11 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(CompareToTextConverter))]
     public sealed class CompareToTextExtension : MarkupExtension
     {
-        public ICompareExpression Expression { get; set; }
+        public ICompareExpression? Expression { get; set; }
 
-        public string True { get; set; }
+        public string True { get; set; } = string.Empty;
 
-        public string False { get; set; }
+        public string False { get; set; } = string.Empty;
 
         public override object ProvideValue(IServiceProvider serviceProvider) =>
             new CompareToTextConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };
@@ -33,7 +33,7 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(CompareToVisibilityConverter))]
     public sealed class CompareToVisibilityExtension : MarkupExtension
     {
-        public ICompareExpression Expression { get; set; }
+        public ICompareExpression? Expression { get; set; }
 
         public Visibility True { get; set; }
 
@@ -46,7 +46,7 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(CompareToBrushConverter))]
     public sealed class CompareToBrushExtension : MarkupExtension
     {
-        public ICompareExpression Expression { get; set; }
+        public ICompareExpression? Expression { get; set; }
 
         public Brush True { get; set; } = Brushes.Transparent;
 
@@ -59,7 +59,7 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(CompareToColorConverter))]
     public sealed class CompareToColorExtension : MarkupExtension
     {
-        public ICompareExpression Expression { get; set; }
+        public ICompareExpression? Expression { get; set; }
 
         public Color True { get; set; } = Colors.Transparent;
 

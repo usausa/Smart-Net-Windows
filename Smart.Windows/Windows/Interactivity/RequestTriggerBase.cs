@@ -17,7 +17,7 @@ namespace Smart.Windows.Interactivity
             typeof(RequestTriggerBase<TEventArgs>),
             new PropertyMetadata(HandleRequestPropertyChanged));
 
-        public IEventRequest<TEventArgs> Request
+        public IEventRequest<TEventArgs>? Request
         {
             get => (IEventRequest<TEventArgs>)GetValue(RequestProperty);
             set => SetValue(RequestProperty, value);
@@ -65,12 +65,12 @@ namespace Smart.Windows.Interactivity
             }
         }
 
-        private void EventRequestOnRequested(object sender, TEventArgs e)
+        private void EventRequestOnRequested(object? sender, TEventArgs e)
         {
             OnEventRequest(sender, e);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "Ignore")]
-        protected abstract void OnEventRequest(object sender, TEventArgs e);
+        protected abstract void OnEventRequest(object? sender, TEventArgs e);
     }
 }

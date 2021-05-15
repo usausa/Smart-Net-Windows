@@ -8,17 +8,12 @@ namespace Smart.Windows.Data
     [ValueConversion(typeof(string), typeof(string))]
     public sealed class ToUpperConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is string text)
-            {
-                return text.ToUpper(culture);
-            }
-
-            return DependencyProperty.UnsetValue;
+            return value is string text ? text.ToUpper(culture) : DependencyProperty.UnsetValue;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

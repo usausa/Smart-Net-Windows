@@ -20,7 +20,6 @@ namespace Smart.Windows.Interactivity
             set => SetValue(CancelProperty, value);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         protected override void Invoke(object parameter)
         {
             var args = (CancelEventArgs)parameter;

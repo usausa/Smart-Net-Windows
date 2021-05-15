@@ -8,7 +8,7 @@ namespace Smart.Windows.Input
     {
         private readonly Cursor oldCursor;
 
-        public WaitCursor(Cursor cursor = null)
+        public WaitCursor(Cursor? cursor = null)
         {
             oldCursor = Mouse.OverrideCursor;
             Mouse.OverrideCursor = cursor ?? Cursors.Wait;

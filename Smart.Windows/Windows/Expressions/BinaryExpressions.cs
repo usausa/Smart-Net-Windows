@@ -16,7 +16,7 @@ namespace Smart.Windows.Expressions
 
         private abstract class CompareExpression : IBinaryExpression
         {
-            public object Eval(object left, object right)
+            public object? Eval(object? left, object? right)
             {
                 if ((left is IComparable comparable) && (right is not null))
                 {
@@ -53,7 +53,7 @@ namespace Smart.Windows.Expressions
 
         private abstract class ArithmeticExpression : IBinaryExpression
         {
-            public object Eval(object left, object right)
+            public object? Eval(object? left, object? right)
             {
                 if ((left is null) || (right is null))
                 {

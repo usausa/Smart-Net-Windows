@@ -8,6 +8,6 @@ namespace Smart.Windows.Resolver
 
         public IResolveProvider Provider { get; set; } = DefaultResolveProvider.Default;
 
-        public object Resolve(Type type) => Provider.Resolve(type);
+        public object? Resolve(Type type) => Provider.Resolve(type);
     }
 }

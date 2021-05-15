@@ -14,7 +14,7 @@ namespace Smart.Windows.Interactivity
             typeof(ListBoxSingleSelectionBehavior),
             new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object SelectedItem
+        public object? SelectedItem
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);

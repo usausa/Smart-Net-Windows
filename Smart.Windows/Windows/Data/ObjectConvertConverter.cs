@@ -10,12 +10,12 @@ namespace Smart.Windows.Data
     {
         public IObjectConverter Converter { get; set; } = ObjectConverter.Default;
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return Converter.Convert(value, targetType);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return Converter.Convert(value, targetType);
         }

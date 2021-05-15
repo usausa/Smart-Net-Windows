@@ -20,7 +20,6 @@ namespace Smart.Windows.Interactivity
             set => SetValue(ClosableProperty, value);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         protected override void Invoke(object parameter)
         {
             if (!Closable)

@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
@@ -8,13 +9,15 @@ namespace Smart.Windows.Data
 
     public class NullToObjectConverter<T> : IValueConverter
     {
+        [AllowNull]
         public T NullValue { get; set; }
 
+        [AllowNull]
         public T NonNullValue { get; set; }
 
         public bool HandleEmptyString { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if ((value is null) ||
                 (HandleEmptyString && value is string { Length: 0 }))
@@ -25,7 +28,7 @@ namespace Smart.Windows.Data
             return NonNullValue;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

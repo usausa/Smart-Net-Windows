@@ -44,8 +44,11 @@ namespace Smart.Windows.Interactivity
         protected override void Invoke(object parameter)
         {
             var method = TargetObject.GetType().GetMethod(MethodName, BindingFlags.Instance | BindingFlags.Public);
-            var result = method.Invoke(TargetObject, null);
-            Clipboard.SetData(Format, result!);
+            if (method is not null)
+            {
+                var result = method.Invoke(TargetObject, null);
+                Clipboard.SetData(Format, result!);
+            }
         }
     }
 }

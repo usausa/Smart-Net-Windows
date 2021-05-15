@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
 
@@ -8,10 +9,10 @@ namespace Smart.Windows.Data
 
     public sealed class MultiBinaryConverter : IMultiValueConverter
     {
+        [AllowNull]
         public IBinaryExpression Expression { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
         {
             var value = values[0];
             for (var i = 1; i < values.Length; i++)
@@ -22,7 +23,7 @@ namespace Smart.Windows.Data
             return value;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public object?[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

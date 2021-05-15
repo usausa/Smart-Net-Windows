@@ -14,11 +14,11 @@ namespace Smart.Windows.ViewModels
 
     public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDisposable
     {
-        private ListDisposable disposables;
+        private ListDisposable? disposables;
 
-        private IBusyState busyState;
+        private IBusyState? busyState;
 
-        private IMessenger messenger;
+        private IMessenger? messenger;
 
         // ------------------------------------------------------------
         // Disposables
@@ -42,13 +42,19 @@ namespace Smart.Windows.ViewModels
         // Validation
         // ------------------------------------------------------------
 
-        public string this[string columnName]
+        public string? this[string columnName]
         {
             get
             {
+                var pi = GetType().GetProperty(columnName);
+                if (pi is null)
+                {
+                    return null;
+                }
+
                 var results = new List<ValidationResult>();
                 if (Validator.TryValidateProperty(
-                    GetType().GetProperty(columnName).GetValue(this, null),
+                    pi.GetValue(this, null),
                     new ValidationContext(this, null, null) { MemberName = columnName },
                     results))
                 {
@@ -89,7 +95,7 @@ namespace Smart.Windows.ViewModels
             this.busyState = busyState;
         }
 
-        protected ViewModelBase(Messenger messenger)
+        protected ViewModelBase(IMessenger messenger)
         {
             this.messenger = messenger;
         }

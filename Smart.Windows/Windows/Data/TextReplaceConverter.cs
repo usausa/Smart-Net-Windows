@@ -8,11 +8,11 @@ namespace Smart.Windows.Data
     [ValueConversion(typeof(string), typeof(string))]
     public sealed class TextReplaceConverter : IValueConverter
     {
-        private string pattern;
+        private string pattern = string.Empty;
 
         private RegexOptions options;
 
-        private Regex regex;
+        private Regex? regex;
 
         public string Pattern
         {
@@ -34,11 +34,11 @@ namespace Smart.Windows.Data
             }
         }
 
-        public string Replacement { get; set; }
+        public string Replacement { get; set; } = string.Empty;
 
         public bool ReplaceAll { get; set; } = true;
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var str = value as string;
             if (String.IsNullOrEmpty(str))
@@ -47,10 +47,10 @@ namespace Smart.Windows.Data
             }
 
             regex ??= new Regex(pattern, options);
-            return regex.Replace(str, Replacement ?? string.Empty, ReplaceAll ? -1 : 1);
+            return regex.Replace(str, Replacement, ReplaceAll ? -1 : 1);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

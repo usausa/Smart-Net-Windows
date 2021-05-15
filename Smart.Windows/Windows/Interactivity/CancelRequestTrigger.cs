@@ -4,7 +4,7 @@ namespace Smart.Windows.Interactivity
 
     public sealed class CancelRequestTrigger : RequestTriggerBase<CancelEventArgs>
     {
-        protected override void OnEventRequest(object sender, CancelEventArgs e)
+        protected override void OnEventRequest(object? sender, CancelEventArgs e)
         {
             InvokeActions(e);
         }

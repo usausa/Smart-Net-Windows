@@ -10,7 +10,6 @@ namespace Smart.Windows
         // Property
         // ------------------------------------------------------------
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static bool IsSet(this DependencyObject obj, DependencyProperty dp)
         {
             return obj.ReadLocalValue(dp) != DependencyProperty.UnsetValue;
@@ -20,13 +19,8 @@ namespace Smart.Windows
         // Parent
         // ------------------------------------------------------------
 
-        public static DependencyObject Parent(this DependencyObject obj)
+        public static DependencyObject? Parent(this DependencyObject obj)
         {
-            if (obj is null)
-            {
-                return null;
-            }
-
             // ContentElement
             if (obj is ContentElement contentElement)
             {
@@ -57,7 +51,7 @@ namespace Smart.Windows
             return VisualTreeHelper.GetParent(obj);
         }
 
-        public static T FindParent<T>(this DependencyObject obj)
+        public static T? FindParent<T>(this DependencyObject obj)
             where T : DependencyObject
         {
             while (true)
@@ -83,11 +77,6 @@ namespace Smart.Windows
 
         public static IEnumerable<DependencyObject> Children(this DependencyObject obj)
         {
-            if (obj is null)
-            {
-                yield break;
-            }
-
             if ((obj is ContentElement) || (obj is FrameworkElement))
             {
                 foreach (var child in LogicalTreeHelper.GetChildren(obj))
@@ -110,11 +99,6 @@ namespace Smart.Windows
         public static IEnumerable<T> FindChildren<T>(this DependencyObject source)
             where T : DependencyObject
         {
-            if (source is null)
-            {
-                yield break;
-            }
-
             foreach (var child in Children(source))
             {
                 if (child is T typedChild)

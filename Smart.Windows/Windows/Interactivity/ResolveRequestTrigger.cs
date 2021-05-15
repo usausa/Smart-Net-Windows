@@ -4,7 +4,7 @@ namespace Smart.Windows.Interactivity
 
     public sealed class ResolveRequestTrigger : RequestTriggerBase<ResultEventArgs>
     {
-        protected override void OnEventRequest(object sender, ResultEventArgs e)
+        protected override void OnEventRequest(object? sender, ResultEventArgs e)
         {
             InvokeActions(e);
         }

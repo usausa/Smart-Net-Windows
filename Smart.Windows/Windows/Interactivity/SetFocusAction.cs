@@ -11,10 +11,9 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
             nameof(TargetObject),
             typeof(FrameworkElement),
-            typeof(SetFocusAction),
-            new PropertyMetadata(null));
+            typeof(SetFocusAction));
 
-        public FrameworkElement TargetObject
+        public FrameworkElement? TargetObject
         {
             get => (FrameworkElement)GetValue(TargetObjectProperty);
             set => SetValue(TargetObjectProperty, value);

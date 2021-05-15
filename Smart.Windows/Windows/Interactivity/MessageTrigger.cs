@@ -16,15 +16,15 @@ namespace Smart.Windows.Interactivity
             typeof(MessageTrigger),
             new PropertyMetadata(HandleMessengerPropertyChanged));
 
-        public IMessenger Messenger
+        public IMessenger? Messenger
         {
             get => (IMessenger)GetValue(MessengerProperty);
             set => SetValue(MessengerProperty, value);
         }
 
-        public string Label { get; set; }
+        public string? Label { get; set; }
 
-        public Type MessageType { get; set; }
+        public Type? MessageType { get; set; }
 
         protected override void OnAttached()
         {
@@ -68,7 +68,7 @@ namespace Smart.Windows.Interactivity
             }
         }
 
-        private void MessengerOnReceived(object sender, MessengerEventArgs e)
+        private void MessengerOnReceived(object? sender, MessengerEventArgs e)
         {
             if (((Label is null) || Label.Equals(e.Label, StringComparison.Ordinal)) &&
                 ((MessageType is null) || ((e.MessageType is not null) && MessageType.IsAssignableFrom(e.MessageType))))

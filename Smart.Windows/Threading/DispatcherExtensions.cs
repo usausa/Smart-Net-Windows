@@ -5,7 +5,6 @@ namespace Smart.Threading
 
     public static class DispatcherExtensions
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Extensions")]
         public static void Invoke(this DispatcherObject dispatcher, Action action)
         {
             if (action is null)
@@ -23,7 +22,6 @@ namespace Smart.Threading
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Extensions")]
         public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
         {
             if (action is null)
@@ -41,7 +39,6 @@ namespace Smart.Threading
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Extensions")]
         public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
         {
             if (action is null)

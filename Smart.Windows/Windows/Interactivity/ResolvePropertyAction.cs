@@ -1,5 +1,6 @@
 namespace Smart.Windows.Interactivity
 {
+    using System;
     using System.Reflection;
     using System.Windows;
 
@@ -13,16 +14,15 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
             nameof(TargetObject),
             typeof(object),
-            typeof(ResolvePropertyAction),
-            new PropertyMetadata(null));
+            typeof(ResolvePropertyAction));
 
         public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
             nameof(PropertyName),
             typeof(object),
             typeof(ResolvePropertyAction),
-            new PropertyMetadata(null));
+            new PropertyMetadata(string.Empty));
 
-        public object TargetObject
+        public object? TargetObject
         {
             get => GetValue(TargetObjectProperty);
             set => SetValue(TargetObjectProperty, value);
@@ -34,27 +34,30 @@ namespace Smart.Windows.Interactivity
             set => SetValue(PropertyNameProperty, value);
         }
 
-        private PropertyInfo property;
+        private PropertyInfo? cachedProperty;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         protected override void Invoke(object parameter)
         {
             var target = TargetObject ?? AssociatedObject;
             var propertyName = PropertyName;
-            if ((target is null) || (propertyName is null))
+            if (String.IsNullOrEmpty(propertyName))
             {
                 return;
             }
 
-            if ((property is null) ||
-                (property.DeclaringType != target.GetType()) ||
-                (property.Name != propertyName))
+            if ((cachedProperty is null) ||
+                (cachedProperty.DeclaringType != target.GetType()) ||
+                (cachedProperty.Name != propertyName))
             {
-                property = target.GetType().GetRuntimeProperty(propertyName);
+                cachedProperty = target.GetType().GetRuntimeProperty(propertyName);
+                if (cachedProperty is null)
+                {
+                    return;
+                }
             }
 
             var eventArgs = (ResultEventArgs)parameter;
-            eventArgs.Result = property.GetValue(target);
+            eventArgs.Result = cachedProperty.GetValue(target);
         }
     }
 }

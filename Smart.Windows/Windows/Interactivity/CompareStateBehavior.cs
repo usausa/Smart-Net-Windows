@@ -11,8 +11,7 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
             nameof(TargetObject),
             typeof(FrameworkElement),
-            typeof(CompareStateBehavior),
-            new PropertyMetadata(null));
+            typeof(CompareStateBehavior));
 
         public static readonly DependencyProperty BindingProperty = DependencyProperty.Register(
             nameof(Binding),
@@ -35,32 +34,34 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty TrueStateProperty = DependencyProperty.Register(
             nameof(TrueState),
             typeof(string),
-            typeof(CompareStateBehavior));
+            typeof(CompareStateBehavior),
+            new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty FalseStateProperty = DependencyProperty.Register(
             nameof(FalseState),
             typeof(string),
-            typeof(CompareStateBehavior));
+            typeof(CompareStateBehavior),
+            new PropertyMetadata(string.Empty));
 
-        public FrameworkElement TargetObject
+        public FrameworkElement? TargetObject
         {
             get => (FrameworkElement)GetValue(TargetObjectProperty);
             set => SetValue(TargetObjectProperty, value);
         }
 
-        public object Binding
+        public object? Binding
         {
             get => GetValue(BindingProperty);
             set => SetValue(BindingProperty, value);
         }
 
-        public object Parameter
+        public object? Parameter
         {
             get => GetValue(ParameterProperty);
             set => SetValue(ParameterProperty, value);
         }
 
-        public ICompareExpression Expression
+        public ICompareExpression? Expression
         {
             get => (ICompareExpression)GetValue(ExpressionProperty);
             set => SetValue(ExpressionProperty, value);
@@ -96,7 +97,8 @@ namespace Smart.Windows.Interactivity
                 return;
             }
 
-            var stateName = Expression.Eval(Binding, Parameter) ? TrueState : FalseState;
+            var expression = Expression ?? CompareExpressions.Equal;
+            var stateName = expression.Eval(Binding, Parameter) ? TrueState : FalseState;
             VisualStateUtilities.GoToState(target, stateName, true);
         }
     }

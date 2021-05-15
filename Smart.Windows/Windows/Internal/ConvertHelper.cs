@@ -7,8 +7,7 @@ namespace Smart.Windows.Internal
     public static class ConvertHelper
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Ignore")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
-        public static object Convert(Type targetType, object value)
+        public static object? Convert(Type targetType, object value)
         {
             if (targetType == value.GetType())
             {

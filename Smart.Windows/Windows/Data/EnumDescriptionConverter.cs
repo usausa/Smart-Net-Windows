@@ -10,7 +10,7 @@ namespace Smart.Windows.Data
     [ValueConversion(typeof(object), typeof(string))]
     public sealed class EnumDescriptionConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is null)
             {
@@ -34,7 +34,7 @@ namespace Smart.Windows.Data
             return value.ToString();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

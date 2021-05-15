@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
@@ -8,11 +9,13 @@ namespace Smart.Windows.Data
 
     public class BoolToObjectConverter<T> : IValueConverter
     {
+        [AllowNull]
         public T TrueValue { get; set; }
 
+        [AllowNull]
         public T FalseValue { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is bool boolValue)
             {
@@ -22,7 +25,7 @@ namespace Smart.Windows.Data
             return FalseValue;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (Equals(value, TrueValue))
             {

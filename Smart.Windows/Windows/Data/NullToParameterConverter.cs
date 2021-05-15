@@ -11,7 +11,7 @@ namespace Smart.Windows.Data
 
         public bool HandleEmptyString { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if ((value is null) ||
                 (HandleEmptyString && value is string { Length: 0 }))
@@ -22,7 +22,7 @@ namespace Smart.Windows.Data
             return Invert ? parameter : value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

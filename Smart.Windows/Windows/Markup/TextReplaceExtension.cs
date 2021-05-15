@@ -9,9 +9,9 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(TextReplaceConverter))]
     public sealed class TextReplaceExtension : MarkupExtension
     {
-        public string Pattern { get; set; }
+        public string Pattern { get; set; } = string.Empty;
 
-        public string Replacement { get; set; }
+        public string Replacement { get; set; } = string.Empty;
 
         public RegexOptions Options { get; set; }
 

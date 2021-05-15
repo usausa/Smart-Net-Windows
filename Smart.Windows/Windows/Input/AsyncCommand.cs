@@ -26,10 +26,10 @@ namespace Smart.Windows.Input
             this.canExecute = canExecute;
         }
 
-        bool ICommand.CanExecute(object parameter) => !executing && canExecute();
+        bool ICommand.CanExecute(object? parameter) => !executing && canExecute();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        public async void Execute(object parameter)
+        public async void Execute(object? parameter)
         {
             executing = true;
             RaiseCanExecuteChanged();
@@ -68,9 +68,9 @@ namespace Smart.Windows.Input
             this.canExecute = canExecute;
         }
 
-        bool ICommand.CanExecute(object parameter) => !executing && canExecute(Cast(parameter));
+        bool ICommand.CanExecute(object? parameter) => !executing && canExecute(Cast(parameter));
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             Execute(Cast(parameter));
         }
@@ -93,14 +93,14 @@ namespace Smart.Windows.Input
             }
         }
 
-        private static T Cast(object parameter)
+        private static T Cast(object? parameter)
         {
             if ((parameter is null) && IsValueType)
             {
-                return default;
+                return default!;
             }
 
-            return (T)parameter;
+            return (T)parameter!;
         }
     }
 }

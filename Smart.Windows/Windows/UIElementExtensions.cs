@@ -5,7 +5,7 @@ namespace Smart.Windows
 
     public static class UIElementExtensions
     {
-        public static T FindFromPoint<T>(this UIElement reference, Point point)
+        public static T? FindFromPoint<T>(this UIElement reference, Point point)
             where T : DependencyObject
         {
             if (reference is null)

@@ -12,7 +12,7 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty PropertyNameProperty =
             DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction));
 
-        private DependencyPropertyDescriptor dpd;
+        private DependencyPropertyDescriptor? dpd;
 
         public string PropertyName
         {

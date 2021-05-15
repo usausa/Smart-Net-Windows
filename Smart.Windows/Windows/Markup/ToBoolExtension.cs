@@ -8,9 +8,9 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(TextToBoolConverter))]
     public sealed class TextToBoolExtension : MarkupExtension
     {
-        public string True { get; set; }
+        public string True { get; set; } = string.Empty;
 
-        public string False { get; set; }
+        public string False { get; set; } = string.Empty;
 
         public override object ProvideValue(IServiceProvider serviceProvider) =>
             new TextToBoolConverter { TrueValue = True, FalseValue = False };

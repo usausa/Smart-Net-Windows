@@ -21,9 +21,9 @@ namespace Smart.Windows.Markup
     [MarkupExtensionReturnType(typeof(NullToTextConverter))]
     public sealed class NullToTextExtension : MarkupExtension
     {
-        public string Null { get; set; }
+        public string Null { get; set; } = string.Empty;
 
-        public string NonNull { get; set; }
+        public string NonNull { get; set; } = string.Empty;
 
         public bool HandleEmptyString { get; set; }
 

@@ -27,7 +27,7 @@ namespace Smart.Windows.Interactivity
             UnregisterHook();
         }
 
-        private void SourceInitialized(object sender, EventArgs eventArgs)
+        private void SourceInitialized(object? sender, EventArgs eventArgs)
         {
             RegisterHook();
         }

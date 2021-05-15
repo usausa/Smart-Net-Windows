@@ -18,5 +18,6 @@
     <Rule Id="SA1649" Action="Hidden" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA1062" Action="Hidden" />
   </Rules>
 </RuleSet>

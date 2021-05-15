@@ -6,7 +6,7 @@ namespace Smart.Windows.Messaging
     {
         private static readonly Type ObjectType = typeof(object);
 
-        public event EventHandler<MessengerEventArgs> Received;
+        public event EventHandler<MessengerEventArgs>? Received;
 
         public void Send(string label)
         {

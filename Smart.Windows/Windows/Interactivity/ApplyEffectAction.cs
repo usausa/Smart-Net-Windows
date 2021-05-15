@@ -11,8 +11,7 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty EffectProperty = DependencyProperty.Register(
             nameof(Effect),
             typeof(Effect),
-            typeof(ApplyEffectAction),
-            new PropertyMetadata(null));
+            typeof(ApplyEffectAction));
 
         public Effect Effect
         {

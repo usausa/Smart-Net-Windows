@@ -18,25 +18,21 @@ namespace Smart.Windows.Resolver
             typeof(DataContextResolver),
             new PropertyMetadata(true));
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static Type GetType(DependencyObject obj)
         {
             return (Type)obj.GetValue(TypeProperty);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static void SetType(DependencyObject obj, Type value)
         {
             obj.SetValue(TypeProperty, value);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static bool GetDisposeOnChanged(DependencyObject obj)
         {
             return (bool)obj.GetValue(DisposeOnChangedProperty);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:ValidateArgumentsOfPublicMethods", Justification = "Ignore")]
         public static void SetDisposeOnChanged(DependencyObject obj, bool value)
         {
             obj.SetValue(DisposeOnChangedProperty, value);

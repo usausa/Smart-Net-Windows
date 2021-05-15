@@ -5,7 +5,7 @@ namespace Smart.Windows.Messaging
 
     public sealed class CancelRequest : IEventRequest<CancelEventArgs>
     {
-        public event EventHandler<CancelEventArgs> Requested;
+        public event EventHandler<CancelEventArgs>? Requested;
 
         public bool IsCancel()
         {

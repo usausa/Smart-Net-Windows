@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
 
@@ -9,14 +10,15 @@ namespace Smart.Windows.Data
     [ValueConversion(typeof(object), typeof(object))]
     public sealed class BinaryConverter : IValueConverter
     {
+        [AllowNull]
         public IBinaryExpression Expression { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return Expression.Eval(value, parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

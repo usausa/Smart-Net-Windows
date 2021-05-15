@@ -61,7 +61,7 @@ namespace Smart.Windows.Interactivity
             }
         }
 
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (!Enabled)
             {

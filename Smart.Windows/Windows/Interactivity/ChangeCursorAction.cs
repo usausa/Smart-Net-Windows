@@ -11,8 +11,7 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty CursorProperty = DependencyProperty.Register(
             nameof(Cursor),
             typeof(Cursor),
-            typeof(ChangeCursorAction),
-            new PropertyMetadata(null));
+            typeof(ChangeCursorAction));
 
         public static readonly DependencyProperty ApplicationWideProperty = DependencyProperty.Register(
             nameof(ApplicationWide),

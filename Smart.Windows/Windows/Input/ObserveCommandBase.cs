@@ -9,15 +9,15 @@ namespace Smart.Windows.Input
     public abstract class ObserveCommandBase<T>
         where T : ObserveCommandBase<T>
     {
-        private HashSet<INotifyPropertyChanged> observeObjects;
+        private HashSet<INotifyPropertyChanged>? observeObjects;
 
-        private Dictionary<INotifyPropertyChanged, HashSet<string>> observeProperties;
+        private Dictionary<INotifyPropertyChanged, HashSet<string>>? observeProperties;
 
-        private HashSet<INotifyCollectionChanged> observeCollections;
+        private HashSet<INotifyCollectionChanged>? observeCollections;
 
-        private EventHandler canExecuteChanged;
+        private EventHandler? canExecuteChanged;
 
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
             add
             {
@@ -205,21 +205,21 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        private void HandleAllPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandleAllPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             RaiseCanExecuteChanged();
         }
 
-        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var properties = observeProperties[(INotifyPropertyChanged)sender];
-            if (properties.Contains(e.PropertyName))
+            var properties = observeProperties![(INotifyPropertyChanged)sender!];
+            if (properties.Contains(e.PropertyName!))
             {
                 RaiseCanExecuteChanged();
             }
         }
 
-        private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             RaiseCanExecuteChanged();
         }

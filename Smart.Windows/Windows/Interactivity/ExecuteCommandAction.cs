@@ -12,46 +12,42 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
             nameof(Command),
             typeof(IValueConverter),
-            typeof(ExecuteCommandAction),
-            new PropertyMetadata(null));
+            typeof(ExecuteCommandAction));
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
             nameof(CommandParameter),
             typeof(IValueConverter),
-            typeof(ExecuteCommandAction),
-            new PropertyMetadata(null));
+            typeof(ExecuteCommandAction));
 
         public static readonly DependencyProperty ConverterProperty = DependencyProperty.Register(
             nameof(Converter),
             typeof(IValueConverter),
-            typeof(ExecuteCommandAction),
-            new PropertyMetadata(null));
+            typeof(ExecuteCommandAction));
 
         public static readonly DependencyProperty ConverterParameterProperty = DependencyProperty.Register(
             nameof(ConverterParameter),
             typeof(object),
-            typeof(ExecuteCommandAction),
-            new PropertyMetadata(null));
+            typeof(ExecuteCommandAction));
 
-        public ICommand Command
+        public ICommand? Command
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
 
-        public object CommandParameter
+        public object? CommandParameter
         {
             get => GetValue(CommandParameterProperty);
             set => SetValue(CommandParameterProperty, value);
         }
 
-        public IValueConverter Converter
+        public IValueConverter? Converter
         {
             get => (IValueConverter)GetValue(ConverterProperty);
             set => SetValue(ConverterProperty, value);
         }
 
-        public object ConverterParameter
+        public object? ConverterParameter
         {
             get => GetValue(ConverterParameterProperty);
             set => SetValue(ConverterParameterProperty, value);

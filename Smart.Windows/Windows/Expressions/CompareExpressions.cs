@@ -20,7 +20,7 @@ namespace Smart.Windows.Expressions
 
         private abstract class CompareExpression : ICompareExpression
         {
-            public bool Eval(object left, object right)
+            public bool Eval(object? left, object? right)
             {
                 if ((left is IComparable comparable) && (right is not null))
                 {
@@ -40,7 +40,7 @@ namespace Smart.Windows.Expressions
 
             protected abstract bool EvalComparison(int comparison);
 
-            protected abstract bool WhenNotComparable(object left, object right);
+            protected abstract bool WhenNotComparable(object? left, object? right);
         }
 
         private sealed class EqualExpression : CompareExpression
@@ -49,7 +49,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison == 0;
 
-            protected override bool WhenNotComparable(object left, object right) => Equals(left, right);
+            protected override bool WhenNotComparable(object? left, object? right) => Equals(left, right);
         }
 
         private sealed class NotEqualExpression : CompareExpression
@@ -58,7 +58,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison != 0;
 
-            protected override bool WhenNotComparable(object left, object right) => !Equals(left, right);
+            protected override bool WhenNotComparable(object? left, object? right) => !Equals(left, right);
         }
 
         private sealed class LessThanExpression : CompareExpression
@@ -67,7 +67,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison < 0;
 
-            protected override bool WhenNotComparable(object left, object right) => false;
+            protected override bool WhenNotComparable(object? left, object? right) => false;
         }
 
         private sealed class LessThanOrEqualExpression : CompareExpression
@@ -76,7 +76,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison <= 0;
 
-            protected override bool WhenNotComparable(object left, object right) => false;
+            protected override bool WhenNotComparable(object? left, object? right) => false;
         }
 
         private sealed class GreaterThanExpression : CompareExpression
@@ -85,7 +85,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison > 0;
 
-            protected override bool WhenNotComparable(object left, object right) => false;
+            protected override bool WhenNotComparable(object? left, object? right) => false;
         }
 
         private sealed class GreaterThanOrEqualExpression : CompareExpression
@@ -94,7 +94,7 @@ namespace Smart.Windows.Expressions
 
             protected override bool EvalComparison(int comparison) => comparison >= 0;
 
-            protected override bool WhenNotComparable(object left, object right) => false;
+            protected override bool WhenNotComparable(object? left, object? right) => false;
         }
     }
 }

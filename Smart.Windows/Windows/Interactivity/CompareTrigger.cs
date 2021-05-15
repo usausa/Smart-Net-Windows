@@ -27,19 +27,19 @@ namespace Smart.Windows.Interactivity
             typeof(CompareTrigger),
             new PropertyMetadata(CompareExpressions.Equal));
 
-        public object Binding
+        public object? Binding
         {
             get => GetValue(BindingProperty);
             set => SetValue(BindingProperty, value);
         }
 
-        public object Parameter
+        public object? Parameter
         {
             get => GetValue(ParameterProperty);
             set => SetValue(ParameterProperty, value);
         }
 
-        public ICompareExpression Expression
+        public ICompareExpression? Expression
         {
             get => (ICompareExpression)GetValue(ExpressionProperty);
             set => SetValue(ExpressionProperty, value);
@@ -57,7 +57,8 @@ namespace Smart.Windows.Interactivity
 
         private void HandlePropertyChanged()
         {
-            if (Expression.Eval(Binding, Parameter))
+            var expression = Expression ?? CompareExpressions.Equal;
+            if (expression.Eval(Binding, Parameter))
             {
                 InvokeActions(null);
             }

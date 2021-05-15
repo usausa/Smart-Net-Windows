@@ -10,22 +10,20 @@ namespace Smart.Windows.Interactivity
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
             nameof(Command),
             typeof(ICommand),
-            typeof(EnterKeyToCommandBehavior),
-            new PropertyMetadata(null));
+            typeof(EnterKeyToCommandBehavior));
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
             nameof(CommandParameter),
             typeof(object),
-            typeof(EnterKeyToCommandBehavior),
-            new PropertyMetadata(null));
+            typeof(EnterKeyToCommandBehavior));
 
-        public ICommand Command
+        public ICommand? Command
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
 
-        public object CommandParameter
+        public object? CommandParameter
         {
             get => GetValue(CommandParameterProperty);
             set => SetValue(CommandParameterProperty, value);

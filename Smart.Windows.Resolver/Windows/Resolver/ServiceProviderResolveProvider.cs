@@ -11,6 +11,6 @@ namespace Smart.Windows.Resolver
             this.provider = provider;
         }
 
-        public object Resolve(Type type) => provider.GetService(type);
+        public object? Resolve(Type type) => provider.GetService(type);
     }
 }
