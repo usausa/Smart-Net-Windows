@@ -18,7 +18,7 @@ namespace Smart.Windows.Data
             return Expression.Eval(value, parameter);
         }
 
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

@@ -56,12 +56,12 @@ namespace Smart.Threading
 
         public static void AsyncInvoke(this DispatcherObject dispatcher, Action action)
         {
-            dispatcher?.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
+            dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
         }
 
         public static void AsyncInvoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
         {
-            dispatcher?.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
+            dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
         }
     }
 }
