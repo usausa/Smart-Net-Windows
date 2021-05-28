@@ -1,10 +1,7 @@
 namespace Smart.Windows.Input
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-
-    using Smart.Windows.Internal;
 
     public static class ObserverCommandExtensions
     {
