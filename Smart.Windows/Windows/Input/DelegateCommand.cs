@@ -5,7 +5,7 @@ namespace Smart.Windows.Input
 
     using Smart.Windows.Internal;
 
-    public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, ICommand
+    public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, ICommand, IDisposable
     {
         private readonly Action execute;
 
@@ -22,6 +22,8 @@ namespace Smart.Windows.Input
             this.canExecute = canExecute;
         }
 
+        public void Dispose() => RemoveObservers();
+
         void ICommand.Execute(object? parameter)
         {
             execute();
@@ -30,7 +32,7 @@ namespace Smart.Windows.Input
         bool ICommand.CanExecute(object? parameter) => canExecute();
     }
 
-    public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand
+    public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand, IDisposable
     {
         private static readonly bool IsValueType = typeof(T).IsValueType;
 
@@ -48,6 +50,8 @@ namespace Smart.Windows.Input
             this.execute = execute;
             this.canExecute = canExecute;
         }
+
+        public void Dispose() => RemoveObservers();
 
         void ICommand.Execute(object? parameter)
         {

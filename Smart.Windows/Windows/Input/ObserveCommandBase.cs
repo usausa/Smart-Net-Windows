@@ -4,6 +4,7 @@ namespace Smart.Windows.Input
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows.Input;
 
     public abstract class ObserveCommandBase<T>
@@ -32,18 +33,33 @@ namespace Smart.Windows.Input
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Ignore")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RaiseCanExecuteChanged()
         {
             canExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        private void HandleAllPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            RaiseCanExecuteChanged();
+        }
+
+        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            var properties = observeProperties![(INotifyPropertyChanged)sender!];
+            if (properties.Contains(e.PropertyName!))
+            {
+                RaiseCanExecuteChanged();
+            }
+        }
+
+        private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaiseCanExecuteChanged();
+        }
+
         public T Observe(INotifyPropertyChanged target)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
             observeObjects ??= new HashSet<INotifyPropertyChanged>();
             if (!observeObjects.Contains(target))
             {
@@ -56,16 +72,6 @@ namespace Smart.Windows.Input
 
         public T Observe(INotifyPropertyChanged target, string propertyName)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
-            if (propertyName is null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-
             observeProperties ??= new Dictionary<INotifyPropertyChanged, HashSet<string>>();
             if (!observeProperties.TryGetValue(target, out var properties))
             {
@@ -81,11 +87,6 @@ namespace Smart.Windows.Input
 
         public T ObserveCollection(INotifyCollectionChanged target)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
             observeCollections ??= new HashSet<INotifyCollectionChanged>();
             if (!observeCollections.Contains(target))
             {
@@ -96,18 +97,21 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
+        public T RemoveObserver(INotifyPropertyChanged target)
+        {
+            if (observeObjects is not null)
+            {
+                if (observeObjects.Remove(target))
+                {
+                    target.PropertyChanged -= HandleAllPropertyChanged;
+                }
+            }
+
+            return (T)this;
+        }
+
         public T RemoveObserver(INotifyPropertyChanged target, string propertyName)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
-            if (propertyName is null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-
             if (observeProperties is not null)
             {
                 if (observeProperties.TryGetValue(target, out var properties))
@@ -125,52 +129,20 @@ namespace Smart.Windows.Input
             return (T)this;
         }
 
-        public T RemoveObserver(INotifyPropertyChanged target)
-        {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
-            if (observeObjects is not null)
-            {
-                if (observeObjects.Remove(target))
-                {
-                    target.PropertyChanged -= HandleAllPropertyChanged;
-                }
-            }
-
-            if (observeProperties is not null)
-            {
-                if (observeProperties.Remove(target))
-                {
-                    target.PropertyChanged -= HandlePropertyChanged;
-                }
-            }
-
-            return (T)this;
-        }
-
         public T RemoveCollectionObserver(INotifyCollectionChanged target)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-
             if (observeCollections is not null)
             {
-                if (observeCollections.Contains(target))
+                if (observeCollections.Remove(target))
                 {
                     target.CollectionChanged -= HandleCollectionChanged;
-                    observeCollections.Remove(target);
                 }
             }
 
             return (T)this;
         }
 
-        public T RemoveObserver()
+        public T RemoveObservers()
         {
             if (observeObjects is not null)
             {
@@ -203,25 +175,6 @@ namespace Smart.Windows.Input
             }
 
             return (T)this;
-        }
-
-        private void HandleAllPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            RaiseCanExecuteChanged();
-        }
-
-        private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            var properties = observeProperties![(INotifyPropertyChanged)sender!];
-            if (properties.Contains(e.PropertyName!))
-            {
-                RaiseCanExecuteChanged();
-            }
-        }
-
-        private void HandleCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            RaiseCanExecuteChanged();
         }
     }
 }
