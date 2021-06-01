@@ -13,8 +13,6 @@ namespace Smart.Windows.Input
 
         private readonly Func<bool> canExecute;
 
-        private bool executing;
-
         public AsyncCommand(Func<Task> execute)
             : this(execute, Functions.True)
         {
@@ -28,25 +26,10 @@ namespace Smart.Windows.Input
 
         public void Dispose() => RemoveObservers();
 
-        bool ICommand.CanExecute(object? parameter) => !executing && canExecute();
+        bool ICommand.CanExecute(object? parameter) => canExecute();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        public async void Execute(object? parameter)
-        {
-            executing = true;
-            RaiseCanExecuteChanged();
-
-            try
-            {
-                var task = execute();
-                await task;
-            }
-            finally
-            {
-                executing = false;
-                RaiseCanExecuteChanged();
-            }
-        }
+        async void ICommand.Execute(object? parameter) => await execute();
     }
 
     public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand, IDisposable
@@ -56,8 +39,6 @@ namespace Smart.Windows.Input
         private readonly Func<T, Task> execute;
 
         private readonly Func<T, bool> canExecute;
-
-        private bool executing;
 
         public AsyncCommand(Func<T, Task> execute)
             : this(execute, Functions<T>.True)
@@ -72,30 +53,10 @@ namespace Smart.Windows.Input
 
         public void Dispose() => RemoveObservers();
 
-        bool ICommand.CanExecute(object? parameter) => !executing && canExecute(Cast(parameter));
-
-        public void Execute(object? parameter)
-        {
-            Execute(Cast(parameter));
-        }
+        bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        private async void Execute(T parameter)
-        {
-            executing = true;
-            RaiseCanExecuteChanged();
-
-            try
-            {
-                var task = execute(parameter);
-                await task;
-            }
-            finally
-            {
-                executing = false;
-                RaiseCanExecuteChanged();
-            }
-        }
+        async void ICommand.Execute(object? parameter) => await execute(Cast(parameter));
 
         private static T Cast(object? parameter)
         {

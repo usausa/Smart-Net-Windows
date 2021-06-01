@@ -135,11 +135,10 @@ namespace Smart.Windows.ViewModels
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:DisposeObjectsBeforeLosingScope", Justification = "Ignore")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:MarkMembersAsStatic", Justification = "Ignore")]
         protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
         {
-            return new DelegateCommand(execute, () => !BusyState.IsBusy && canExecute())
-                .Observe(BusyState, nameof(IBusyState.IsBusy))
-                .AddTo(Disposables);
+            return new(execute, canExecute);
         }
 
         protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
@@ -148,11 +147,10 @@ namespace Smart.Windows.ViewModels
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:DisposeObjectsBeforeLosingScope", Justification = "Ignore")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:MarkMembersAsStatic", Justification = "Ignore")]
         protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
         {
-            return new DelegateCommand<TParameter>(execute, x => !BusyState.IsBusy && canExecute(x))
-                .Observe(BusyState, nameof(IBusyState.IsBusy))
-                .AddTo(Disposables);
+            return new(execute, canExecute);
         }
 
         // ------------------------------------------------------------
@@ -168,16 +166,13 @@ namespace Smart.Windows.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
         {
-            return new AsyncCommand(
-                async () =>
+            return new(async () =>
+            {
+                using (BusyState.Begin())
                 {
-                    using (BusyState.Begin())
-                    {
-                        await execute();
-                    }
-                }, () => !BusyState.IsBusy && canExecute())
-                .Observe(BusyState, nameof(IBusyState.IsBusy))
-                .AddTo(Disposables);
+                    await execute();
+                }
+            }, canExecute);
         }
 
         protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
@@ -189,16 +184,13 @@ namespace Smart.Windows.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
         protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
         {
-            return new AsyncCommand<TParameter>(
-                    async parameter =>
-                    {
-                        using (BusyState.Begin())
-                        {
-                            await execute(parameter);
-                        }
-                    }, parameter => !BusyState.IsBusy && canExecute(parameter))
-                .Observe(BusyState, nameof(IBusyState.IsBusy))
-                .AddTo(Disposables);
+            return new(async parameter =>
+            {
+                using (BusyState.Begin())
+                {
+                    await execute(parameter);
+                }
+            }, canExecute);
         }
     }
 }

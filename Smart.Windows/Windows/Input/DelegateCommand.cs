@@ -24,12 +24,9 @@ namespace Smart.Windows.Input
 
         public void Dispose() => RemoveObservers();
 
-        void ICommand.Execute(object? parameter)
-        {
-            execute();
-        }
-
         bool ICommand.CanExecute(object? parameter) => canExecute();
+
+        void ICommand.Execute(object? parameter) => execute();
     }
 
     public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand, IDisposable
@@ -53,12 +50,9 @@ namespace Smart.Windows.Input
 
         public void Dispose() => RemoveObservers();
 
-        void ICommand.Execute(object? parameter)
-        {
-            execute(Cast(parameter));
-        }
-
         bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
+
+        void ICommand.Execute(object? parameter) => execute(Cast(parameter));
 
         private static T Cast(object? parameter)
         {
