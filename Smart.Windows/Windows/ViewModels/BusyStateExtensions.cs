@@ -25,7 +25,7 @@ namespace Smart.Windows.ViewModels
         {
             using (state.Begin())
             {
-                await execute().ConfigureAwait(false);
+                await execute().ConfigureAwait(true);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Smart.Windows.ViewModels
         {
             using (state.Begin())
             {
-                return await execute().ConfigureAwait(false);
+                return await execute().ConfigureAwait(true);
             }
         }
 
