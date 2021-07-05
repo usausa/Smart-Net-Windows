@@ -14,12 +14,7 @@ namespace Smart.Windows.Internal
 
         public void Dispose()
         {
-            foreach (var disposable in disposables)
-            {
-                disposable.Dispose();
-            }
-
-            disposables.Clear();
+            Clear();
         }
 
         public IEnumerator<IDisposable> GetEnumerator() => disposables.GetEnumerator();
