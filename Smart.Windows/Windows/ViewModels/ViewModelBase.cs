@@ -42,14 +42,14 @@ namespace Smart.Windows.ViewModels
         // Validation
         // ------------------------------------------------------------
 
-        public string? this[string columnName]
+        public string this[string columnName]
         {
             get
             {
                 var pi = GetType().GetProperty(columnName);
                 if (pi is null)
                 {
-                    return null;
+                    return string.Empty;
                 }
 
                 var results = new List<ValidationResult>();
@@ -58,10 +58,10 @@ namespace Smart.Windows.ViewModels
                     new ValidationContext(this, null, null) { MemberName = columnName },
                     results))
                 {
-                    return null;
+                    return string.Empty;
                 }
 
-                return results.First().ErrorMessage;
+                return results.First().ErrorMessage ?? string.Empty;
             }
         }
 
