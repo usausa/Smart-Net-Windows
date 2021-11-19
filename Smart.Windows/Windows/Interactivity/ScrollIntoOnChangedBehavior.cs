@@ -1,85 +1,84 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Collections.Specialized;
+using System.Windows;
+using System.Windows.Controls;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(ListBox))]
+public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 {
-    using System.Collections.Specialized;
-    using System.Windows;
-    using System.Windows.Controls;
+    public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
+        nameof(Enabled),
+        typeof(bool),
+        typeof(ScrollIntoOnChangedBehavior),
+        new PropertyMetadata(true));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
+        nameof(Position),
+        typeof(ScrollPosition),
+        typeof(ScrollIntoOnChangedBehavior),
+        new PropertyMetadata(ScrollPosition.Last));
 
-    [TypeConstraint(typeof(ListBox))]
-    public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
+    public bool Enabled
     {
-        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
-            nameof(Enabled),
-            typeof(bool),
-            typeof(ScrollIntoOnChangedBehavior),
-            new PropertyMetadata(true));
+        get => (bool)GetValue(EnabledProperty);
+        set => SetValue(EnabledProperty, value);
+    }
 
-        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
-            nameof(Position),
-            typeof(ScrollPosition),
-            typeof(ScrollIntoOnChangedBehavior),
-            new PropertyMetadata(ScrollPosition.Last));
+    public ScrollPosition Position
+    {
+        get => (ScrollPosition)GetValue(PositionProperty);
+        set => SetValue(PositionProperty, value);
+    }
 
-        public bool Enabled
+    protected override void OnAttached()
+    {
+        AssociatedObject.Loaded += OnLoaded;
+        AssociatedObject.Unloaded += OnUnLoaded;
+    }
+
+    protected override void OnDetaching()
+    {
+        AssociatedObject.Loaded -= OnLoaded;
+        AssociatedObject.Unloaded -= OnUnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
         {
-            get => (bool)GetValue(EnabledProperty);
-            set => SetValue(EnabledProperty, value);
+            ncc.CollectionChanged += OnCollectionChanged;
+        }
+    }
+
+    private void OnUnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
+        {
+            ncc.CollectionChanged -= OnCollectionChanged;
+        }
+    }
+
+    private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (!Enabled)
+        {
+            return;
         }
 
-        public ScrollPosition Position
+        if (e.Action == NotifyCollectionChangedAction.Add)
         {
-            get => (ScrollPosition)GetValue(PositionProperty);
-            set => SetValue(PositionProperty, value);
-        }
-
-        protected override void OnAttached()
-        {
-            AssociatedObject.Loaded += OnLoaded;
-            AssociatedObject.Unloaded += OnUnLoaded;
-        }
-
-        protected override void OnDetaching()
-        {
-            AssociatedObject.Loaded -= OnLoaded;
-            AssociatedObject.Unloaded -= OnUnLoaded;
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
-            {
-                ncc.CollectionChanged += OnCollectionChanged;
-            }
-        }
-
-        private void OnUnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
-            {
-                ncc.CollectionChanged -= OnCollectionChanged;
-            }
-        }
-
-        private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (!Enabled)
+            var count = AssociatedObject.Items.Count;
+            if (count == 0)
             {
                 return;
             }
 
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                var count = AssociatedObject.Items.Count;
-                if (count == 0)
-                {
-                    return;
-                }
-
-                AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
-                    ? AssociatedObject.Items[0]
-                    : AssociatedObject.Items[count - 1]);
-            }
+            AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
+                ? AssociatedObject.Items[0]
+                : AssociatedObject.Items[count - 1]);
         }
     }
 }

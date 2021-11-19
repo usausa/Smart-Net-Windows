@@ -1,71 +1,70 @@
-namespace Smart.Windows.Input
+namespace Smart.Windows.Input;
+
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+using Smart.Windows.Internal;
+
+public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, IDisposable
 {
-    using System;
-    using System.Reflection;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
+    private readonly Func<Task> execute;
 
-    using Smart.Windows.Internal;
+    private readonly Func<bool> canExecute;
 
-    public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, IDisposable
+    public AsyncCommand(Func<Task> execute)
+        : this(execute, Functions.True)
     {
-        private readonly Func<Task> execute;
-
-        private readonly Func<bool> canExecute;
-
-        public AsyncCommand(Func<Task> execute)
-            : this(execute, Functions.True)
-        {
-        }
-
-        public AsyncCommand(Func<Task> execute, Func<bool> canExecute)
-        {
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
-
-        public void Dispose() => RemoveObservers();
-
-        bool ICommand.CanExecute(object? parameter) => canExecute();
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        async void ICommand.Execute(object? parameter) => await execute();
     }
 
-    public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand, IDisposable
+    public AsyncCommand(Func<Task> execute, Func<bool> canExecute)
     {
-        private static readonly bool IsValueType = typeof(T).GetTypeInfo().IsValueType;
+        this.execute = execute;
+        this.canExecute = canExecute;
+    }
 
-        private readonly Func<T, Task> execute;
+    public void Dispose() => RemoveObservers();
 
-        private readonly Func<T, bool> canExecute;
+    bool ICommand.CanExecute(object? parameter) => canExecute();
 
-        public AsyncCommand(Func<T, Task> execute)
-            : this(execute, Functions<T>.True)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
+    async void ICommand.Execute(object? parameter) => await execute();
+}
+
+public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand, IDisposable
+{
+    private static readonly bool IsValueType = typeof(T).GetTypeInfo().IsValueType;
+
+    private readonly Func<T, Task> execute;
+
+    private readonly Func<T, bool> canExecute;
+
+    public AsyncCommand(Func<T, Task> execute)
+        : this(execute, Functions<T>.True)
+    {
+    }
+
+    public AsyncCommand(Func<T, Task> execute, Func<T, bool> canExecute)
+    {
+        this.execute = execute;
+        this.canExecute = canExecute;
+    }
+
+    public void Dispose() => RemoveObservers();
+
+    bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
+    async void ICommand.Execute(object? parameter) => await execute(Cast(parameter));
+
+    private static T Cast(object? parameter)
+    {
+        if ((parameter is null) && IsValueType)
         {
+            return default!;
         }
 
-        public AsyncCommand(Func<T, Task> execute, Func<T, bool> canExecute)
-        {
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
-
-        public void Dispose() => RemoveObservers();
-
-        bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-        async void ICommand.Execute(object? parameter) => await execute(Cast(parameter));
-
-        private static T Cast(object? parameter)
-        {
-            if ((parameter is null) && IsValueType)
-            {
-                return default!;
-            }
-
-            return (T)parameter!;
-        }
+        return (T)parameter!;
     }
 }

@@ -1,9 +1,8 @@
-namespace Smart.Windows.Resolver
-{
-    using System;
+namespace Smart.Windows.Resolver;
 
-    public interface IResolveProvider
-    {
-        object? Resolve(Type type);
-    }
+using System;
+
+public interface IResolveProvider
+{
+    object? Resolve(Type type);
 }

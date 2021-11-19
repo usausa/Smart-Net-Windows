@@ -1,41 +1,40 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+using System.Windows.Input;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(Window))]
+public sealed class DragMoveBehavior : Behavior<Window>
 {
-    using System.Windows;
-    using System.Windows.Input;
+    public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
+        nameof(Enabled),
+        typeof(bool),
+        typeof(DragMoveBehavior),
+        new PropertyMetadata(true));
 
-    using Microsoft.Xaml.Behaviors;
-
-    [TypeConstraint(typeof(Window))]
-    public sealed class DragMoveBehavior : Behavior<Window>
+    public bool Enabled
     {
-        public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
-            nameof(Enabled),
-            typeof(bool),
-            typeof(DragMoveBehavior),
-            new PropertyMetadata(true));
+        get => (bool)GetValue(EnabledProperty);
+        set => SetValue(EnabledProperty, value);
+    }
 
-        public bool Enabled
-        {
-            get => (bool)GetValue(EnabledProperty);
-            set => SetValue(EnabledProperty, value);
-        }
+    protected override void OnAttached()
+    {
+        AssociatedObject.MouseDown += OnMouseDown;
+    }
 
-        protected override void OnAttached()
-        {
-            AssociatedObject.MouseDown += OnMouseDown;
-        }
+    protected override void OnDetaching()
+    {
+        AssociatedObject.MouseDown -= OnMouseDown;
+    }
 
-        protected override void OnDetaching()
+    private void OnMouseDown(object sender, MouseButtonEventArgs args)
+    {
+        if (Enabled && (args.LeftButton == MouseButtonState.Pressed))
         {
-            AssociatedObject.MouseDown -= OnMouseDown;
-        }
-
-        private void OnMouseDown(object sender, MouseButtonEventArgs args)
-        {
-            if (Enabled && (args.LeftButton == MouseButtonState.Pressed))
-            {
-                AssociatedObject.DragMove();
-            }
+            AssociatedObject.DragMove();
         }
     }
 }

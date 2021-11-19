@@ -1,22 +1,21 @@
-namespace Smart.Windows.Input
+namespace Smart.Windows.Input;
+
+using System;
+using System.Windows.Input;
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Ignore")]
+public readonly struct WaitCursor : IDisposable
 {
-    using System;
-    using System.Windows.Input;
+    private readonly Cursor oldCursor;
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Ignore")]
-    public readonly struct WaitCursor : IDisposable
+    public WaitCursor(Cursor? cursor = null)
     {
-        private readonly Cursor oldCursor;
+        oldCursor = Mouse.OverrideCursor;
+        Mouse.OverrideCursor = cursor ?? Cursors.Wait;
+    }
 
-        public WaitCursor(Cursor? cursor = null)
-        {
-            oldCursor = Mouse.OverrideCursor;
-            Mouse.OverrideCursor = cursor ?? Cursors.Wait;
-        }
-
-        public void Dispose()
-        {
-            Mouse.OverrideCursor = oldCursor;
-        }
+    public void Dispose()
+    {
+        Mouse.OverrideCursor = oldCursor;
     }
 }

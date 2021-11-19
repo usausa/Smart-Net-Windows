@@ -1,66 +1,65 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+using Smart.Windows.Messaging;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Windows;
+    public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+        nameof(TargetObject),
+        typeof(object),
+        typeof(ResolveMethodAction));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
+        nameof(MethodName),
+        typeof(object),
+        typeof(ResolveMethodAction),
+        new PropertyMetadata(string.Empty));
 
-    using Smart.Windows.Messaging;
-
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
+    public object? TargetObject
     {
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
-            nameof(TargetObject),
-            typeof(object),
-            typeof(ResolveMethodAction));
+        get => GetValue(TargetObjectProperty);
+        set => SetValue(TargetObjectProperty, value);
+    }
 
-        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
-            nameof(MethodName),
-            typeof(object),
-            typeof(ResolveMethodAction),
-            new PropertyMetadata(string.Empty));
+    public string MethodName
+    {
+        get => (string)GetValue(MethodNameProperty);
+        set => SetValue(MethodNameProperty, value);
+    }
 
-        public object? TargetObject
+    private MethodInfo? cachedMethod;
+
+    protected override void Invoke(object parameter)
+    {
+        var target = TargetObject ?? AssociatedObject;
+        var methodName = MethodName;
+        if (String.IsNullOrEmpty(methodName))
         {
-            get => GetValue(TargetObjectProperty);
-            set => SetValue(TargetObjectProperty, value);
+            return;
         }
 
-        public string MethodName
+        if ((cachedMethod is null) ||
+            (cachedMethod.DeclaringType != target.GetType() ||
+             (cachedMethod.Name != methodName)))
         {
-            get => (string)GetValue(MethodNameProperty);
-            set => SetValue(MethodNameProperty, value);
-        }
-
-        private MethodInfo? cachedMethod;
-
-        protected override void Invoke(object parameter)
-        {
-            var target = TargetObject ?? AssociatedObject;
-            var methodName = MethodName;
-            if (String.IsNullOrEmpty(methodName))
+            cachedMethod = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
+                m.Name == methodName &&
+                (m.GetParameters().Length == 0));
+            if (cachedMethod is null)
             {
                 return;
             }
-
-            if ((cachedMethod is null) ||
-                (cachedMethod.DeclaringType != target.GetType() ||
-                 (cachedMethod.Name != methodName)))
-            {
-                cachedMethod = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
-                    m.Name == methodName &&
-                    (m.GetParameters().Length == 0));
-                if (cachedMethod is null)
-                {
-                    return;
-                }
-            }
-
-            var eventArgs = (ResultEventArgs)parameter;
-            eventArgs.Result = cachedMethod.Invoke(target, null);
         }
+
+        var eventArgs = (ResultEventArgs)parameter;
+        eventArgs.Result = cachedMethod.Invoke(target, null);
     }
 }

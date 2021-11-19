@@ -1,37 +1,36 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+using System.Windows.Input;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class SetFocusAction : TriggerAction<DependencyObject>
 {
-    using System.Windows;
-    using System.Windows.Input;
+    public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+        nameof(TargetObject),
+        typeof(FrameworkElement),
+        typeof(SetFocusAction));
 
-    using Microsoft.Xaml.Behaviors;
-
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class SetFocusAction : TriggerAction<DependencyObject>
+    public FrameworkElement? TargetObject
     {
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
-            nameof(TargetObject),
-            typeof(FrameworkElement),
-            typeof(SetFocusAction));
+        get => (FrameworkElement)GetValue(TargetObjectProperty);
+        set => SetValue(TargetObjectProperty, value);
+    }
 
-        public FrameworkElement? TargetObject
+    protected override void Invoke(object parameter)
+    {
+        var element = TargetObject ?? (AssociatedObject as FrameworkElement);
+        if (element is null)
         {
-            get => (FrameworkElement)GetValue(TargetObjectProperty);
-            set => SetValue(TargetObjectProperty, value);
+            return;
         }
 
-        protected override void Invoke(object parameter)
+        if (!element.Focus())
         {
-            var element = TargetObject ?? (AssociatedObject as FrameworkElement);
-            if (element is null)
-            {
-                return;
-            }
-
-            if (!element.Focus())
-            {
-                var fs = FocusManager.GetFocusScope(element);
-                FocusManager.SetFocusedElement(fs, element);
-            }
+            var fs = FocusManager.GetFocusScope(element);
+            FocusManager.SetFocusedElement(fs, element);
         }
     }
 }

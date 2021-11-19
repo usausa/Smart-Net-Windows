@@ -1,7 +1,6 @@
-namespace Smart.Windows.Expressions
+namespace Smart.Windows.Expressions;
+
+public interface ICompareExpression
 {
-    public interface ICompareExpression
-    {
-        bool Eval(object? left, object? right);
-    }
+    bool Eval(object? left, object? right);
 }

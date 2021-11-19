@@ -1,53 +1,52 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Media;
+
+using Smart.Windows.Data;
+
+[MarkupExtensionReturnType(typeof(BoolToColorConverter))]
+public sealed class BoolToTextExtension : MarkupExtension
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Markup;
-    using System.Windows.Media;
+    public string True { get; set; } = string.Empty;
 
-    using Smart.Windows.Data;
+    public string False { get; set; } = string.Empty;
 
-    [MarkupExtensionReturnType(typeof(BoolToColorConverter))]
-    public sealed class BoolToTextExtension : MarkupExtension
-    {
-        public string True { get; set; } = string.Empty;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new BoolToTextConverter { TrueValue = True, FalseValue = False };
+}
 
-        public string False { get; set; } = string.Empty;
+[MarkupExtensionReturnType(typeof(BoolToVisibilityExtension))]
+public sealed class BoolToVisibilityExtension : MarkupExtension
+{
+    public Visibility True { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new BoolToTextConverter { TrueValue = True, FalseValue = False };
-    }
+    public Visibility False { get; set; }
 
-    [MarkupExtensionReturnType(typeof(BoolToVisibilityExtension))]
-    public sealed class BoolToVisibilityExtension : MarkupExtension
-    {
-        public Visibility True { get; set; }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new BoolToVisibilityConverter { TrueValue = True, FalseValue = False };
+}
 
-        public Visibility False { get; set; }
+[MarkupExtensionReturnType(typeof(BoolToBrushExtension))]
+public sealed class BoolToBrushExtension : MarkupExtension
+{
+    public Brush True { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new BoolToVisibilityConverter { TrueValue = True, FalseValue = False };
-    }
+    public Brush False { get; set; } = Brushes.Transparent;
 
-    [MarkupExtensionReturnType(typeof(BoolToBrushExtension))]
-    public sealed class BoolToBrushExtension : MarkupExtension
-    {
-        public Brush True { get; set; } = Brushes.Transparent;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new BoolToBrushConverter { TrueValue = True, FalseValue = False };
+}
 
-        public Brush False { get; set; } = Brushes.Transparent;
+[MarkupExtensionReturnType(typeof(BoolToColorConverter))]
+public sealed class BoolToColorExtension : MarkupExtension
+{
+    public Color True { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new BoolToBrushConverter { TrueValue = True, FalseValue = False };
-    }
+    public Color False { get; set; } = Colors.Transparent;
 
-    [MarkupExtensionReturnType(typeof(BoolToColorConverter))]
-    public sealed class BoolToColorExtension : MarkupExtension
-    {
-        public Color True { get; set; } = Colors.Transparent;
-
-        public Color False { get; set; } = Colors.Transparent;
-
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new BoolToColorConverter { TrueValue = True, FalseValue = False };
-    }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new BoolToColorConverter { TrueValue = True, FalseValue = False };
 }

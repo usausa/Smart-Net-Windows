@@ -1,24 +1,23 @@
-namespace Smart.Windows.Resolver
+namespace Smart.Windows.Resolver;
+
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Windows.Markup;
+
+public sealed class ResolveExtension : MarkupExtension
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows.Markup;
+    [ConstructorArgument("type")]
+    [AllowNull]
+    public Type Type { get; set; }
 
-    public sealed class ResolveExtension : MarkupExtension
+    public ResolveExtension()
     {
-        [ConstructorArgument("type")]
-        [AllowNull]
-        public Type Type { get; set; }
-
-        public ResolveExtension()
-        {
-        }
-
-        public ResolveExtension(Type type)
-        {
-            Type = type;
-        }
-
-        public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.Resolve(Type);
     }
+
+    public ResolveExtension(Type type)
+    {
+        Type = type;
+    }
+
+    public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.Resolve(Type);
 }

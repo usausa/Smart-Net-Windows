@@ -1,36 +1,35 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+using System.Windows.Controls;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(ListBox))]
+public sealed class ScrollIntoAction : TriggerAction<ListBox>
 {
-    using System.Windows;
-    using System.Windows.Controls;
+    public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
+        nameof(Position),
+        typeof(ScrollPosition),
+        typeof(ScrollIntoAction),
+        new PropertyMetadata(ScrollPosition.Last));
 
-    using Microsoft.Xaml.Behaviors;
-
-    [TypeConstraint(typeof(ListBox))]
-    public sealed class ScrollIntoAction : TriggerAction<ListBox>
+    public ScrollPosition Position
     {
-        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
-            nameof(Position),
-            typeof(ScrollPosition),
-            typeof(ScrollIntoAction),
-            new PropertyMetadata(ScrollPosition.Last));
+        get => (ScrollPosition)GetValue(PositionProperty);
+        set => SetValue(PositionProperty, value);
+    }
 
-        public ScrollPosition Position
+    protected override void Invoke(object parameter)
+    {
+        var count = AssociatedObject.Items.Count;
+        if (count == 0)
         {
-            get => (ScrollPosition)GetValue(PositionProperty);
-            set => SetValue(PositionProperty, value);
+            return;
         }
 
-        protected override void Invoke(object parameter)
-        {
-            var count = AssociatedObject.Items.Count;
-            if (count == 0)
-            {
-                return;
-            }
-
-            AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
-                ? AssociatedObject.Items[0]
-                : AssociatedObject.Items[count - 1]);
-        }
+        AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
+            ? AssociatedObject.Items[0]
+            : AssociatedObject.Items[count - 1]);
     }
 }

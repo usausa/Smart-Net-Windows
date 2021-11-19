@@ -1,63 +1,62 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System;
+using System.Reflection;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+using Smart.Windows.Messaging;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
 {
-    using System;
-    using System.Reflection;
-    using System.Windows;
+    public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+        nameof(TargetObject),
+        typeof(object),
+        typeof(ResolvePropertyAction));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
+        nameof(PropertyName),
+        typeof(object),
+        typeof(ResolvePropertyAction),
+        new PropertyMetadata(string.Empty));
 
-    using Smart.Windows.Messaging;
-
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
+    public object? TargetObject
     {
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
-            nameof(TargetObject),
-            typeof(object),
-            typeof(ResolvePropertyAction));
+        get => GetValue(TargetObjectProperty);
+        set => SetValue(TargetObjectProperty, value);
+    }
 
-        public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
-            nameof(PropertyName),
-            typeof(object),
-            typeof(ResolvePropertyAction),
-            new PropertyMetadata(string.Empty));
+    public string PropertyName
+    {
+        get => (string)GetValue(PropertyNameProperty);
+        set => SetValue(PropertyNameProperty, value);
+    }
 
-        public object? TargetObject
+    private PropertyInfo? cachedProperty;
+
+    protected override void Invoke(object parameter)
+    {
+        var target = TargetObject ?? AssociatedObject;
+        var propertyName = PropertyName;
+        if (String.IsNullOrEmpty(propertyName))
         {
-            get => GetValue(TargetObjectProperty);
-            set => SetValue(TargetObjectProperty, value);
+            return;
         }
 
-        public string PropertyName
+        if ((cachedProperty is null) ||
+            (cachedProperty.DeclaringType != target.GetType()) ||
+            (cachedProperty.Name != propertyName))
         {
-            get => (string)GetValue(PropertyNameProperty);
-            set => SetValue(PropertyNameProperty, value);
-        }
-
-        private PropertyInfo? cachedProperty;
-
-        protected override void Invoke(object parameter)
-        {
-            var target = TargetObject ?? AssociatedObject;
-            var propertyName = PropertyName;
-            if (String.IsNullOrEmpty(propertyName))
+            cachedProperty = target.GetType().GetRuntimeProperty(propertyName);
+            if (cachedProperty is null)
             {
                 return;
             }
-
-            if ((cachedProperty is null) ||
-                (cachedProperty.DeclaringType != target.GetType()) ||
-                (cachedProperty.Name != propertyName))
-            {
-                cachedProperty = target.GetType().GetRuntimeProperty(propertyName);
-                if (cachedProperty is null)
-                {
-                    return;
-                }
-            }
-
-            var eventArgs = (ResultEventArgs)parameter;
-            eventArgs.Result = cachedProperty.GetValue(target);
         }
+
+        var eventArgs = (ResultEventArgs)parameter;
+        eventArgs.Result = cachedProperty.GetValue(target);
     }
 }

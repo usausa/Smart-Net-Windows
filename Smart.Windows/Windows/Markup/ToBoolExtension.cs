@@ -1,29 +1,28 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows.Markup;
+
+using Smart.Windows.Data;
+
+[MarkupExtensionReturnType(typeof(TextToBoolConverter))]
+public sealed class TextToBoolExtension : MarkupExtension
 {
-    using System;
-    using System.Windows.Markup;
+    public string True { get; set; } = string.Empty;
 
-    using Smart.Windows.Data;
+    public string False { get; set; } = string.Empty;
 
-    [MarkupExtensionReturnType(typeof(TextToBoolConverter))]
-    public sealed class TextToBoolExtension : MarkupExtension
-    {
-        public string True { get; set; } = string.Empty;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new TextToBoolConverter { TrueValue = True, FalseValue = False };
+}
 
-        public string False { get; set; } = string.Empty;
+[MarkupExtensionReturnType(typeof(IntToBoolConverter))]
+public sealed class IntToBoolExtension : MarkupExtension
+{
+    public int True { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new TextToBoolConverter { TrueValue = True, FalseValue = False };
-    }
+    public int False { get; set; }
 
-    [MarkupExtensionReturnType(typeof(IntToBoolConverter))]
-    public sealed class IntToBoolExtension : MarkupExtension
-    {
-        public int True { get; set; }
-
-        public int False { get; set; }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new IntToBoolConverter { TrueValue = True, FalseValue = False };
-    }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new IntToBoolConverter { TrueValue = True, FalseValue = False };
 }

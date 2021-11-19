@@ -1,23 +1,22 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Text.RegularExpressions;
+using System.Windows.Markup;
+
+using Smart.Windows.Data;
+
+[MarkupExtensionReturnType(typeof(TextReplaceConverter))]
+public sealed class TextReplaceExtension : MarkupExtension
 {
-    using System;
-    using System.Text.RegularExpressions;
-    using System.Windows.Markup;
+    public string Pattern { get; set; } = string.Empty;
 
-    using Smart.Windows.Data;
+    public string Replacement { get; set; } = string.Empty;
 
-    [MarkupExtensionReturnType(typeof(TextReplaceConverter))]
-    public sealed class TextReplaceExtension : MarkupExtension
-    {
-        public string Pattern { get; set; } = string.Empty;
+    public RegexOptions Options { get; set; }
 
-        public string Replacement { get; set; } = string.Empty;
+    public bool ReplaceAll { get; set; } = true;
 
-        public RegexOptions Options { get; set; }
-
-        public bool ReplaceAll { get; set; } = true;
-
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new TextReplaceConverter { Pattern = Pattern, Replacement = Replacement, Options = Options, ReplaceAll = ReplaceAll };
-    }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new TextReplaceConverter { Pattern = Pattern, Replacement = Replacement, Options = Options, ReplaceAll = ReplaceAll };
 }

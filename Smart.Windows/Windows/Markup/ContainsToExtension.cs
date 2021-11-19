@@ -1,62 +1,61 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Media;
+
+using Smart.Windows.Data;
+
+[MarkupExtensionReturnType(typeof(ContainsToBoolConverter))]
+public sealed class ContainsToBoolExtension : MarkupExtension
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Markup;
-    using System.Windows.Media;
+    public bool Invert { get; set; }
 
-    using Smart.Windows.Data;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new ContainsToBoolConverter { TrueValue = !Invert, FalseValue = Invert };
+}
 
-    [MarkupExtensionReturnType(typeof(ContainsToBoolConverter))]
-    public sealed class ContainsToBoolExtension : MarkupExtension
-    {
-        public bool Invert { get; set; }
+[MarkupExtensionReturnType(typeof(ContainsToTextConverter))]
+public sealed class ContainsToTextExtension : MarkupExtension
+{
+    public string True { get; set; } = string.Empty;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new ContainsToBoolConverter { TrueValue = !Invert, FalseValue = Invert };
-    }
+    public string False { get; set; } = string.Empty;
 
-    [MarkupExtensionReturnType(typeof(ContainsToTextConverter))]
-    public sealed class ContainsToTextExtension : MarkupExtension
-    {
-        public string True { get; set; } = string.Empty;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new ContainsToTextConverter { TrueValue = True, FalseValue = False };
+}
 
-        public string False { get; set; } = string.Empty;
+[MarkupExtensionReturnType(typeof(ContainsToVisibilityConverter))]
+public sealed class ContainsToVisibilityExtension : MarkupExtension
+{
+    public Visibility True { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new ContainsToTextConverter { TrueValue = True, FalseValue = False };
-    }
+    public Visibility False { get; set; }
 
-    [MarkupExtensionReturnType(typeof(ContainsToVisibilityConverter))]
-    public sealed class ContainsToVisibilityExtension : MarkupExtension
-    {
-        public Visibility True { get; set; }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new ContainsToVisibilityConverter { TrueValue = True, FalseValue = False };
+}
 
-        public Visibility False { get; set; }
+[MarkupExtensionReturnType(typeof(ContainsToBrushConverter))]
+public sealed class ContainsToBrushExtension : MarkupExtension
+{
+    public Brush True { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new ContainsToVisibilityConverter { TrueValue = True, FalseValue = False };
-    }
+    public Brush False { get; set; } = Brushes.Transparent;
 
-    [MarkupExtensionReturnType(typeof(ContainsToBrushConverter))]
-    public sealed class ContainsToBrushExtension : MarkupExtension
-    {
-        public Brush True { get; set; } = Brushes.Transparent;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new ContainsToBrushConverter { TrueValue = True, FalseValue = False };
+}
 
-        public Brush False { get; set; } = Brushes.Transparent;
+[MarkupExtensionReturnType(typeof(ContainsToColorConverter))]
+public sealed class ContainsToColorExtension : MarkupExtension
+{
+    public Color True { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new ContainsToBrushConverter { TrueValue = True, FalseValue = False };
-    }
+    public Color False { get; set; } = Colors.Transparent;
 
-    [MarkupExtensionReturnType(typeof(ContainsToColorConverter))]
-    public sealed class ContainsToColorExtension : MarkupExtension
-    {
-        public Color True { get; set; } = Colors.Transparent;
-
-        public Color False { get; set; } = Colors.Transparent;
-
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new ContainsToColorConverter { TrueValue = True, FalseValue = False };
-    }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new ContainsToColorConverter { TrueValue = True, FalseValue = False };
 }

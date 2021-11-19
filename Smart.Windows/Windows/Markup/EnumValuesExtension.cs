@@ -1,20 +1,19 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Collections;
+using System.Windows.Markup;
+
+[ContentProperty("Type")]
+[MarkupExtensionReturnType(typeof(IEnumerable))]
+public sealed class EnumValuesExtension : MarkupExtension
 {
-    using System;
-    using System.Collections;
-    using System.Windows.Markup;
+    public Type Type { get; set; }
 
-    [ContentProperty("Type")]
-    [MarkupExtensionReturnType(typeof(IEnumerable))]
-    public sealed class EnumValuesExtension : MarkupExtension
+    public EnumValuesExtension(Type type)
     {
-        public Type Type { get; set; }
-
-        public EnumValuesExtension(Type type)
-        {
-            Type = type;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) => Enum.GetValues(Type);
+        Type = type;
     }
+
+    public override object ProvideValue(IServiceProvider serviceProvider) => Enum.GetValues(Type);
 }

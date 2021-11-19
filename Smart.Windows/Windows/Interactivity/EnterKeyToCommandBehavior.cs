@@ -1,64 +1,63 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+using System.Windows.Input;
+
+using Microsoft.Xaml.Behaviors;
+
+public sealed class EnterKeyToCommandBehavior : Behavior<FrameworkElement>
 {
-    using System.Windows;
-    using System.Windows.Input;
+    public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+        nameof(Command),
+        typeof(ICommand),
+        typeof(EnterKeyToCommandBehavior));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
+        nameof(CommandParameter),
+        typeof(object),
+        typeof(EnterKeyToCommandBehavior));
 
-    public sealed class EnterKeyToCommandBehavior : Behavior<FrameworkElement>
+    public ICommand? Command
     {
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-            nameof(Command),
-            typeof(ICommand),
-            typeof(EnterKeyToCommandBehavior));
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
 
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
-            nameof(CommandParameter),
-            typeof(object),
-            typeof(EnterKeyToCommandBehavior));
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
+    }
 
-        public ICommand? Command
+    protected override void OnAttached()
+    {
+        base.OnAttached();
+
+        AssociatedObject.KeyDown += OnKeyDown;
+    }
+
+    protected override void OnDetaching()
+    {
+        AssociatedObject.KeyDown -= OnKeyDown;
+
+        base.OnDetaching();
+    }
+
+    private void OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (Command is null)
         {
-            get => (ICommand)GetValue(CommandProperty);
-            set => SetValue(CommandProperty, value);
+            return;
         }
 
-        public object? CommandParameter
+        if (e.Key == Key.Enter)
         {
-            get => GetValue(CommandParameterProperty);
-            set => SetValue(CommandParameterProperty, value);
-        }
-
-        protected override void OnAttached()
-        {
-            base.OnAttached();
-
-            AssociatedObject.KeyDown += OnKeyDown;
-        }
-
-        protected override void OnDetaching()
-        {
-            AssociatedObject.KeyDown -= OnKeyDown;
-
-            base.OnDetaching();
-        }
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (Command is null)
+            if (Command.CanExecute(CommandParameter))
             {
-                return;
+                Command.Execute(CommandParameter);
             }
 
-            if (e.Key == Key.Enter)
-            {
-                if (Command.CanExecute(CommandParameter))
-                {
-                    Command.Execute(CommandParameter);
-                }
-
-                e.Handled = true;
-            }
+            e.Handled = true;
         }
     }
 }

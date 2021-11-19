@@ -1,20 +1,19 @@
-namespace Smart.Windows.Messaging
+namespace Smart.Windows.Messaging;
+
+using System;
+
+public sealed class MessengerEventArgs : EventArgs
 {
-    using System;
+    public string Label { get; }
 
-    public sealed class MessengerEventArgs : EventArgs
+    public Type? MessageType { get; }
+
+    public object? Message { get; }
+
+    public MessengerEventArgs(string label, Type? messageType, object? message)
     {
-        public string Label { get; }
-
-        public Type? MessageType { get; }
-
-        public object? Message { get; }
-
-        public MessengerEventArgs(string label, Type? messageType, object? message)
-        {
-            Label = label;
-            MessageType = messageType;
-            Message = message;
-        }
+        Label = label;
+        MessageType = messageType;
+        Message = message;
     }
 }

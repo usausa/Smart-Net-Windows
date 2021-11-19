@@ -1,29 +1,28 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.ComponentModel;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class CancelEventAction : TriggerAction<DependencyObject>
 {
-    using System.ComponentModel;
-    using System.Windows;
+    public static readonly DependencyProperty CancelProperty = DependencyProperty.Register(
+        nameof(Cancel),
+        typeof(bool),
+        typeof(CancelEventAction),
+        new PropertyMetadata(false));
 
-    using Microsoft.Xaml.Behaviors;
-
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class CancelEventAction : TriggerAction<DependencyObject>
+    public bool Cancel
     {
-        public static readonly DependencyProperty CancelProperty = DependencyProperty.Register(
-            nameof(Cancel),
-            typeof(bool),
-            typeof(CancelEventAction),
-            new PropertyMetadata(false));
+        get => (bool)GetValue(CancelProperty);
+        set => SetValue(CancelProperty, value);
+    }
 
-        public bool Cancel
-        {
-            get => (bool)GetValue(CancelProperty);
-            set => SetValue(CancelProperty, value);
-        }
-
-        protected override void Invoke(object parameter)
-        {
-            var args = (CancelEventArgs)parameter;
-            args.Cancel = Cancel;
-        }
+    protected override void Invoke(object parameter)
+    {
+        var args = (CancelEventArgs)parameter;
+        args.Cancel = Cancel;
     }
 }

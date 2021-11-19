@@ -1,62 +1,61 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System;
+using System.ComponentModel;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(FrameworkElement))]
+public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
 {
-    using System;
-    using System.ComponentModel;
-    using System.Windows;
+    public static readonly DependencyProperty PropertyNameProperty =
+        DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction));
 
-    using Microsoft.Xaml.Behaviors;
+    private DependencyPropertyDescriptor? dpd;
 
-    [TypeConstraint(typeof(FrameworkElement))]
-    public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
+    public string PropertyName
     {
-        public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction));
+        get => (string)GetValue(PropertyNameProperty);
+        set => SetValue(PropertyNameProperty, value);
+    }
 
-        private DependencyPropertyDescriptor? dpd;
+    protected override void OnAttached()
+    {
+        base.OnAttached();
 
-        public string PropertyName
+        UpdatePropertyDescriptor();
+    }
+
+    protected override void OnDetaching()
+    {
+        dpd = null;
+
+        base.OnDetaching();
+    }
+
+    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+    {
+        UpdatePropertyDescriptor();
+    }
+
+    private void UpdatePropertyDescriptor()
+    {
+        dpd = null;
+        if ((AssociatedObject is not null) && !String.IsNullOrEmpty(PropertyName))
         {
-            get => (string)GetValue(PropertyNameProperty);
-            set => SetValue(PropertyNameProperty, value);
+            dpd = DependencyPropertyDescriptor.FromName(PropertyName, AssociatedObject.GetType(), AssociatedObject.GetType());
+        }
+    }
+
+    protected override void Invoke(object parameter)
+    {
+        if (dpd is null)
+        {
+            return;
         }
 
-        protected override void OnAttached()
-        {
-            base.OnAttached();
-
-            UpdatePropertyDescriptor();
-        }
-
-        protected override void OnDetaching()
-        {
-            dpd = null;
-
-            base.OnDetaching();
-        }
-
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            UpdatePropertyDescriptor();
-        }
-
-        private void UpdatePropertyDescriptor()
-        {
-            dpd = null;
-            if ((AssociatedObject is not null) && !String.IsNullOrEmpty(PropertyName))
-            {
-                dpd = DependencyPropertyDescriptor.FromName(PropertyName, AssociatedObject.GetType(), AssociatedObject.GetType());
-            }
-        }
-
-        protected override void Invoke(object parameter)
-        {
-            if (dpd is null)
-            {
-                return;
-            }
-
-            var binding = AssociatedObject.GetBindingExpression(dpd.DependencyProperty);
-            binding?.UpdateTarget();
-        }
+        var binding = AssociatedObject.GetBindingExpression(dpd.DependencyProperty);
+        binding?.UpdateTarget();
     }
 }

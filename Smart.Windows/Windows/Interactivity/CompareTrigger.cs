@@ -1,67 +1,66 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+using Smart.Windows.Expressions;
+
+[TypeConstraint(typeof(DependencyObject))]
+public class CompareTrigger : TriggerBase<DependencyObject>
 {
-    using System.Windows;
+    public static readonly DependencyProperty BindingProperty = DependencyProperty.Register(
+        nameof(Binding),
+        typeof(object),
+        typeof(CompareTrigger),
+        new PropertyMetadata(HandlePropertyChanged));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
+        nameof(Parameter),
+        typeof(object),
+        typeof(CompareTrigger),
+        new PropertyMetadata(HandlePropertyChanged));
 
-    using Smart.Windows.Expressions;
+    public static readonly DependencyProperty ExpressionProperty = DependencyProperty.Register(
+        nameof(Expression),
+        typeof(ICompareExpression),
+        typeof(CompareTrigger),
+        new PropertyMetadata(CompareExpressions.Equal));
 
-    [TypeConstraint(typeof(DependencyObject))]
-    public class CompareTrigger : TriggerBase<DependencyObject>
+    public object? Binding
     {
-        public static readonly DependencyProperty BindingProperty = DependencyProperty.Register(
-            nameof(Binding),
-            typeof(object),
-            typeof(CompareTrigger),
-            new PropertyMetadata(HandlePropertyChanged));
+        get => GetValue(BindingProperty);
+        set => SetValue(BindingProperty, value);
+    }
 
-        public static readonly DependencyProperty ParameterProperty = DependencyProperty.Register(
-            nameof(Parameter),
-            typeof(object),
-            typeof(CompareTrigger),
-            new PropertyMetadata(HandlePropertyChanged));
+    public object? Parameter
+    {
+        get => GetValue(ParameterProperty);
+        set => SetValue(ParameterProperty, value);
+    }
 
-        public static readonly DependencyProperty ExpressionProperty = DependencyProperty.Register(
-            nameof(Expression),
-            typeof(ICompareExpression),
-            typeof(CompareTrigger),
-            new PropertyMetadata(CompareExpressions.Equal));
+    public ICompareExpression? Expression
+    {
+        get => (ICompareExpression)GetValue(ExpressionProperty);
+        set => SetValue(ExpressionProperty, value);
+    }
 
-        public object? Binding
+    private static void HandlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.OldValue == e.NewValue)
         {
-            get => GetValue(BindingProperty);
-            set => SetValue(BindingProperty, value);
+            return;
         }
 
-        public object? Parameter
-        {
-            get => GetValue(ParameterProperty);
-            set => SetValue(ParameterProperty, value);
-        }
+        ((CompareTrigger)d).HandlePropertyChanged();
+    }
 
-        public ICompareExpression? Expression
+    private void HandlePropertyChanged()
+    {
+        var expression = Expression ?? CompareExpressions.Equal;
+        if (expression.Eval(Binding, Parameter))
         {
-            get => (ICompareExpression)GetValue(ExpressionProperty);
-            set => SetValue(ExpressionProperty, value);
-        }
-
-        private static void HandlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.OldValue == e.NewValue)
-            {
-                return;
-            }
-
-            ((CompareTrigger)d).HandlePropertyChanged();
-        }
-
-        private void HandlePropertyChanged()
-        {
-            var expression = Expression ?? CompareExpressions.Equal;
-            if (expression.Eval(Binding, Parameter))
-            {
-                InvokeActions(null);
-            }
+            InvokeActions(null);
         }
     }
 }

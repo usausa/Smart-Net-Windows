@@ -1,16 +1,15 @@
-namespace Smart.Windows.Messaging
+namespace Smart.Windows.Messaging;
+
+using System;
+
+public sealed class ResolveRequest<T> : IEventRequest<ResultEventArgs>
 {
-    using System;
+    public event EventHandler<ResultEventArgs>? Requested;
 
-    public sealed class ResolveRequest<T> : IEventRequest<ResultEventArgs>
+    public T Resolve()
     {
-        public event EventHandler<ResultEventArgs>? Requested;
-
-        public T Resolve()
-        {
-            var args = new ResultEventArgs();
-            Requested?.Invoke(this, args);
-            return (T)args.Result!;
-        }
+        var args = new ResultEventArgs();
+        Requested?.Invoke(this, args);
+        return (T)args.Result!;
     }
 }

@@ -1,17 +1,16 @@
-namespace Smart.Windows.Messaging
+namespace Smart.Windows.Messaging;
+
+using System;
+using System.ComponentModel;
+
+public sealed class CancelRequest : IEventRequest<CancelEventArgs>
 {
-    using System;
-    using System.ComponentModel;
+    public event EventHandler<CancelEventArgs>? Requested;
 
-    public sealed class CancelRequest : IEventRequest<CancelEventArgs>
+    public bool IsCancel()
     {
-        public event EventHandler<CancelEventArgs>? Requested;
-
-        public bool IsCancel()
-        {
-            var args = new CancelEventArgs();
-            Requested?.Invoke(this, args);
-            return args.Cancel;
-        }
+        var args = new CancelEventArgs();
+        Requested?.Invoke(this, args);
+        return args.Cancel;
     }
 }

@@ -1,72 +1,71 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Media;
+
+using Smart.Windows.Data;
+
+[MarkupExtensionReturnType(typeof(NullToBoolConverter))]
+public sealed class NullToBoolExtension : MarkupExtension
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Markup;
-    using System.Windows.Media;
+    public bool Invert { get; set; }
 
-    using Smart.Windows.Data;
+    public bool HandleEmptyString { get; set; }
 
-    [MarkupExtensionReturnType(typeof(NullToBoolConverter))]
-    public sealed class NullToBoolExtension : MarkupExtension
-    {
-        public bool Invert { get; set; }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new NullToBoolConverter { NullValue = !Invert, NonNullValue = Invert, HandleEmptyString = HandleEmptyString };
+}
 
-        public bool HandleEmptyString { get; set; }
+[MarkupExtensionReturnType(typeof(NullToTextConverter))]
+public sealed class NullToTextExtension : MarkupExtension
+{
+    public string Null { get; set; } = string.Empty;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new NullToBoolConverter { NullValue = !Invert, NonNullValue = Invert, HandleEmptyString = HandleEmptyString };
-    }
+    public string NonNull { get; set; } = string.Empty;
 
-    [MarkupExtensionReturnType(typeof(NullToTextConverter))]
-    public sealed class NullToTextExtension : MarkupExtension
-    {
-        public string Null { get; set; } = string.Empty;
+    public bool HandleEmptyString { get; set; }
 
-        public string NonNull { get; set; } = string.Empty;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new NullToTextConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
+}
 
-        public bool HandleEmptyString { get; set; }
+[MarkupExtensionReturnType(typeof(NullToVisibilityConverter))]
+public sealed class NullToVisibilityExtension : MarkupExtension
+{
+    public Visibility Null { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new NullToTextConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-    }
+    public Visibility NonNull { get; set; }
 
-    [MarkupExtensionReturnType(typeof(NullToVisibilityConverter))]
-    public sealed class NullToVisibilityExtension : MarkupExtension
-    {
-        public Visibility Null { get; set; }
+    public bool HandleEmptyString { get; set; }
 
-        public Visibility NonNull { get; set; }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new NullToVisibilityConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
+}
 
-        public bool HandleEmptyString { get; set; }
+[MarkupExtensionReturnType(typeof(NullToBrushConverter))]
+public sealed class NullToBrushExtension : MarkupExtension
+{
+    public Brush Null { get; set; } = Brushes.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new NullToVisibilityConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-    }
+    public Brush NonNull { get; set; } = Brushes.Transparent;
 
-    [MarkupExtensionReturnType(typeof(NullToBrushConverter))]
-    public sealed class NullToBrushExtension : MarkupExtension
-    {
-        public Brush Null { get; set; } = Brushes.Transparent;
+    public bool HandleEmptyString { get; set; }
 
-        public Brush NonNull { get; set; } = Brushes.Transparent;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new NullToBrushConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
+}
 
-        public bool HandleEmptyString { get; set; }
+[MarkupExtensionReturnType(typeof(NullToColorConverter))]
+public sealed class NullToColorExtension : MarkupExtension
+{
+    public Color Null { get; set; } = Colors.Transparent;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new NullToBrushConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-    }
+    public Color NonNull { get; set; } = Colors.Transparent;
 
-    [MarkupExtensionReturnType(typeof(NullToColorConverter))]
-    public sealed class NullToColorExtension : MarkupExtension
-    {
-        public Color Null { get; set; } = Colors.Transparent;
+    public bool HandleEmptyString { get; set; }
 
-        public Color NonNull { get; set; } = Colors.Transparent;
-
-        public bool HandleEmptyString { get; set; }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) =>
-            new NullToColorConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
-    }
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        new NullToColorConverter { NullValue = Null, NonNullValue = NonNull, HandleEmptyString = HandleEmptyString };
 }

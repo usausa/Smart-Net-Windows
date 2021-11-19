@@ -1,54 +1,53 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Reflection;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
 {
-    using System.Reflection;
-    using System.Windows;
+    public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
+        nameof(TargetObject),
+        typeof(object),
+        typeof(ClipboardSetDataAction));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
+        nameof(MethodName),
+        typeof(string),
+        typeof(ClipboardSetDataAction));
 
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
+    public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(
+        nameof(Format),
+        typeof(string),
+        typeof(ClipboardSetDataAction));
+
+    public object TargetObject
     {
-        public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
-            nameof(TargetObject),
-            typeof(object),
-            typeof(ClipboardSetDataAction));
+        get => GetValue(TargetObjectProperty);
+        set => SetValue(TargetObjectProperty, value);
+    }
 
-        public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
-            nameof(MethodName),
-            typeof(string),
-            typeof(ClipboardSetDataAction));
+    public string MethodName
+    {
+        get => (string)GetValue(MethodNameProperty);
+        set => SetValue(MethodNameProperty, value);
+    }
 
-        public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(
-            nameof(Format),
-            typeof(string),
-            typeof(ClipboardSetDataAction));
+    public string Format
+    {
+        get => (string)GetValue(FormatProperty);
+        set => SetValue(FormatProperty, value);
+    }
 
-        public object TargetObject
+    protected override void Invoke(object parameter)
+    {
+        var method = TargetObject.GetType().GetMethod(MethodName, BindingFlags.Instance | BindingFlags.Public);
+        if (method is not null)
         {
-            get => GetValue(TargetObjectProperty);
-            set => SetValue(TargetObjectProperty, value);
-        }
-
-        public string MethodName
-        {
-            get => (string)GetValue(MethodNameProperty);
-            set => SetValue(MethodNameProperty, value);
-        }
-
-        public string Format
-        {
-            get => (string)GetValue(FormatProperty);
-            set => SetValue(FormatProperty, value);
-        }
-
-        protected override void Invoke(object parameter)
-        {
-            var method = TargetObject.GetType().GetMethod(MethodName, BindingFlags.Instance | BindingFlags.Public);
-            if (method is not null)
-            {
-                var result = method.Invoke(TargetObject, null);
-                Clipboard.SetData(Format, result!);
-            }
+            var result = method.Invoke(TargetObject, null);
+            Clipboard.SetData(Format, result!);
         }
     }
 }

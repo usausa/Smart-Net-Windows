@@ -1,19 +1,18 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows.Markup;
+
+[ContentProperty("Value")]
+[MarkupExtensionReturnType(typeof(double))]
+public sealed class DoubleExtension : MarkupExtension
 {
-    using System;
-    using System.Windows.Markup;
+    public double Value { get; set; }
 
-    [ContentProperty("Value")]
-    [MarkupExtensionReturnType(typeof(double))]
-    public sealed class DoubleExtension : MarkupExtension
+    public DoubleExtension(double value)
     {
-        public double Value { get; set; }
-
-        public DoubleExtension(double value)
-        {
-            Value = value;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) => Value;
+        Value = value;
     }
+
+    public override object ProvideValue(IServiceProvider serviceProvider) => Value;
 }

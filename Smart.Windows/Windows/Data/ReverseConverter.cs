@@ -1,20 +1,19 @@
-namespace Smart.Windows.Data
+namespace Smart.Windows.Data;
+
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+[ValueConversion(typeof(bool), typeof(bool))]
+public sealed class ReverseConverter : IValueConverter
 {
-    using System;
-    using System.Globalization;
-    using System.Windows.Data;
-
-    [ValueConversion(typeof(bool), typeof(bool))]
-    public sealed class ReverseConverter : IValueConverter
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            return value is bool boolValue ? !boolValue : value;
-        }
+        return value is bool boolValue ? !boolValue : value;
+    }
 
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            return value is bool boolValue ? !boolValue : value;
-        }
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is bool boolValue ? !boolValue : value;
     }
 }

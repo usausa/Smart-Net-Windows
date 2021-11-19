@@ -1,23 +1,22 @@
-namespace Smart.Windows.Data
+namespace Smart.Windows.Data;
+
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+using Smart.Converter;
+
+public sealed class ObjectConvertConverter : IValueConverter
 {
-    using System;
-    using System.Globalization;
-    using System.Windows.Data;
+    public IObjectConverter Converter { get; set; } = ObjectConverter.Default;
 
-    using Smart.Converter;
-
-    public sealed class ObjectConvertConverter : IValueConverter
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        public IObjectConverter Converter { get; set; } = ObjectConverter.Default;
+        return Converter.Convert(value, targetType);
+    }
 
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            return Converter.Convert(value, targetType);
-        }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            return Converter.Convert(value, targetType);
-        }
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return Converter.Convert(value, targetType);
     }
 }

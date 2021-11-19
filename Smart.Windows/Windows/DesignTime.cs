@@ -1,22 +1,21 @@
-namespace Smart.Windows
+namespace Smart.Windows;
+
+using System.ComponentModel;
+using System.Windows;
+
+public static class DesignTime
 {
-    using System.ComponentModel;
-    using System.Windows;
+    private static bool? isInDesignMode;
 
-    public static class DesignTime
+    public static bool IsInDesignMode
     {
-        private static bool? isInDesignMode;
-
-        public static bool IsInDesignMode
+        get
         {
-            get
-            {
-                isInDesignMode ??= (bool)DesignerProperties
-                    .IsInDesignModeProperty
-                    .GetMetadata(typeof(DependencyObject)).DefaultValue;
+            isInDesignMode ??= (bool)DesignerProperties
+                .IsInDesignModeProperty
+                .GetMetadata(typeof(DependencyObject)).DefaultValue;
 
-                return isInDesignMode.Value;
-            }
+            return isInDesignMode.Value;
         }
     }
 }

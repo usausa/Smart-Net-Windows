@@ -1,14 +1,13 @@
-namespace Smart.Windows.Internal
+namespace Smart.Windows.Internal;
+
+using System;
+
+internal static class Functions
 {
-    using System;
+    public static Func<bool> True { get; } = () => true;
+}
 
-    internal static class Functions
-    {
-        public static Func<bool> True { get; } = () => true;
-    }
-
-    internal static class Functions<T>
-    {
-        public static Func<T, bool> True { get; } = _ => true;
-    }
+internal static class Functions<T>
+{
+    public static Func<T, bool> True { get; } = _ => true;
 }

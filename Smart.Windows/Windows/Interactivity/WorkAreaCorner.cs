@@ -1,10 +1,9 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+public enum WorkAreaCorner
 {
-    public enum WorkAreaCorner
-    {
-        TopLeft,
-        TopRight,
-        BottomLeft,
-        BottomRight
-    }
+    TopLeft,
+    TopRight,
+    BottomLeft,
+    BottomRight
 }

@@ -1,46 +1,45 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Windows;
+using System.Windows.Input;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(FrameworkElement))]
+public sealed class ChangeCursorAction : TriggerAction<FrameworkElement>
 {
-    using System.Windows;
-    using System.Windows.Input;
+    public static readonly DependencyProperty CursorProperty = DependencyProperty.Register(
+        nameof(Cursor),
+        typeof(Cursor),
+        typeof(ChangeCursorAction));
 
-    using Microsoft.Xaml.Behaviors;
+    public static readonly DependencyProperty ApplicationWideProperty = DependencyProperty.Register(
+        nameof(ApplicationWide),
+        typeof(bool),
+        typeof(ChangeCursorAction),
+        new PropertyMetadata(false));
 
-    [TypeConstraint(typeof(FrameworkElement))]
-    public sealed class ChangeCursorAction : TriggerAction<FrameworkElement>
+    public Cursor Cursor
     {
-        public static readonly DependencyProperty CursorProperty = DependencyProperty.Register(
-            nameof(Cursor),
-            typeof(Cursor),
-            typeof(ChangeCursorAction));
+        get => (Cursor)GetValue(CursorProperty);
+        set => SetValue(CursorProperty, value);
+    }
 
-        public static readonly DependencyProperty ApplicationWideProperty = DependencyProperty.Register(
-            nameof(ApplicationWide),
-            typeof(bool),
-            typeof(ChangeCursorAction),
-            new PropertyMetadata(false));
+    public bool ApplicationWide
+    {
+        get => (bool)GetValue(ApplicationWideProperty);
+        set => SetValue(ApplicationWideProperty, value);
+    }
 
-        public Cursor Cursor
+    protected override void Invoke(object parameter)
+    {
+        if (ApplicationWide)
         {
-            get => (Cursor)GetValue(CursorProperty);
-            set => SetValue(CursorProperty, value);
+            Mouse.OverrideCursor = Cursor;
         }
-
-        public bool ApplicationWide
+        else
         {
-            get => (bool)GetValue(ApplicationWideProperty);
-            set => SetValue(ApplicationWideProperty, value);
-        }
-
-        protected override void Invoke(object parameter)
-        {
-            if (ApplicationWide)
-            {
-                Mouse.OverrideCursor = Cursor;
-            }
-            else
-            {
-                AssociatedObject.Cursor = Cursor;
-            }
+            AssociatedObject.Cursor = Cursor;
         }
     }
 }

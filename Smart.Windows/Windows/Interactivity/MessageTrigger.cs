@@ -1,80 +1,79 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+using Smart.Windows.Messaging;
+
+[TypeConstraint(typeof(FrameworkElement))]
+public sealed class MessageTrigger : TriggerBase<FrameworkElement>
 {
-    using System;
-    using System.Windows;
+    public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
+        nameof(Messenger),
+        typeof(IMessenger),
+        typeof(MessageTrigger),
+        new PropertyMetadata(HandleMessengerPropertyChanged));
 
-    using Microsoft.Xaml.Behaviors;
-
-    using Smart.Windows.Messaging;
-
-    [TypeConstraint(typeof(FrameworkElement))]
-    public sealed class MessageTrigger : TriggerBase<FrameworkElement>
+    public IMessenger? Messenger
     {
-        public static readonly DependencyProperty MessengerProperty = DependencyProperty.Register(
-            nameof(Messenger),
-            typeof(IMessenger),
-            typeof(MessageTrigger),
-            new PropertyMetadata(HandleMessengerPropertyChanged));
+        get => (IMessenger)GetValue(MessengerProperty);
+        set => SetValue(MessengerProperty, value);
+    }
 
-        public IMessenger? Messenger
+    public string? Label { get; set; }
+
+    public Type? MessageType { get; set; }
+
+    protected override void OnAttached()
+    {
+        base.OnAttached();
+
+        AssociatedObject.Unloaded += OnUnloaded;
+    }
+
+    protected override void OnDetaching()
+    {
+        AssociatedObject.Unloaded -= OnUnloaded;
+
+        base.OnDetaching();
+    }
+
+    private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+    {
+        if (Messenger is not null)
         {
-            get => (IMessenger)GetValue(MessengerProperty);
-            set => SetValue(MessengerProperty, value);
+            Messenger.Received -= MessengerOnReceived;
+        }
+    }
+
+    private static void HandleMessengerPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.OldValue == e.NewValue)
+        {
+            return;
         }
 
-        public string? Label { get; set; }
+        var trigger = (MessageTrigger)obj;
 
-        public Type? MessageType { get; set; }
-
-        protected override void OnAttached()
+        if ((e.OldValue is not null) && (trigger.Messenger is not null))
         {
-            base.OnAttached();
-
-            AssociatedObject.Unloaded += OnUnloaded;
+            trigger.Messenger.Received -= trigger.MessengerOnReceived;
         }
 
-        protected override void OnDetaching()
+        if ((e.NewValue is not null) && (trigger.Messenger is not null))
         {
-            AssociatedObject.Unloaded -= OnUnloaded;
-
-            base.OnDetaching();
+            trigger.Messenger.Received += trigger.MessengerOnReceived;
         }
+    }
 
-        private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+    private void MessengerOnReceived(object? sender, MessengerEventArgs e)
+    {
+        if (((Label is null) || Label.Equals(e.Label, StringComparison.Ordinal)) &&
+            ((MessageType is null) || ((e.MessageType is not null) && MessageType.IsAssignableFrom(e.MessageType))))
         {
-            if (Messenger is not null)
-            {
-                Messenger.Received -= MessengerOnReceived;
-            }
-        }
-
-        private static void HandleMessengerPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.OldValue == e.NewValue)
-            {
-                return;
-            }
-
-            var trigger = (MessageTrigger)obj;
-
-            if ((e.OldValue is not null) && (trigger.Messenger is not null))
-            {
-                trigger.Messenger.Received -= trigger.MessengerOnReceived;
-            }
-
-            if ((e.NewValue is not null) && (trigger.Messenger is not null))
-            {
-                trigger.Messenger.Received += trigger.MessengerOnReceived;
-            }
-        }
-
-        private void MessengerOnReceived(object? sender, MessengerEventArgs e)
-        {
-            if (((Label is null) || Label.Equals(e.Label, StringComparison.Ordinal)) &&
-                ((MessageType is null) || ((e.MessageType is not null) && MessageType.IsAssignableFrom(e.MessageType))))
-            {
-                InvokeActions(e.Message);
-            }
+            InvokeActions(e.Message);
         }
     }
 }

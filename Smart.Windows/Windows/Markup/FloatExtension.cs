@@ -1,19 +1,18 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows.Markup;
+
+[ContentProperty("Value")]
+[MarkupExtensionReturnType(typeof(float))]
+public sealed class FloatExtension : MarkupExtension
 {
-    using System;
-    using System.Windows.Markup;
+    public float Value { get; set; }
 
-    [ContentProperty("Value")]
-    [MarkupExtensionReturnType(typeof(float))]
-    public sealed class FloatExtension : MarkupExtension
+    public FloatExtension(float value)
     {
-        public float Value { get; set; }
-
-        public FloatExtension(float value)
-        {
-            Value = value;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) => Value;
+        Value = value;
     }
+
+    public override object ProvideValue(IServiceProvider serviceProvider) => Value;
 }

@@ -1,66 +1,65 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Collections;
+using System.Windows;
+using System.Windows.Controls;
+
+using Microsoft.Xaml.Behaviors;
+
+public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
 {
-    using System.Collections;
-    using System.Windows;
-    using System.Windows.Controls;
+    public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
+        nameof(SelectedItem),
+        typeof(object),
+        typeof(ListBoxSingleSelectionBehavior),
+        new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    using Microsoft.Xaml.Behaviors;
-
-    public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
+    public object? SelectedItem
     {
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
-            nameof(SelectedItem),
-            typeof(object),
-            typeof(ListBoxSingleSelectionBehavior),
-            new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        get => GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
+    }
 
-        public object? SelectedItem
+    protected override void OnAttached()
+    {
+        base.OnAttached();
+
+        if (AssociatedObject is null)
         {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            return;
         }
 
-        protected override void OnAttached()
+        AssociatedObject.SelectionMode = SelectionMode.Multiple;
+        AssociatedObject.SelectionChanged += OnSelectionChanged;
+    }
+
+    protected override void OnDetaching()
+    {
+        if (AssociatedObject is not null)
         {
-            base.OnAttached();
-
-            if (AssociatedObject is null)
-            {
-                return;
-            }
-
-            AssociatedObject.SelectionMode = SelectionMode.Multiple;
-            AssociatedObject.SelectionChanged += OnSelectionChanged;
+            AssociatedObject.SelectionChanged -= OnSelectionChanged;
         }
 
-        protected override void OnDetaching()
-        {
-            if (AssociatedObject is not null)
-            {
-                AssociatedObject.SelectionChanged -= OnSelectionChanged;
-            }
+        base.OnDetaching();
+    }
 
-            base.OnDetaching();
-        }
-
-        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ListBox listBox)
         {
-            if (sender is ListBox listBox)
+            if (e.AddedItems.Count > 0)
             {
-                if (e.AddedItems.Count > 0)
+                var target = e.AddedItems[0];
+                foreach (var item in new ArrayList(listBox.SelectedItems))
                 {
-                    var target = e.AddedItems[0];
-                    foreach (var item in new ArrayList(listBox.SelectedItems))
+                    if (item != target)
                     {
-                        if (item != target)
-                        {
-                            listBox.SelectedItems.Remove(item);
-                        }
+                        listBox.SelectedItems.Remove(item);
                     }
                 }
-
-                SelectedItem = listBox.SelectedItems.Count > 0 ? listBox.SelectedItems[0] : null;
             }
+
+            SelectedItem = listBox.SelectedItems.Count > 0 ? listBox.SelectedItems[0] : null;
         }
     }
 }

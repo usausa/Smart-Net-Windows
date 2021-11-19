@@ -1,19 +1,18 @@
-namespace Smart.Windows.Markup
+namespace Smart.Windows.Markup;
+
+using System;
+using System.Windows.Markup;
+
+[ContentProperty("Value")]
+[MarkupExtensionReturnType(typeof(bool))]
+public sealed class BoolExtension : MarkupExtension
 {
-    using System;
-    using System.Windows.Markup;
+    public bool Value { get; set; }
 
-    [ContentProperty("Value")]
-    [MarkupExtensionReturnType(typeof(bool))]
-    public sealed class BoolExtension : MarkupExtension
+    public BoolExtension(bool value)
     {
-        public bool Value { get; set; }
-
-        public BoolExtension(bool value)
-        {
-            Value = value;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider) => Value;
+        Value = value;
     }
+
+    public override object ProvideValue(IServiceProvider serviceProvider) => Value;
 }

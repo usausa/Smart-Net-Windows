@@ -1,8 +1,7 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+public enum ScrollPosition
 {
-    public enum ScrollPosition
-    {
-        First,
-        Last
-    }
+    First,
+    Last
 }

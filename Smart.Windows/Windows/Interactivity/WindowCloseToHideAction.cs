@@ -1,34 +1,33 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.ComponentModel;
+using System.Windows;
+
+using Microsoft.Xaml.Behaviors;
+
+[TypeConstraint(typeof(Window))]
+public sealed class WindowCloseToHideAction : TriggerAction<Window>
 {
-    using System.ComponentModel;
-    using System.Windows;
+    public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register(
+        nameof(Closable),
+        typeof(bool),
+        typeof(WindowCloseToHideAction),
+        new PropertyMetadata(false));
 
-    using Microsoft.Xaml.Behaviors;
-
-    [TypeConstraint(typeof(Window))]
-    public sealed class WindowCloseToHideAction : TriggerAction<Window>
+    public bool Closable
     {
-        public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register(
-            nameof(Closable),
-            typeof(bool),
-            typeof(WindowCloseToHideAction),
-            new PropertyMetadata(false));
+        get => (bool)GetValue(ClosableProperty);
+        set => SetValue(ClosableProperty, value);
+    }
 
-        public bool Closable
+    protected override void Invoke(object parameter)
+    {
+        if (!Closable)
         {
-            get => (bool)GetValue(ClosableProperty);
-            set => SetValue(ClosableProperty, value);
-        }
+            var args = (CancelEventArgs)parameter;
+            args.Cancel = true;
 
-        protected override void Invoke(object parameter)
-        {
-            if (!Closable)
-            {
-                var args = (CancelEventArgs)parameter;
-                args.Cancel = true;
-
-                AssociatedObject.Hide();
-            }
+            AssociatedObject.Hide();
         }
     }
 }

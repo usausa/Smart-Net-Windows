@@ -1,7 +1,6 @@
-namespace Smart.Windows.Expressions
+namespace Smart.Windows.Expressions;
+
+public interface IBinaryExpression
 {
-    public interface IBinaryExpression
-    {
-        object? Eval(object? left, object? right);
-    }
+    object? Eval(object? left, object? right);
 }

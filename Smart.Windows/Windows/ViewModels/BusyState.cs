@@ -1,41 +1,40 @@
-namespace Smart.Windows.ViewModels
+namespace Smart.Windows.ViewModels;
+
+using Smart.ComponentModel;
+
+public class BusyState : NotificationObject, IBusyState
 {
-    using Smart.ComponentModel;
+    private int counter;
 
-    public class BusyState : NotificationObject, IBusyState
+    public bool IsBusy => counter > 0;
+
+    public void Require()
     {
-        private int counter;
-
-        public bool IsBusy => counter > 0;
-
-        public void Require()
+        var current = IsBusy;
+        counter++;
+        if (current != IsBusy)
         {
-            var current = IsBusy;
-            counter++;
-            if (current != IsBusy)
-            {
-                RaisePropertyChanged(nameof(IsBusy));
-            }
+            RaisePropertyChanged(nameof(IsBusy));
         }
+    }
 
-        public void Release()
+    public void Release()
+    {
+        var current = IsBusy;
+        counter--;
+        if (current != IsBusy)
         {
-            var current = IsBusy;
-            counter--;
-            if (current != IsBusy)
-            {
-                RaisePropertyChanged(nameof(IsBusy));
-            }
+            RaisePropertyChanged(nameof(IsBusy));
         }
+    }
 
-        public void Reset()
+    public void Reset()
+    {
+        var current = IsBusy;
+        counter = 0;
+        if (current != IsBusy)
         {
-            var current = IsBusy;
-            counter = 0;
-            if (current != IsBusy)
-            {
-                RaisePropertyChanged(nameof(IsBusy));
-            }
+            RaisePropertyChanged(nameof(IsBusy));
         }
     }
 }

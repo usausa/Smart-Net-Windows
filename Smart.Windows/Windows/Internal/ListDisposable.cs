@@ -1,48 +1,47 @@
-namespace Smart.Windows.Internal
+namespace Smart.Windows.Internal;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+internal sealed class ListDisposable : ICollection<IDisposable>, IDisposable
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
+    private readonly List<IDisposable> disposables = new();
 
-    internal sealed class ListDisposable : ICollection<IDisposable>, IDisposable
+    public int Count => disposables.Count;
+
+    public bool IsReadOnly => false;
+
+    public void Dispose()
     {
-        private readonly List<IDisposable> disposables = new();
+        Clear();
+    }
 
-        public int Count => disposables.Count;
+    public IEnumerator<IDisposable> GetEnumerator() => disposables.GetEnumerator();
 
-        public bool IsReadOnly => false;
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void Dispose()
+    public void Add(IDisposable item)
+    {
+        disposables.Add(item);
+    }
+
+    public bool Remove(IDisposable item) => disposables.Remove(item);
+
+    public void Clear()
+    {
+        foreach (var disposable in disposables)
         {
-            Clear();
+            disposable.Dispose();
         }
 
-        public IEnumerator<IDisposable> GetEnumerator() => disposables.GetEnumerator();
+        disposables.Clear();
+    }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public bool Contains(IDisposable item) => disposables.Contains(item);
 
-        public void Add(IDisposable item)
-        {
-            disposables.Add(item);
-        }
-
-        public bool Remove(IDisposable item) => disposables.Remove(item);
-
-        public void Clear()
-        {
-            foreach (var disposable in disposables)
-            {
-                disposable.Dispose();
-            }
-
-            disposables.Clear();
-        }
-
-        public bool Contains(IDisposable item) => disposables.Contains(item);
-
-        public void CopyTo(IDisposable[] array, int arrayIndex)
-        {
-            Array.Copy(disposables.ToArray(), 0, array, arrayIndex, array.Length - arrayIndex);
-        }
+    public void CopyTo(IDisposable[] array, int arrayIndex)
+    {
+        Array.Copy(disposables.ToArray(), 0, array, arrayIndex, array.Length - arrayIndex);
     }
 }

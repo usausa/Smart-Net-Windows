@@ -1,27 +1,26 @@
-namespace Smart.Windows.Interactivity
+namespace Smart.Windows.Interactivity;
+
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+
+using Microsoft.Xaml.Behaviors;
+
+using Smart.Windows.Messaging;
+
+[TypeConstraint(typeof(DependencyObject))]
+public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
 {
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
-
-    using Microsoft.Xaml.Behaviors;
-
-    using Smart.Windows.Messaging;
-
-    [TypeConstraint(typeof(DependencyObject))]
-    public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
+    protected override void Invoke(object parameter)
     {
-        protected override void Invoke(object parameter)
+        var element = AssociatedObject.FindChildren<UIElement>().FirstOrDefault(Validation.GetHasError);
+        if (element is not null)
         {
-            var element = AssociatedObject.FindChildren<UIElement>().FirstOrDefault(Validation.GetHasError);
-            if (element is not null)
-            {
-                element.Focus();
+            element.Focus();
 
-                if (parameter is CancelMessage message)
-                {
-                    message.Cancel = true;
-                }
+            if (parameter is CancelMessage message)
+            {
+                message.Cancel = true;
             }
         }
     }

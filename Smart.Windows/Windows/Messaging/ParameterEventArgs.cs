@@ -1,14 +1,13 @@
-namespace Smart.Windows.Messaging
+namespace Smart.Windows.Messaging;
+
+using System;
+
+public sealed class ParameterEventArgs : EventArgs
 {
-    using System;
+    public object? Parameter { get; }
 
-    public sealed class ParameterEventArgs : EventArgs
+    public ParameterEventArgs(object? parameter)
     {
-        public object? Parameter { get; }
-
-        public ParameterEventArgs(object? parameter)
-        {
-            Parameter = parameter;
-        }
+        Parameter = parameter;
     }
 }

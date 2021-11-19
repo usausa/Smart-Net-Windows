@@ -1,67 +1,66 @@
-namespace Smart.Threading
+namespace Smart.Threading;
+
+using System;
+using System.Windows.Threading;
+
+public static class DispatcherExtensions
 {
-    using System;
-    using System.Windows.Threading;
-
-    public static class DispatcherExtensions
+    public static void Invoke(this DispatcherObject dispatcher, Action action)
     {
-        public static void Invoke(this DispatcherObject dispatcher, Action action)
+        if (action is null)
         {
-            if (action is null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-
-            if (dispatcher.CheckAccess())
-            {
-                action();
-            }
-            else
-            {
-                dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
-            }
+            throw new ArgumentNullException(nameof(action));
         }
 
-        public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
+        if (dispatcher.CheckAccess())
         {
-            if (action is null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
+            action();
+        }
+        else
+        {
+            dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
+        }
+    }
 
-            if (dispatcher.CheckAccess())
-            {
-                action(arg);
-            }
-            else
-            {
-                dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action, arg);
-            }
+    public static void Invoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
+    {
+        if (action is null)
+        {
+            throw new ArgumentNullException(nameof(action));
         }
 
-        public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
+        if (dispatcher.CheckAccess())
         {
-            if (action is null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
+            action(arg);
+        }
+        else
+        {
+            dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action, arg);
+        }
+    }
 
-            if (dispatcher.CheckAccess())
-            {
-                return action();
-            }
-
-            return (TResult)dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
+    public static TResult Invoke<TResult>(this DispatcherObject dispatcher, Func<TResult> action)
+    {
+        if (action is null)
+        {
+            throw new ArgumentNullException(nameof(action));
         }
 
-        public static void AsyncInvoke(this DispatcherObject dispatcher, Action action)
+        if (dispatcher.CheckAccess())
         {
-            dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
+            return action();
         }
 
-        public static void AsyncInvoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
-        {
-            dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
-        }
+        return (TResult)dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
+    }
+
+    public static void AsyncInvoke(this DispatcherObject dispatcher, Action action)
+    {
+        dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
+    }
+
+    public static void AsyncInvoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
+    {
+        dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
     }
 }
