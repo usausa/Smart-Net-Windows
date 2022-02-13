@@ -1,6 +1,5 @@
 namespace Smart.Windows;
 
-using System;
 using System.Windows;
 
 public static class UIElementExtensions
