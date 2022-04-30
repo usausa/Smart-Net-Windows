@@ -9,9 +9,9 @@
 
   <PropertyGroup>
     <PackageId>Usa.Smart.Windows.Reactive</PackageId>
-    <Title>Smart.Windows.Reactive .NET</Title>
-    <Description>Smart WPF support library for .NET</Description>
-    <Summary>Smart WPF support library for .NET</Summary>
+    <Title>Smart.Windows.Reactive</Title>
+    <Description>Smart WPF support library</Description>
+    <Summary>Smart WPF support library</Summary>
     <PackageTags>smart wpf mvvm rx</PackageTags>
   </PropertyGroup>
 

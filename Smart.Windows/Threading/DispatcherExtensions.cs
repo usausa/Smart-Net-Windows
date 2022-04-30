@@ -1,6 +1,5 @@
 namespace Smart.Threading;
 
-using System;
 using System.Windows.Threading;
 
 public static class DispatcherExtensions

@@ -1,7 +1,5 @@
 namespace Smart.Windows.Expressions;
 
-using System;
-
 using Smart.Windows.Internal;
 
 public static class BinaryExpressions

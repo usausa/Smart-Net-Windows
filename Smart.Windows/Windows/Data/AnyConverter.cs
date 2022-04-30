@@ -1,8 +1,6 @@
 namespace Smart.Windows.Data;
 
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
 
 public sealed class AnyConverter : IMultiValueConverter

@@ -1,6 +1,5 @@
 namespace Smart.Windows.Resolver;
 
-using System;
 using System.ComponentModel;
 using System.Windows;
 

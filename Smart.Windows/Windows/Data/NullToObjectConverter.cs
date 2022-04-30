@@ -1,7 +1,5 @@
 namespace Smart.Windows.Data;
 
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -9,11 +7,9 @@ using System.Windows.Media;
 
 public class NullToObjectConverter<T> : IValueConverter
 {
-    [AllowNull]
-    public T NullValue { get; set; }
+    public T NullValue { get; set; } = default!;
 
-    [AllowNull]
-    public T NonNullValue { get; set; }
+    public T NonNullValue { get; set; } = default!;
 
     public bool HandleEmptyString { get; set; }
 

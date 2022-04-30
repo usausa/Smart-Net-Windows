@@ -1,6 +1,5 @@
 namespace Smart.Windows.Internal;
 
-using System;
 using System.ComponentModel;
 using System.Globalization;
 

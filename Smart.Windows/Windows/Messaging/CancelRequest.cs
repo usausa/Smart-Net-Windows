@@ -1,6 +1,5 @@
 namespace Smart.Windows.Messaging;
 
-using System;
 using System.ComponentModel;
 
 public sealed class CancelRequest : IEventRequest<CancelEventArgs>

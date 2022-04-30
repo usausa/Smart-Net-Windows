@@ -1,6 +1,5 @@
 namespace Smart.Windows.Interactivity;
 
-using System;
 using System.Reflection;
 using System.Windows;
 

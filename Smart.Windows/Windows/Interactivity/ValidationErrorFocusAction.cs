@@ -1,6 +1,5 @@
 namespace Smart.Windows.Interactivity;
 
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 

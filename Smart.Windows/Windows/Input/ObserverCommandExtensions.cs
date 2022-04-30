@@ -1,6 +1,5 @@
 namespace Smart.Windows.Input;
 
-using System.Collections.Generic;
 using System.ComponentModel;
 
 public static class ObserverCommandExtensions

@@ -1,7 +1,5 @@
 namespace Smart.Windows.Data;
 
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -13,11 +11,9 @@ public class CompareConverter<T> : IValueConverter
 {
     public ICompareExpression Expression { get; set; } = CompareExpressions.Equal;
 
-    [AllowNull]
-    public T TrueValue { get; set; }
+    public T TrueValue { get; set; } = default!;
 
-    [AllowNull]
-    public T FalseValue { get; set; }
+    public T FalseValue { get; set; } = default!;
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

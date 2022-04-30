@@ -1,8 +1,5 @@
 namespace Smart.Windows.ViewModels;
 
-using System;
-using System.Threading.Tasks;
-
 public static class BusyStateExtensions
 {
     public static void Using(this IBusyState state, Action execute)

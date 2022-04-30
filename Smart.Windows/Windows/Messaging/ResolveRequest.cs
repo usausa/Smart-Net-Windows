@@ -1,7 +1,5 @@
 namespace Smart.Windows.Messaging;
 
-using System;
-
 public sealed class ResolveRequest<T> : IEventRequest<ResultEventArgs>
 {
     public event EventHandler<ResultEventArgs>? Requested;

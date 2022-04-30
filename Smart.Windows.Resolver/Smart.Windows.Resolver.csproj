@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows;netcoreapp3.1</TargetFrameworks>
@@ -9,9 +9,9 @@
 
   <PropertyGroup>
     <PackageId>Usa.Smart.Windows.Resolver</PackageId>
-    <Title>Smart.Windows.Resolver .NET</Title>
-    <Description>Smart WPF support library resolver extensions for .NET</Description>
-    <Summary>Smart WPF support library resolver extensions for .NET</Summary>
+    <Title>Smart.Windows.Resolver</Title>
+    <Description>Smart WPF support library resolver extensions</Description>
+    <Summary>Smart WPF support library resolver extensions</Summary>
     <PackageTags>smart wpf mvvm di dependencyinjection</PackageTags>
   </PropertyGroup>
 

@@ -1,6 +1,5 @@
 namespace Smart.Windows.Markup;
 
-using System;
 using System.Collections;
 using System.Windows.Markup;
 

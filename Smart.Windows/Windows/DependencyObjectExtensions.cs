@@ -1,6 +1,5 @@
 namespace Smart.Windows;
 
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 

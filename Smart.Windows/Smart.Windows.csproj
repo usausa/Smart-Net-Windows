@@ -9,9 +9,9 @@
 
   <PropertyGroup>
     <PackageId>Usa.Smart.Windows</PackageId>
-    <Title>Smart.Windows .NET</Title>
-    <Description>Smart WPF support library for .NET</Description>
-    <Summary>Smart WPF support library for .NET</Summary>
+    <Title>Smart.Windows</Title>
+    <Description>Smart WPF support library</Description>
+    <Summary>Smart WPF support library</Summary>
     <PackageTags>smart wpf mvvm</PackageTags>
   </PropertyGroup>
 

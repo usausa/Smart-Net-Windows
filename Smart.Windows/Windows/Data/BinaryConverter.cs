@@ -1,7 +1,5 @@
 namespace Smart.Windows.Data;
 
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -10,8 +8,7 @@ using Smart.Windows.Expressions;
 [ValueConversion(typeof(object), typeof(object))]
 public sealed class BinaryConverter : IValueConverter
 {
-    [AllowNull]
-    public IBinaryExpression Expression { get; set; }
+    public IBinaryExpression Expression { get; set; } = default!;
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

@@ -1,14 +1,11 @@
 namespace Smart.Windows.Resolver;
 
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows.Markup;
 
 public sealed class ResolveExtension : MarkupExtension
 {
     [ConstructorArgument("type")]
-    [AllowNull]
-    public Type Type { get; set; }
+    public Type Type { get; set; } = default!;
 
     public ResolveExtension()
     {

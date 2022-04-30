@@ -1,7 +1,5 @@
 namespace Smart.Windows.Messaging;
 
-using System;
-
 public sealed class MessengerEventArgs : EventArgs
 {
     public string Label { get; }

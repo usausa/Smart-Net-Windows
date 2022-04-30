@@ -1,6 +1,5 @@
 namespace Smart.Windows.Input;
 
-using System;
 using System.Reactive.Linq;
 using System.Windows.Input;
 

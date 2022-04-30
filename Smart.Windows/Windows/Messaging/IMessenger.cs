@@ -1,7 +1,5 @@
 namespace Smart.Windows.Messaging;
 
-using System;
-
 public interface IMessenger
 {
     event EventHandler<MessengerEventArgs> Received;

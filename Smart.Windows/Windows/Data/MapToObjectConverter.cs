@@ -1,29 +1,22 @@
 namespace Smart.Windows.Data;
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 
 public class MapEntry<T>
 {
-    [AllowNull]
-    public object Key { get; set; }
+    public object Key { get; set; } = default!;
 
-    [AllowNull]
-    public T Value { get; set; }
+    public T Value { get; set; } = default!;
 }
 
 public class MapToObjectConverter<T> : IValueConverter
 {
     public Collection<MapEntry<T>> Entries { get; } = new(new List<MapEntry<T>>());
 
-    [AllowNull]
-    public T DefaultValue { get; set; }
+    public T DefaultValue { get; set; } = default!;
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
