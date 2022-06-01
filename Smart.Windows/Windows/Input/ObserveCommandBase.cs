@@ -44,10 +44,13 @@ public abstract class ObserveCommandBase<T>
 
     private void HandlePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        var properties = observeProperties![(INotifyPropertyChanged)sender!];
-        if (properties.Contains(e.PropertyName!))
+        if (sender is not null)
         {
-            RaiseCanExecuteChanged();
+            var properties = observeProperties![(INotifyPropertyChanged)sender];
+            if ((e.PropertyName is not null) && properties.Contains(e.PropertyName))
+            {
+                RaiseCanExecuteChanged();
+            }
         }
     }
 
