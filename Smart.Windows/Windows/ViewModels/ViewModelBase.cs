@@ -134,7 +134,10 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:MarkMembersAsStatic", Justification = "Ignore")]
     protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
     {
-        return new(execute, canExecute);
+        var command = new DelegateCommand(execute, () => !BusyState.IsBusy && canExecute());
+        command.Observe(BusyState);
+        Disposables.Add(command);
+        return command;
     }
 
     protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
@@ -146,7 +149,10 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:MarkMembersAsStatic", Justification = "Ignore")]
     protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
     {
-        return new(execute, canExecute);
+        var command = new DelegateCommand<TParameter>(execute, x => !BusyState.IsBusy && canExecute(x));
+        command.Observe(BusyState);
+        Disposables.Add(command);
+        return command;
     }
 
     // ------------------------------------------------------------
@@ -162,13 +168,16 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
     protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
     {
-        return new(async () =>
+        var command = new AsyncCommand(async () =>
         {
             using (BusyState.Begin())
             {
                 await execute();
             }
-        }, canExecute);
+        }, () => !BusyState.IsBusy && canExecute());
+        command.Observe(BusyState);
+        Disposables.Add(command);
+        return command;
     }
 
     protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
@@ -180,12 +189,15 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
     protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
     {
-        return new(async parameter =>
+        var command = new AsyncCommand<TParameter>(async parameter =>
         {
             using (BusyState.Begin())
             {
                 await execute(parameter);
             }
-        }, canExecute);
+        }, x => !BusyState.IsBusy && canExecute(x));
+        command.Observe(BusyState);
+        Disposables.Add(command);
+        return command;
     }
 }
