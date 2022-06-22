@@ -16,5 +16,5 @@ public sealed class ResolveExtension : MarkupExtension
         Type = type;
     }
 
-    public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.Resolve(Type);
+    public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.GetService(Type);
 }

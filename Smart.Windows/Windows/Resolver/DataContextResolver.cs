@@ -51,7 +51,7 @@ public static class DataContextResolver
                 disposable.Dispose();
             }
 
-            element.DataContext = e.NewValue is not null ? ResolveProvider.Default.Resolve((Type)e.NewValue) : null;
+            element.DataContext = e.NewValue is not null ? ResolveProvider.Default.GetService((Type)e.NewValue) : null;
         }
     }
 }

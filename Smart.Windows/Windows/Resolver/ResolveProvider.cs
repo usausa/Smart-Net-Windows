@@ -1,10 +1,10 @@
 namespace Smart.Windows.Resolver;
 
-public sealed class ResolveProvider : IResolveProvider
+public sealed class ResolveProvider : IServiceProvider
 {
     public static ResolveProvider Default { get; } = new();
 
-    public IResolveProvider Provider { get; set; } = DefaultResolveProvider.Default;
+    public IServiceProvider Provider { get; set; } = DefaultResolveProvider.Default;
 
-    public object? Resolve(Type type) => Provider.Resolve(type);
+    public object? GetService(Type serviceType) => Provider.GetService(serviceType);
 }

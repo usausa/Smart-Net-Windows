@@ -1,6 +1,6 @@
 namespace Smart.Windows.Resolver;
 
-public sealed class DefaultResolveProvider : IResolveProvider
+public sealed class DefaultResolveProvider : IServiceProvider
 {
     private Func<Type, object?> defaultResolver = Activator.CreateInstance;
 
@@ -15,5 +15,5 @@ public sealed class DefaultResolveProvider : IResolveProvider
         defaultResolver = resolver;
     }
 
-    public object? Resolve(Type type) => defaultResolver(type);
+    public object? GetService(Type serviceType) => defaultResolver(serviceType);
 }
