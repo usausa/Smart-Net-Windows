@@ -62,6 +62,15 @@ public sealed class MapToBrushConverter : MapToObjectConverter<Brush>
     }
 }
 
+public sealed class MapToTextEntry : MapEntry<string?>
+{
+}
+
+[ValueConversion(typeof(object), typeof(string))]
+public sealed class MapToTextConverter : MapToObjectConverter<string?>
+{
+}
+
 public sealed class MapToColorEntry : MapEntry<Color>
 {
 }

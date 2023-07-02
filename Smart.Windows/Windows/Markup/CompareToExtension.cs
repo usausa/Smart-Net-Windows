@@ -21,9 +21,9 @@ public sealed class CompareToTextExtension : MarkupExtension
 {
     public ICompareExpression? Expression { get; set; }
 
-    public string True { get; set; } = string.Empty;
+    public string? True { get; set; }
 
-    public string False { get; set; } = string.Empty;
+    public string? False { get; set; }
 
     public override object ProvideValue(IServiceProvider serviceProvider) =>
         new CompareToTextConverter { Expression = Expression ?? CompareExpressions.Equal, TrueValue = True, FalseValue = False };

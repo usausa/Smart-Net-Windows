@@ -37,7 +37,7 @@ public sealed class CompareToBoolConverter : CompareConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class CompareToTextConverter : CompareConverter<string>
+public sealed class CompareToTextConverter : CompareConverter<string?>
 {
 }
 

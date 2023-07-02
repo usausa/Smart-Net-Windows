@@ -34,7 +34,7 @@ public sealed class ContainsToBoolConverter : ContainsConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class ContainsToTextConverter : ContainsConverter<string>
+public sealed class ContainsToTextConverter : ContainsConverter<string?>
 {
 }
 

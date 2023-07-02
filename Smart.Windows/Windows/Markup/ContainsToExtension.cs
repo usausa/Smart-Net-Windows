@@ -18,9 +18,9 @@ public sealed class ContainsToBoolExtension : MarkupExtension
 [MarkupExtensionReturnType(typeof(ContainsToTextConverter))]
 public sealed class ContainsToTextExtension : MarkupExtension
 {
-    public string True { get; set; } = string.Empty;
+    public string? True { get; set; }
 
-    public string False { get; set; } = string.Empty;
+    public string? False { get; set; }
 
     public override object ProvideValue(IServiceProvider serviceProvider) =>
         new ContainsToTextConverter { TrueValue = True, FalseValue = False };

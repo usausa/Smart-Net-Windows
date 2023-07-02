@@ -21,7 +21,7 @@ public class ObjectToBoolConverter<T> : IValueConverter
 }
 
 [ValueConversion(typeof(string), typeof(bool))]
-public sealed class TextToBoolConverter : ObjectToBoolConverter<string>
+public sealed class TextToBoolConverter : ObjectToBoolConverter<string?>
 {
 }
 

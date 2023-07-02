@@ -38,7 +38,7 @@ public class BoolToObjectConverter<T> : IValueConverter
 }
 
 [ValueConversion(typeof(bool), typeof(string))]
-public sealed class BoolToTextConverter : BoolToObjectConverter<string>
+public sealed class BoolToTextConverter : BoolToObjectConverter<string?>
 {
 }
 

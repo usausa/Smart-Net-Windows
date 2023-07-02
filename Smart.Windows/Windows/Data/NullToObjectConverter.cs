@@ -41,7 +41,7 @@ public sealed class NullToBoolConverter : NullToObjectConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class NullToTextConverter : NullToObjectConverter<string>
+public sealed class NullToTextConverter : NullToObjectConverter<string?>
 {
 }
 
