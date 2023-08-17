@@ -76,9 +76,11 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
                 return;
             }
 
-            AssociatedObject.ScrollIntoView(Position == ScrollPosition.First
-                ? AssociatedObject.Items[0]
-                : AssociatedObject.Items[count - 1]);
+            var item = Position == ScrollPosition.First ? AssociatedObject.Items[0] : AssociatedObject.Items[count - 1];
+            if (item is not null)
+            {
+                AssociatedObject.ScrollIntoView(item);
+            }
         }
     }
 }
