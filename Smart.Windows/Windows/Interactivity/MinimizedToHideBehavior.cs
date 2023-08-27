@@ -41,7 +41,6 @@ public sealed class MinimizedToHideBehavior : Behavior<Window>
         (PresentationSource.FromVisual(AssociatedObject) as HwndSource)?.RemoveHook(hook);
     }
 
-    // ReSharper disable BuiltInTypeReferenceStyle
     private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
         // WM_SYSCOMMAND, SC_MINIMIZE
@@ -53,5 +52,4 @@ public sealed class MinimizedToHideBehavior : Behavior<Window>
 
         return IntPtr.Zero;
     }
-    // ReSharper restore BuiltInTypeReferenceStyle
 }
