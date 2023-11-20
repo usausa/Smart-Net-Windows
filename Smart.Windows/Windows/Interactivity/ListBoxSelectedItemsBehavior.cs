@@ -15,7 +15,7 @@ public sealed class ListBoxSelectedItemsBehavior : Behavior<ListBox>
         typeof(ListBoxSelectedItemsBehavior),
         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Ignore")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Ignore")]
     public ICollection SelectedItems
     {
         get => (ICollection)GetValue(SelectedItemsProperty);

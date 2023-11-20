@@ -5,7 +5,7 @@ using System.Globalization;
 
 public static class ConvertHelper
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Ignore")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Ignore")]
     public static object? Convert(Type targetType, object value)
     {
         if (targetType == value.GetType())
