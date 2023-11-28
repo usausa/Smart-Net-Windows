@@ -2,9 +2,10 @@ namespace Smart.Windows.Internal;
 
 using System.Collections;
 
+#pragma warning disable CA1812 // False positive
 internal sealed class ListDisposable : ICollection<IDisposable>, IDisposable
 {
-    private readonly List<IDisposable> disposables = new();
+    private readonly List<IDisposable> disposables = [];
 
     public int Count => disposables.Count;
 

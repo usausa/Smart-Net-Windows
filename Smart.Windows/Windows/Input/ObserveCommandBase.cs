@@ -61,7 +61,7 @@ public abstract class ObserveCommandBase<T>
 
     public T Observe(INotifyPropertyChanged target)
     {
-        observeObjects ??= new HashSet<INotifyPropertyChanged>();
+        observeObjects ??= [];
         if (observeObjects.Add(target))
         {
             target.PropertyChanged += HandleAllPropertyChanged;
@@ -72,10 +72,10 @@ public abstract class ObserveCommandBase<T>
 
     public T Observe(INotifyPropertyChanged target, string propertyName)
     {
-        observeProperties ??= new Dictionary<INotifyPropertyChanged, HashSet<string>>();
+        observeProperties ??= [];
         if (!observeProperties.TryGetValue(target, out var properties))
         {
-            properties = new HashSet<string>();
+            properties = [];
             observeProperties[target] = properties;
             target.PropertyChanged += HandlePropertyChanged;
         }
@@ -87,7 +87,7 @@ public abstract class ObserveCommandBase<T>
 
     public T ObserveCollection(INotifyCollectionChanged target)
     {
-        observeCollections ??= new HashSet<INotifyCollectionChanged>();
+        observeCollections ??= [];
         if (observeCollections.Add(target))
         {
             target.CollectionChanged += HandleCollectionChanged;

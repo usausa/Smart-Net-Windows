@@ -98,7 +98,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
             var argument = (methodParameter is not null) || this.IsSet(MethodNameProperty)
                 ? methodParameter
                 : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
-            cachedMethod.Invoke(target, new[] { argument });
+            cachedMethod.Invoke(target, [argument]);
         }
         else
         {

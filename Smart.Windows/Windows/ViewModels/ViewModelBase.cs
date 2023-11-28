@@ -20,7 +20,7 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
     // Disposables
     // ------------------------------------------------------------
 
-    protected ICollection<IDisposable> Disposables => disposables ??= new ListDisposable();
+    protected ICollection<IDisposable> Disposables => disposables ??= [];
 
     // ------------------------------------------------------------
     // Busy
