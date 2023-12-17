@@ -2,7 +2,7 @@ namespace Smart.Windows.Input;
 
 using System.Windows.Input;
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Ignore")]
+#pragma warning disable CA1815
 public readonly struct WaitCursor : IDisposable
 {
     private readonly Cursor oldCursor;
@@ -18,3 +18,4 @@ public readonly struct WaitCursor : IDisposable
         Mouse.OverrideCursor = oldCursor;
     }
 }
+#pragma warning restore CA1815

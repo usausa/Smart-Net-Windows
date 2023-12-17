@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-public class ContainsConverter<T> : IValueConverter
+public abstract class ContainsConverter<T> : IValueConverter
 {
     public T TrueValue { get; set; } = default!;
 

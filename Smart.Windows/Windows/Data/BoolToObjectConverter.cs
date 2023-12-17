@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-public class BoolToObjectConverter<T> : IValueConverter
+public abstract class BoolToObjectConverter<T> : IValueConverter
 {
     public T TrueValue { get; set; } = default!;
 

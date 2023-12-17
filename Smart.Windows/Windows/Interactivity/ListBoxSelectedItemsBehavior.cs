@@ -15,12 +15,13 @@ public sealed class ListBoxSelectedItemsBehavior : Behavior<ListBox>
         typeof(ListBoxSelectedItemsBehavior),
         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Ignore")]
+#pragma warning disable CA2227
     public ICollection SelectedItems
     {
         get => (ICollection)GetValue(SelectedItemsProperty);
         set => SetValue(SelectedItemsProperty, value);
     }
+#pragma warning restore CA2227
 
     protected override void OnAttached()
     {

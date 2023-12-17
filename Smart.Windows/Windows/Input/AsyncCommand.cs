@@ -26,8 +26,7 @@ public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, I
 
     bool ICommand.CanExecute(object? parameter) => canExecute();
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-    async void ICommand.Execute(object? parameter) => await execute();
+    async void ICommand.Execute(object? parameter) => await execute().ConfigureAwait(false);
 }
 
 public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand, IDisposable
@@ -53,8 +52,7 @@ public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, IComm
 
     bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:DoNotDirectlyAwaitATask", Justification = "Ignore")]
-    async void ICommand.Execute(object? parameter) => await execute(Cast(parameter));
+    async void ICommand.Execute(object? parameter) => await execute(Cast(parameter)).ConfigureAwait(false);
 
     private static T Cast(object? parameter)
     {

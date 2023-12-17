@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-public class NullToObjectConverter<T> : IValueConverter
+public abstract class NullToObjectConverter<T> : IValueConverter
 {
     public T NullValue { get; set; } = default!;
 

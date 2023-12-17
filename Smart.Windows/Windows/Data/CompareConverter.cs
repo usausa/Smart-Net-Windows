@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 using Smart.Windows.Expressions;
 
-public class CompareConverter<T> : IValueConverter
+public abstract class CompareConverter<T> : IValueConverter
 {
     public ICompareExpression Expression { get; set; } = CompareExpressions.Equal;
 

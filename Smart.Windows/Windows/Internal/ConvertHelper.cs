@@ -5,7 +5,6 @@ using System.Globalization;
 
 public static class ConvertHelper
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Ignore")]
     public static object? Convert(Type targetType, object value)
     {
         if (targetType == value.GetType())
@@ -22,6 +21,7 @@ public static class ConvertHelper
             }
         }
 
+#pragma warning disable CA1031
         try
         {
             return System.Convert.ChangeType(value, targetType, CultureInfo.CurrentCulture);
@@ -31,4 +31,5 @@ public static class ConvertHelper
             return null;
         }
     }
+#pragma warning restore CA1031
 }

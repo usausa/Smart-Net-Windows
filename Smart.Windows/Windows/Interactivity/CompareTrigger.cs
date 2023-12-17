@@ -7,7 +7,7 @@ using Microsoft.Xaml.Behaviors;
 using Smart.Windows.Expressions;
 
 [TypeConstraint(typeof(DependencyObject))]
-public class CompareTrigger : TriggerBase<DependencyObject>
+public sealed class CompareTrigger : TriggerBase<DependencyObject>
 {
     public static readonly DependencyProperty BindingProperty = DependencyProperty.Register(
         nameof(Binding),

@@ -69,6 +69,5 @@ public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElem
         OnEventRequest(sender, e);
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA2109:ReviewVisibleEventHandlers", Justification = "Ignore")]
     protected abstract void OnEventRequest(object? sender, TEventArgs e);
 }

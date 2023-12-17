@@ -3,7 +3,7 @@ namespace Smart.Windows.Data;
 using System.Globalization;
 using System.Windows.Data;
 
-public class ObjectToBoolConverter<T> : IValueConverter
+public abstract class ObjectToBoolConverter<T> : IValueConverter
 {
     public T TrueValue { get; set; } = default!;
 
