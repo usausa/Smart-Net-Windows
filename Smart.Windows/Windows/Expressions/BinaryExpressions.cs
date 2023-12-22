@@ -69,7 +69,7 @@ public static class BinaryExpressions
                     return null;
                 }
 
-                return mi.Invoke(null, new[] { left, convertedValue });
+                return mi.Invoke(null, [left, convertedValue]);
             }
             else
             {
