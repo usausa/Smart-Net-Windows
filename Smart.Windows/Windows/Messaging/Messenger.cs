@@ -2,13 +2,11 @@ namespace Smart.Windows.Messaging;
 
 public sealed class Messenger : IMessenger
 {
-    private static readonly Type ObjectType = typeof(object);
-
     public event EventHandler<MessengerEventArgs>? Received;
 
     public void Send(string label)
     {
-        Received?.Invoke(this, new MessengerEventArgs(label, ObjectType, null));
+        Received?.Invoke(this, new MessengerEventArgs(label, typeof(object), null));
     }
 
     public void Send<T>(T message)
