@@ -14,7 +14,7 @@ public abstract class MapEntry<T>
 
 public abstract class MapToObjectConverter<T> : IValueConverter
 {
-    public Collection<MapEntry<T>> Entries { get; } = new(new List<MapEntry<T>>());
+    public Collection<MapEntry<T>> Entries { get; } = new([]);
 
     public T DefaultValue { get; set; } = default!;
 
