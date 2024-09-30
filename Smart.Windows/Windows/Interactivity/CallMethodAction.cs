@@ -77,8 +77,8 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
         }
 
         if ((cachedMethod is null) ||
-            (cachedMethod.DeclaringType != target.GetType() ||
-             (cachedMethod.Name != methodName)))
+            (cachedMethod.DeclaringType != target.GetType()) ||
+            (cachedMethod.Name != methodName))
         {
             cachedMethod = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
                 m.Name == methodName &&
