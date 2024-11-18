@@ -8,6 +8,8 @@ using Smart.Windows.Input;
 using Smart.Windows.Internal;
 using Smart.Windows.Messaging;
 
+#pragma warning disable IDE0032
+// ReSharper disable ReplaceWithFieldKeyword
 public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDisposable
 {
     private ListDisposable? disposables;

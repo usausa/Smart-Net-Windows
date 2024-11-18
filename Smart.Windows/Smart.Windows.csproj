@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <CodeAnalysisRuleSet>..\Smart.Windows.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
     <RootNamespace>Smart</RootNamespace>
   </PropertyGroup>
 
@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="Usa.Smart.Converter" Version="2.3.0" />
-    <PackageReference Include="Usa.Smart.Core" Version="2.3.8" />
+    <PackageReference Include="Usa.Smart.Converter" Version="2.4.0" />
+    <PackageReference Include="Usa.Smart.Core" Version="2.4.0" />
   </ItemGroup>
 
 </Project>

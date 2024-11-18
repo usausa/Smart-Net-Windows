@@ -16,9 +16,8 @@
 
 | Package | Note  |
 |-|-|
-| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows)](https://www.nuget.org/packages/Usa.Smart.Windows/) | Core libyrary |
-| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows.Reactive)](https://www.nuget.org/packages/Usa.Smart.Windows.Reactive/) | Reactive helpers |
-| [![NuGet Badge](https://buildstats.info/nuget/Usa.Smart.Windows.Resolver)](https://www.nuget.org/packages/Usa.Smart.Windows.Resolver/) | Smart.Resolver integration |
+| [![NuGet Badge](https://img.shields.io/nuget/v/Usa.Smart.Windows.svg)](https://www.nuget.org/packages/Usa.Smart.Windows/) | Core libyrary |
+| [![NuGet Badge](https://img.shields.io/nuget/v/Usa.Smart.Windows.Reactive.svg)](https://www.nuget.org/packages/Usa.Smart.Windows.Reactive/) | Reactive helpers |
 
 ## Link
 
