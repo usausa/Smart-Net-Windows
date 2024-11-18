@@ -26,6 +26,7 @@ public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, I
 
     bool ICommand.CanExecute(object? parameter) => canExecute();
 
+    // ReSharper disable once AsyncVoidMethod
     async void ICommand.Execute(object? parameter) => await execute().ConfigureAwait(false);
 }
 
@@ -52,6 +53,7 @@ public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, IComm
 
     bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
+    // ReSharper disable once AsyncVoidMethod
     async void ICommand.Execute(object? parameter) => await execute(Cast(parameter)).ConfigureAwait(false);
 
     private static T Cast(object? parameter)

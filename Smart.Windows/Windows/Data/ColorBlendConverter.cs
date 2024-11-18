@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
+#pragma warning disable IDE0032
 [ValueConversion(typeof(Color), typeof(Color))]
 public sealed class ColorBlendConverter : IValueConverter
 {

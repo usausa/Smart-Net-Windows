@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 
+#pragma warning disable IDE0032
 [ValueConversion(typeof(string), typeof(string))]
 public sealed class TextReplaceConverter : IValueConverter
 {
