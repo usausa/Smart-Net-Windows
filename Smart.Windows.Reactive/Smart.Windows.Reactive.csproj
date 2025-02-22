@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFrameworks>net9.0-windows;net8.0-windows</TargetFrameworks>
@@ -17,7 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />
-    <PackageReference Include="Usa.Smart.Core" Version="2.4.0" />
+    <PackageReference Include="Usa.Smart.Core" Version="2.4.1" />
     <PackageReference Include="Usa.Smart.Reactive" Version="2.4.0" />
   </ItemGroup>
 
