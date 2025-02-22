@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+#pragma warning disable CA1812
 internal sealed class ApplicationHostingService<TApp> : BackgroundService
     where TApp : Application
 {
@@ -34,3 +35,4 @@ internal sealed class ApplicationHostingService<TApp> : BackgroundService
         return tcs.Task;
     }
 }
+#pragma warning restore CA1812
