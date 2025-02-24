@@ -168,7 +168,7 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
         {
             using (BusyState.Begin())
             {
-                await execute().ConfigureAwait(false);
+                await execute().ConfigureAwait(true);
             }
         }, () => !BusyState.IsBusy && canExecute());
         command.Observe(BusyState);
@@ -187,7 +187,7 @@ public abstract class ViewModelBase : NotificationObject, IDataErrorInfo, IDispo
         {
             using (BusyState.Begin())
             {
-                await execute(parameter).ConfigureAwait(false);
+                await execute(parameter).ConfigureAwait(true);
             }
         }, x => !BusyState.IsBusy && canExecute(x));
         command.Observe(BusyState);
