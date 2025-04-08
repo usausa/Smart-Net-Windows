@@ -8,15 +8,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Usa.Smart.Windows</PackageId>
-    <Title>Smart.Windows</Title>
+    <PackageId>Usa.Smart.Windows.Behaviors</PackageId>
+    <Title>Smart.Windows.Behaviors</Title>
     <Description>Smart WPF support library</Description>
     <PackageTags>smart wpf mvvm</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Usa.Smart.Converter" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Usa.Smart.Core" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Smart.Windows\Smart.Windows.csproj" />
   </ItemGroup>
 
 </Project>
