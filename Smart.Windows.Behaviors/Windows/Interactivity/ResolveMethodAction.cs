@@ -57,7 +57,7 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
             }
         }
 
-        var eventArgs = (ResultEventArgs)parameter;
+        var eventArgs = (ResolveEventArgs)parameter;
         eventArgs.Result = cachedMethod.Invoke(target, null);
     }
 }

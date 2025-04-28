@@ -55,7 +55,7 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
             }
         }
 
-        var eventArgs = (ResultEventArgs)parameter;
+        var eventArgs = (ResolveEventArgs)parameter;
         eventArgs.Result = cachedProperty.GetValue(target);
     }
 }
