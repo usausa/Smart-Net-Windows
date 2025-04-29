@@ -1,7 +1,10 @@
 namespace Smart.Windows.Messaging;
 
+using System.ComponentModel;
+
 public sealed class Messenger : IMessenger
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public event EventHandler<MessengerEventArgs>? Received;
 
     public void Send(string label)

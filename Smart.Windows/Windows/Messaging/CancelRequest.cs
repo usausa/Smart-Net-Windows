@@ -4,6 +4,7 @@ using System.ComponentModel;
 
 public sealed class CancelRequest : IEventRequest<CancelEventArgs>
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public event EventHandler<CancelEventArgs>? Requested;
 
     public bool IsCancel()
