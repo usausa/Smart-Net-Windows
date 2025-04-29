@@ -56,14 +56,14 @@ public sealed class MessageTrigger : TriggerBase<FrameworkElement>
 
         var trigger = (MessageTrigger)obj;
 
-        if ((e.OldValue is not null) && (trigger.Messenger is not null))
+        if (e.OldValue is Messenger oldMessenger)
         {
-            trigger.Messenger.Received -= trigger.MessengerOnReceived;
+            oldMessenger.Received -= trigger.MessengerOnReceived;
         }
 
-        if ((e.NewValue is not null) && (trigger.Messenger is not null))
+        if (e.NewValue is Messenger newMessenger)
         {
-            trigger.Messenger.Received += trigger.MessengerOnReceived;
+            newMessenger.Received += trigger.MessengerOnReceived;
         }
     }
 
