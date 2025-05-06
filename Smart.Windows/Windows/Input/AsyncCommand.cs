@@ -3,8 +3,6 @@ namespace Smart.Windows.Input;
 using System.Reflection;
 using System.Windows.Input;
 
-using Smart.Windows.Internal;
-
 public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, IDisposable
 {
     private readonly Func<Task> execute;

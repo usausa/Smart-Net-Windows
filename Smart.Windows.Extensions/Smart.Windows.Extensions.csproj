@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net8.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <CodeAnalysisRuleSet>..\Analyzers.ruleset</CodeAnalysisRuleSet>
+    <RootNamespace>Smart</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Usa.Smart.Windows.Extensions</PackageId>
+    <Title>Smart.Windows.Extensions</Title>
+    <Description>Smart WPF support library</Description>
+    <PackageTags>smart wpf mvvm rx reactive</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Smart.Windows\Smart.Windows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="System.Reactive" Version="6.0.1" />
+    <PackageReference Include="Usa.Smart.Converter" Version="2.4.0" />
+    <PackageReference Include="Usa.Smart.Core" Version="2.4.1" />
+    <PackageReference Include="Usa.Smart.Mvvm" Version="1.0.0" />
+    <PackageReference Include="Usa.Smart.Reactive" Version="2.4.0" />
+  </ItemGroup>
+
+</Project>

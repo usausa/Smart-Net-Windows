@@ -2,7 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.svg)](https://www.nuget.org/packages/Usa.Smart.Windows/)
 
-## What does if contain ?
+## Features
 
 * Basic converters.
 * Observable commands.
@@ -17,8 +17,12 @@
 | Package | Note  |
 |-|-|
 | [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.svg)](https://www.nuget.org/packages/Usa.Smart.Windows/) | Core libyrary |
-| [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.Reactive.svg)](https://www.nuget.org/packages/Usa.Smart.Windows.Reactive/) | Reactive helpers |
+| [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.Behaviors.svg)](https://www.nuget.org/packages/Usa.Smart.Windows.Behaviors/) | Behaivors |
+| [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.Extensions.svg)](https://www.nuget.org/packages/Usa.Smart.Windows.Extensions/) | Extension helpers |
+| [![NuGet](https://img.shields.io/nuget/v/Usa.Smart.Windows.Hosting.svg)](https://www.nuget.org/packages/Usa.Smart.Windows.Hosting/) | Hosting helpers |
 
 ## Link
 
-* [Smart.Resolver](https://github.com/usausa/Smart-Net-Resolver) : Resolver library for .NET
+* [Smart.Mvvm](https://github.com/usausa/Smart-Net-Mvvm)
+* [Smart.Resolver](https://github.com/usausa/Smart-Net-Resolver)
+* [Smart.Navigation](https://github.com/usausa/Smart-Net-Navigation)

@@ -12,6 +12,6 @@
   </Folder>
   <Project Path="Smart.Windows/Smart.Windows.csproj" />
   <Project Path="Smart.Windows.Behaviors/Smart.Windows.Behaviors.csproj" />
+  <Project Path="Smart.Windows.Extensions/Smart.Windows.Extensions.csproj" />
   <Project Path="Smart.Windows.Hosting/Smart.Windows.Hosting.csproj" />
-  <Project Path="Smart.Windows.Reactive/Smart.Windows.Reactive.csproj" />
 </Solution>

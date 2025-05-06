@@ -2,8 +2,6 @@ namespace Smart.Windows.Input;
 
 using System.Windows.Input;
 
-using Smart.Windows.Internal;
-
 public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, ICommand, IDisposable
 {
     private readonly Action execute;
