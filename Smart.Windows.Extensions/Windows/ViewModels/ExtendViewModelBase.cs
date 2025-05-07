@@ -1,5 +1,8 @@
 namespace Smart.Windows.ViewModels;
 
+using System.ComponentModel;
+using System.Reactive.Linq;
+
 using Smart.Mvvm.Messaging;
 using Smart.Mvvm.State;
 using Smart.Mvvm.ViewModels;
@@ -112,5 +115,24 @@ public abstract class ExtendViewModelBase : ViewModelBase
         command.Observe(BusyState);
         Disposables.Add(command);
         return command;
+    }
+
+    // ------------------------------------------------------------
+    // Reactive helper
+    // ------------------------------------------------------------
+
+    protected IObservable<string?> Observe(string name)
+    {
+        return Observable.FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                h => (_, e) => h(e),
+                h => PropertyChanged += h,
+                h => PropertyChanged -= h)
+            .Where(x => x.PropertyName == name)
+            .Select(x => x.PropertyName);
+    }
+
+    protected void Subscribe<T>(IObservable<T> observable, Action<T> action)
+    {
+        Disposables.Add(observable.Subscribe(action));
     }
 }
