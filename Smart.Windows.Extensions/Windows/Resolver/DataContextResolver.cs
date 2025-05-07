@@ -1,4 +1,4 @@
-namespace Smart.Windows.Interactivity.Resolver;
+namespace Smart.Windows.Resolver;
 
 using System.ComponentModel;
 using System.Windows;

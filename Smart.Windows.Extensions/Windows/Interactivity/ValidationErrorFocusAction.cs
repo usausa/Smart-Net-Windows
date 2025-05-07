@@ -1,11 +1,10 @@
-namespace Smart.Windows.Interactivity.Messaging;
+namespace Smart.Windows.Interactivity;
 
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 using Microsoft.Xaml.Behaviors;
-
-using Smart.Mvvm.Messaging;
 
 [TypeConstraint(typeof(DependencyObject))]
 public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
@@ -17,9 +16,9 @@ public sealed class ValidationErrorFocusAction : TriggerAction<DependencyObject>
         {
             element.Focus();
 
-            if (parameter is CancelMessage message)
+            if (parameter is CancelEventArgs args)
             {
-                message.Cancel = true;
+                args.Cancel = true;
             }
         }
     }

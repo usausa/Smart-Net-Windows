@@ -1,4 +1,4 @@
-namespace Smart.Windows.Interactivity.Messaging;
+namespace Smart.Windows.Interactivity;
 
 using System.Reflection;
 using System.Windows;

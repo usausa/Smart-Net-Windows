@@ -1,4 +1,4 @@
-namespace Smart.Windows.Interactivity.Expressions;
+namespace Smart.Windows.Interactivity;
 
 using System.Windows;
 

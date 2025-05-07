@@ -1,4 +1,4 @@
-namespace Smart.Windows.Data.Expressions;
+namespace Smart.Windows.Data;
 
 using System.Globalization;
 using System.Windows;
