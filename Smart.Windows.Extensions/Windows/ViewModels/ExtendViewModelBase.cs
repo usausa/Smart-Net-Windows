@@ -7,7 +7,7 @@ using Smart.Windows.Input;
 
 #pragma warning disable IDE0032
 // ReSharper disable ReplaceWithFieldKeyword
-public abstract class WindowsViewModelBase : ViewModelBase
+public abstract class ExtendViewModelBase : ViewModelBase
 {
     private static class Functions
     {
@@ -23,21 +23,21 @@ public abstract class WindowsViewModelBase : ViewModelBase
     // Constructor
     // ------------------------------------------------------------
 
-    protected WindowsViewModelBase()
+    protected ExtendViewModelBase()
     {
     }
 
-    protected WindowsViewModelBase(IBusyState busyState)
+    protected ExtendViewModelBase(IBusyState busyState)
         : base(busyState)
     {
     }
 
-    protected WindowsViewModelBase(IMessenger messenger)
+    protected ExtendViewModelBase(IMessenger messenger)
         : base(messenger)
     {
     }
 
-    protected WindowsViewModelBase(IBusyState busyState, IMessenger messenger)
+    protected ExtendViewModelBase(IBusyState busyState, IMessenger messenger)
         : base(busyState, messenger)
     {
     }
