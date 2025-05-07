@@ -1,5 +1,6 @@
 namespace Smart.Windows.ViewModels;
 
+using Smart.Mvvm.Messaging;
 using Smart.Mvvm.State;
 using Smart.Mvvm.ViewModels;
 using Smart.Windows.Input;
@@ -16,6 +17,29 @@ public abstract class WindowsViewModelBase : ViewModelBase
     private static class Functions<T>
     {
         public static Func<T, bool> True { get; } = static _ => true;
+    }
+
+    // ------------------------------------------------------------
+    // Constructor
+    // ------------------------------------------------------------
+
+    protected WindowsViewModelBase()
+    {
+    }
+
+    protected WindowsViewModelBase(IBusyState busyState)
+        : base(busyState)
+    {
+    }
+
+    protected WindowsViewModelBase(IMessenger messenger)
+        : base(messenger)
+    {
+    }
+
+    protected WindowsViewModelBase(IBusyState busyState, IMessenger messenger)
+        : base(busyState, messenger)
+    {
     }
 
     // ------------------------------------------------------------
