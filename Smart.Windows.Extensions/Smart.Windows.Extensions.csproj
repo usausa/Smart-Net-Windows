@@ -23,7 +23,7 @@
     <PackageReference Include="System.Reactive" Version="6.0.1" />
     <PackageReference Include="Usa.Smart.Converter" Version="2.4.0" />
     <PackageReference Include="Usa.Smart.Core" Version="2.4.1" />
-    <PackageReference Include="Usa.Smart.Mvvm" Version="1.0.1" />
+    <PackageReference Include="Usa.Smart.Mvvm" Version="1.1.0" />
     <PackageReference Include="Usa.Smart.Reactive" Version="2.4.0" />
   </ItemGroup>
 

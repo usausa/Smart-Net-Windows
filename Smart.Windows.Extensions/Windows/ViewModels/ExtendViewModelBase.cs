@@ -124,7 +124,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
     protected IObservable<string?> Observe(string name)
     {
         return Observable.FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(
-                h => (_, e) => h(e),
+                static h => (_, e) => h(e),
                 h => PropertyChanged += h,
                 h => PropertyChanged -= h)
             .Where(x => x.PropertyName == name)
