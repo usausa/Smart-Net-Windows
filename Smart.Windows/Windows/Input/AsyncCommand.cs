@@ -1,6 +1,5 @@
 namespace Smart.Windows.Input;
 
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
