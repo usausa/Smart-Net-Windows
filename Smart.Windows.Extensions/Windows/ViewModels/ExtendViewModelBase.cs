@@ -23,6 +23,12 @@ public abstract class ExtendViewModelBase : ViewModelBase
     }
 
     // ------------------------------------------------------------
+    // Member
+    // ------------------------------------------------------------
+
+    private List<IObserveCommand>? commands;
+
+    // ------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------
 
@@ -45,44 +51,71 @@ public abstract class ExtendViewModelBase : ViewModelBase
     {
     }
 
+    protected override void Dispose(bool disposing)
+    {
+        if (commands is not null)
+        {
+            PropertyChanged -= UpdateCommandState;
+            commands = null;
+        }
+
+        base.Dispose(disposing);
+    }
+
     // ------------------------------------------------------------
-    // DelegateCommand helper
+    // Command helper
     // ------------------------------------------------------------
 
-    protected DelegateCommand MakeDelegateCommand(Action execute)
+    private void AddCommandObserver(IObserveCommand command)
     {
-        return MakeDelegateCommand(execute, Functions.True);
+        if (commands is null)
+        {
+            commands = new List<IObserveCommand>();
+            PropertyChanged += UpdateCommandState;
+        }
+        commands.Add(command);
     }
+
+    private void UpdateCommandState(object? sender, PropertyChangedEventArgs e)
+    {
+        if (commands is not null)
+        {
+            foreach (var command in commands)
+            {
+                command.RaiseCanExecuteChanged();
+            }
+        }
+    }
+
+    protected TCommand Observe<T, TCommand>(IObservable<T> observable, TCommand command)
+        where TCommand : IObserveCommand
+    {
+        Disposables.Add(observable.Subscribe(_ => command.RaiseCanExecuteChanged()));
+        return command;
+    }
+
+    protected DelegateCommand MakeDelegateCommand(Action execute) =>
+        MakeDelegateCommand(execute, Functions.True);
 
     protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
     {
-        var command = new DelegateCommand(execute, () => !BusyState.IsBusy && canExecute());
-        command.Observe(BusyState);
-        Disposables.Add(command);
+        var command = new DelegateCommand(execute, canExecute);
+        AddCommandObserver(command);
         return command;
     }
 
-    protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute)
-    {
-        return MakeDelegateCommand(execute, Functions<TParameter>.True);
-    }
+    protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute) =>
+        MakeDelegateCommand(execute, Functions<TParameter>.True);
 
     protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
     {
-        var command = new DelegateCommand<TParameter>(execute, x => !BusyState.IsBusy && canExecute(x));
-        command.Observe(BusyState);
-        Disposables.Add(command);
+        var command = new DelegateCommand<TParameter>(execute, canExecute);
+        AddCommandObserver(command);
         return command;
     }
 
-    // ------------------------------------------------------------
-    // AsyncCommand helper
-    // ------------------------------------------------------------
-
-    protected AsyncCommand MakeAsyncCommand(Func<Task> execute)
-    {
-        return MakeAsyncCommand(execute, Functions.True);
-    }
+    protected AsyncCommand MakeAsyncCommand(Func<Task> execute) =>
+        MakeAsyncCommand(execute, Functions.True);
 
     protected AsyncCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute)
     {
@@ -92,28 +125,24 @@ public abstract class ExtendViewModelBase : ViewModelBase
             {
                 await execute().ConfigureAwait(true);
             }
-        }, () => !BusyState.IsBusy && canExecute());
-        command.Observe(BusyState);
-        Disposables.Add(command);
+        }, canExecute);
+        AddCommandObserver(command);
         return command;
     }
 
-    protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute)
-    {
-        return MakeAsyncCommand(execute, Functions<TParameter>.True);
-    }
+    protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute) =>
+        MakeAsyncCommand(execute, Functions<TParameter>.True);
 
     protected AsyncCommand<TParameter> MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
     {
-        var command = new AsyncCommand<TParameter>(async parameter =>
+        var command = new AsyncCommand<TParameter>(async x =>
         {
             using (BusyState.Begin())
             {
-                await execute(parameter).ConfigureAwait(true);
+                await execute(x).ConfigureAwait(true);
             }
-        }, x => !BusyState.IsBusy && canExecute(x));
-        command.Observe(BusyState);
-        Disposables.Add(command);
+        }, canExecute);
+        AddCommandObserver(command);
         return command;
     }
 

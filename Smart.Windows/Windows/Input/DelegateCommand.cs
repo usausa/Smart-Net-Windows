@@ -1,9 +1,26 @@
 namespace Smart.Windows.Input;
 
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, ICommand, IDisposable
+public sealed class DelegateCommand : IObserveCommand
 {
+    private EventHandler? canExecuteChanged;
+
+    public event EventHandler? CanExecuteChanged
+    {
+        add
+        {
+            canExecuteChanged += value;
+            CommandManager.RequerySuggested += value;
+        }
+        remove
+        {
+            canExecuteChanged -= value;
+            CommandManager.RequerySuggested -= value;
+        }
+    }
+
     private readonly Action execute;
 
     private readonly Func<bool> canExecute;
@@ -19,16 +36,36 @@ public sealed class DelegateCommand : ObserveCommandBase<DelegateCommand>, IComm
         this.canExecute = canExecute;
     }
 
-    public void Dispose() => RemoveObservers();
-
     bool ICommand.CanExecute(object? parameter) => canExecute();
 
     void ICommand.Execute(object? parameter) => execute();
+
+#pragma warning disable CA1030
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void RaiseCanExecuteChanged()
+    {
+        canExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+#pragma warning restore CA1030
 }
 
-public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>, ICommand, IDisposable
+public sealed class DelegateCommand<T> : IObserveCommand
 {
-    private static readonly bool IsValueType = typeof(T).IsValueType;
+    private EventHandler? canExecuteChanged;
+
+    public event EventHandler? CanExecuteChanged
+    {
+        add
+        {
+            canExecuteChanged += value;
+            CommandManager.RequerySuggested += value;
+        }
+        remove
+        {
+            canExecuteChanged -= value;
+            CommandManager.RequerySuggested -= value;
+        }
+    }
 
     private readonly Action<T> execute;
 
@@ -45,19 +82,25 @@ public sealed class DelegateCommand<T> : ObserveCommandBase<DelegateCommand<T>>,
         this.canExecute = canExecute;
     }
 
-    public void Dispose() => RemoveObservers();
-
     bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
     void ICommand.Execute(object? parameter) => execute(Cast(parameter));
 
     private static T Cast(object? parameter)
     {
-        if ((parameter is null) && IsValueType)
+        if (typeof(T).IsValueType && (parameter is null))
         {
             return default!;
         }
 
         return (T)parameter!;
     }
+
+#pragma warning disable CA1030
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void RaiseCanExecuteChanged()
+    {
+        canExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+#pragma warning restore CA1030
 }

@@ -1,10 +1,27 @@
 namespace Smart.Windows.Input;
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, IDisposable
+public sealed class AsyncCommand : IObserveCommand
 {
+    private EventHandler? canExecuteChanged;
+
+    public event EventHandler? CanExecuteChanged
+    {
+        add
+        {
+            canExecuteChanged += value;
+            CommandManager.RequerySuggested += value;
+        }
+        remove
+        {
+            canExecuteChanged -= value;
+            CommandManager.RequerySuggested -= value;
+        }
+    }
+
     private readonly Func<Task> execute;
 
     private readonly Func<bool> canExecute;
@@ -20,17 +37,37 @@ public sealed class AsyncCommand : ObserveCommandBase<AsyncCommand>, ICommand, I
         this.canExecute = canExecute;
     }
 
-    public void Dispose() => RemoveObservers();
-
     bool ICommand.CanExecute(object? parameter) => canExecute();
 
     // ReSharper disable once AsyncVoidMethod
     async void ICommand.Execute(object? parameter) => await execute().ConfigureAwait(true);
+
+#pragma warning disable CA1030
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void RaiseCanExecuteChanged()
+    {
+        canExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+#pragma warning restore CA1030
 }
 
-public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, ICommand, IDisposable
+public sealed class AsyncCommand<T> : IObserveCommand
 {
-    private static readonly bool IsValueType = typeof(T).GetTypeInfo().IsValueType;
+    private EventHandler? canExecuteChanged;
+
+    public event EventHandler? CanExecuteChanged
+    {
+        add
+        {
+            canExecuteChanged += value;
+            CommandManager.RequerySuggested += value;
+        }
+        remove
+        {
+            canExecuteChanged -= value;
+            CommandManager.RequerySuggested -= value;
+        }
+    }
 
     private readonly Func<T, Task> execute;
 
@@ -47,8 +84,6 @@ public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, IComm
         this.canExecute = canExecute;
     }
 
-    public void Dispose() => RemoveObservers();
-
     bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
     // ReSharper disable once AsyncVoidMethod
@@ -56,11 +91,19 @@ public sealed class AsyncCommand<T> : ObserveCommandBase<AsyncCommand<T>>, IComm
 
     private static T Cast(object? parameter)
     {
-        if ((parameter is null) && IsValueType)
+        if (typeof(T).IsValueType && (parameter is null))
         {
             return default!;
         }
 
         return (T)parameter!;
     }
+
+#pragma warning disable CA1030
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void RaiseCanExecuteChanged()
+    {
+        canExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+#pragma warning restore CA1030
 }
