@@ -76,7 +76,10 @@ public abstract class ExtendViewModelBase : ViewModelBase
         commands.Add(command);
     }
 
-    private void UpdateCommandState(object? sender, PropertyChangedEventArgs e)
+    private void UpdateCommandState(object? sender, PropertyChangedEventArgs e) =>
+        UpdateCommandState();
+
+    private void UpdateCommandState()
     {
         if (commands is not null)
         {
@@ -99,7 +102,11 @@ public abstract class ExtendViewModelBase : ViewModelBase
 
     protected DelegateCommand MakeDelegateCommand(Action execute, Func<bool> canExecute)
     {
-        var command = new DelegateCommand(execute, canExecute);
+        var command = new DelegateCommand(() =>
+        {
+            execute();
+            UpdateCommandState();
+        }, canExecute);
         AddCommandObserver(command);
         return command;
     }
@@ -109,7 +116,11 @@ public abstract class ExtendViewModelBase : ViewModelBase
 
     protected DelegateCommand<TParameter> MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute)
     {
-        var command = new DelegateCommand<TParameter>(execute, canExecute);
+        var command = new DelegateCommand<TParameter>(x =>
+        {
+            execute(x);
+            UpdateCommandState();
+        }, canExecute);
         AddCommandObserver(command);
         return command;
     }
@@ -125,6 +136,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
             {
                 await execute().ConfigureAwait(true);
             }
+            UpdateCommandState();
         }, canExecute);
         AddCommandObserver(command);
         return command;
@@ -141,6 +153,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
             {
                 await execute(x).ConfigureAwait(true);
             }
+            UpdateCommandState();
         }, canExecute);
         AddCommandObserver(command);
         return command;
