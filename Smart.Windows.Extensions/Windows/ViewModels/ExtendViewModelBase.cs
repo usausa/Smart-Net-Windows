@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 
 using Smart.Mvvm.Messaging;
-using Smart.Mvvm.State;
 using Smart.Mvvm.ViewModels;
 using Smart.Windows.Input;
 
