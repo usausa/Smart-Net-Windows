@@ -19,25 +19,17 @@ public static class DataContextResolver
         typeof(DataContextResolver),
         new PropertyMetadata(true));
 
-    public static Type GetType(DependencyObject obj)
-    {
-        return (Type)obj.GetValue(TypeProperty);
-    }
+    public static Type GetType(DependencyObject obj) =>
+        (Type)obj.GetValue(TypeProperty);
 
-    public static void SetType(DependencyObject obj, Type value)
-    {
+    public static void SetType(DependencyObject obj, Type value) =>
         obj.SetValue(TypeProperty, value);
-    }
 
-    public static bool GetDisposeOnChanged(DependencyObject obj)
-    {
-        return (bool)obj.GetValue(DisposeOnChangedProperty);
-    }
+    public static bool GetDisposeOnChanged(DependencyObject obj) =>
+        (bool)obj.GetValue(DisposeOnChangedProperty);
 
-    public static void SetDisposeOnChanged(DependencyObject obj, bool value)
-    {
+    public static void SetDisposeOnChanged(DependencyObject obj, bool value) =>
         obj.SetValue(DisposeOnChangedProperty, value);
-    }
 
     private static void HandleTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
