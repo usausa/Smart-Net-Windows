@@ -1,4 +1,4 @@
-namespace Smart.Windows.Input;
+namespace Smart.Windows.Internal;
 
 internal static class Functions
 {

@@ -3,6 +3,8 @@ namespace Smart.Windows.Input;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
+using Smart.Windows.Internal;
+
 public sealed class DelegateCommand : IObserveCommand
 {
     private EventHandler? canExecuteChanged;
