@@ -89,7 +89,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             execute();
             UpdateCommandState();
-        }, canExecute);
+        }, () => !BusyState.IsBusy && canExecute());
         AddCommandObserver(command);
         return command;
     }
@@ -103,7 +103,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             execute(x);
             UpdateCommandState();
-        }, canExecute);
+        }, x => !BusyState.IsBusy && canExecute(x));
         AddCommandObserver(command);
         return command;
     }
@@ -117,10 +117,11 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             using (BusyState.Begin())
             {
+                UpdateCommandState();
                 await execute().ConfigureAwait(true);
             }
             UpdateCommandState();
-        }, canExecute);
+        }, () => !BusyState.IsBusy && canExecute());
         AddCommandObserver(command);
         return command;
     }
@@ -134,10 +135,11 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             using (BusyState.Begin())
             {
+                UpdateCommandState();
                 await execute(x).ConfigureAwait(true);
             }
             UpdateCommandState();
-        }, canExecute);
+        }, x => !BusyState.IsBusy && canExecute(x));
         AddCommandObserver(command);
         return command;
     }
