@@ -3,8 +3,6 @@ namespace Smart.Windows.Data;
 using System.Globalization;
 using System.Windows.Data;
 
-using Smart.Linq;
-
 public sealed class AnyConverter : IMultiValueConverter
 {
     public bool Invert { get; set; }
