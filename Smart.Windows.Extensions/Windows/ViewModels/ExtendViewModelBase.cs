@@ -58,8 +58,21 @@ public abstract class ExtendViewModelBase : ViewModelBase
 
     private void AddCommandObserver(IObserveCommand command)
     {
-        commands ??= new List<IObserveCommand>();
+        if (commands is null)
+        {
+            commands = new List<IObserveCommand>();
+            BusyState.PropertyChanged += BusyStateOnPropertyChanged;
+            Disposables.Add(new DelegateDisposable(() => BusyState.PropertyChanged -= BusyStateOnPropertyChanged));
+        }
         commands.Add(command);
+    }
+
+    private void BusyStateOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(IBusyState.IsBusy))
+        {
+            UpdateCommandState();
+        }
     }
 
     private void UpdateCommandState()
@@ -117,10 +130,8 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             using (BusyState.Begin())
             {
-                UpdateCommandState();
                 await execute().ConfigureAwait(true);
             }
-            UpdateCommandState();
         }, () => !BusyState.IsBusy && canExecute());
         AddCommandObserver(command);
         return command;
@@ -135,10 +146,8 @@ public abstract class ExtendViewModelBase : ViewModelBase
         {
             using (BusyState.Begin())
             {
-                UpdateCommandState();
                 await execute(x).ConfigureAwait(true);
             }
-            UpdateCommandState();
         }, x => !BusyState.IsBusy && canExecute(x));
         AddCommandObserver(command);
         return command;
