@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-using Smart.Mvvm.Expressions;
 using Smart.Windows.Data;
+using Smart.Windows.Expressions;
 
 [MarkupExtensionReturnType(typeof(CompareToBoolConverter))]
 public sealed class CompareToBoolExtension : MarkupExtension

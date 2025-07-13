@@ -3,7 +3,7 @@ namespace Smart.Windows.Data;
 using System.Globalization;
 using System.Windows.Data;
 
-using Smart.Mvvm.Expressions;
+using Smart.Windows.Expressions;
 
 public sealed class MultiBinaryConverter : IMultiValueConverter
 {

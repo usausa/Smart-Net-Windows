@@ -4,7 +4,7 @@ using System.Windows;
 
 using Microsoft.Xaml.Behaviors;
 
-using Smart.Mvvm.Expressions;
+using Smart.Windows.Expressions;
 
 public sealed class CompareStateBehavior : Behavior<FrameworkElement>
 {

@@ -4,7 +4,7 @@ using System.Windows;
 
 using Microsoft.Xaml.Behaviors;
 
-using Smart.Mvvm.Expressions;
+using Smart.Windows.Expressions;
 
 [TypeConstraint(typeof(DependencyObject))]
 public sealed class CompareTrigger : TriggerBase<DependencyObject>

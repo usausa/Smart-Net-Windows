@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-using Smart.Mvvm.Expressions;
+using Smart.Windows.Expressions;
 
 public abstract class CompareConverter<T> : IValueConverter
 {
