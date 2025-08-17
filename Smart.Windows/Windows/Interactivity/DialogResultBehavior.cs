@@ -37,9 +37,6 @@ public sealed class DialogResultBehavior : Behavior<Button>
     private void OnButtonClick(object sender, RoutedEventArgs e)
     {
         var window = AssociatedObject.FindParent<Window>();
-        if (window is not null)
-        {
-            window.DialogResult = DialogResult;
-        }
+        window?.DialogResult = DialogResult;
     }
 }
