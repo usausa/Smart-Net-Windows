@@ -1,9 +1,10 @@
 namespace Smart.Windows.Interactivity;
 
-public enum WorkAreaCorner
+public enum WindowPlacement
 {
     TopLeft,
     TopRight,
     BottomLeft,
-    BottomRight
+    BottomRight,
+    Center
 }
