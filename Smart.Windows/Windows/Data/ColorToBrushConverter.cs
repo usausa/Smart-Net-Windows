@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-#pragma warning disable IDE0032
 [ValueConversion(typeof(Color), typeof(SolidColorBrush))]
 public sealed class ColorToBrushConverter : IValueConverter
 {
