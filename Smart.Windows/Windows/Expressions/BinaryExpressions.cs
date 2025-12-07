@@ -1,5 +1,9 @@
 namespace Smart.Windows.Expressions;
 
+using System.Collections.Concurrent;
+using System.Numerics;
+using System.Reflection;
+
 public static class BinaryExpressions
 {
     public static IBinaryExpression Max { get; } = new MaxExpression();
@@ -8,7 +12,7 @@ public static class BinaryExpressions
 
     public static IBinaryExpression Add { get; } = new AddExpression();
 
-    public static IBinaryExpression Multiply { get; } = new MultiplyExpression();
+    public static IBinaryExpression Sub { get; } = new SubExpression();
 
     private abstract class CompareExpression : IBinaryExpression
     {
@@ -22,7 +26,7 @@ public static class BinaryExpressions
                     return left;
                 }
 
-                return comparable.CompareTo(convertedValue) > 0 ? left : right;
+                return EvalComparison(comparable.CompareTo(convertedValue), left, right);
             }
 
             return left;
@@ -35,7 +39,7 @@ public static class BinaryExpressions
     {
         protected override object EvalComparison(int comparison, object left, object right)
         {
-            return comparison > 0 ? left : right;
+            return comparison >= 0 ? left : right;
         }
     }
 
@@ -43,7 +47,7 @@ public static class BinaryExpressions
     {
         protected override object EvalComparison(int comparison, object left, object right)
         {
-            return comparison < 0 ? left : right;
+            return comparison <= 0 ? left : right;
         }
     }
 
@@ -56,47 +60,66 @@ public static class BinaryExpressions
                 return null;
             }
 
-            var mi = left.GetType().GetMethod(MethodName);
-            if ((mi is not null) &&
-                (mi.GetParameters().Length == 2) &&
-                (mi.GetParameters()[0].ParameterType == left.GetType()))
+            object? rightValue;
+            if (left.GetType() == right.GetType())
             {
-                var convertedValue = ConvertHelper.Convert(mi.GetParameters()[1].ParameterType, right);
-                if (convertedValue is null)
-                {
-                    return null;
-                }
-
-                return mi.Invoke(null, [left, convertedValue]);
+                rightValue = right;
             }
             else
             {
-                var convertedValue = ConvertHelper.Convert(left.GetType(), right);
-                if (convertedValue is null)
+                rightValue = ConvertHelper.Convert(left.GetType(), right);
+                if (rightValue is null)
                 {
                     return null;
                 }
-
-                return EvalInternal(left, convertedValue);
             }
+
+            var op = GetOperator(left.GetType());
+            return op?.Invoke(null, [left, rightValue]);
         }
 
-        protected abstract string MethodName { get; }
-
-        protected abstract object EvalInternal(dynamic x, dynamic y);
+        protected abstract MethodInfo? GetOperator(Type type);
     }
 
     private sealed class AddExpression : ArithmeticExpression
     {
-        protected override string MethodName => "op_Addition";
+        private static readonly ConcurrentDictionary<Type, MethodInfo?> MethodCache = new();
 
-        protected override object EvalInternal(dynamic x, dynamic y) => x + y;
+        protected override MethodInfo? GetOperator(Type type)
+        {
+            return MethodCache.GetOrAdd(type, static t =>
+            {
+                return t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IAdditionOperators<,,>))
+                    ? typeof(AddExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t)
+                    : null;
+            });
+        }
+
+        private static T Operation<T>(T left, T right)
+            where T : IAdditionOperators<T, T, T>
+        {
+            return left + right;
+        }
     }
 
-    private sealed class MultiplyExpression : ArithmeticExpression
+    private sealed class SubExpression : ArithmeticExpression
     {
-        protected override string MethodName => "op_Multiply";
+        private static readonly ConcurrentDictionary<Type, MethodInfo?> MethodCache = new();
 
-        protected override object EvalInternal(dynamic x, dynamic y) => x * y;
+        protected override MethodInfo? GetOperator(Type type)
+        {
+            return MethodCache.GetOrAdd(type, static t =>
+            {
+                return t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ISubtractionOperators<,,>))
+                    ? typeof(SubExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t)
+                    : null;
+            });
+        }
+
+        private static T Operation<T>(T left, T right)
+            where T : ISubtractionOperators<T, T, T>
+        {
+            return left - right;
+        }
     }
 }

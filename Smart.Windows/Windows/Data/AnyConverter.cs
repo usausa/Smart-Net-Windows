@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data;
 
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Data;
 
 public sealed class AnyConverter : IMultiValueConverter
@@ -11,7 +12,7 @@ public sealed class AnyConverter : IMultiValueConverter
     {
         foreach (var value in values)
         {
-            if (System.Convert.ToBoolean(value, culture))
+            if (ConvertToBoolean(value, culture))
             {
                 return !Invert;
             }
@@ -20,8 +21,10 @@ public sealed class AnyConverter : IMultiValueConverter
         return Invert;
     }
 
-    public object?[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
-    {
+    public object?[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
-    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool ConvertToBoolean(object? value, CultureInfo culture) =>
+        value is not null && System.Convert.ToBoolean(value, culture);
 }
