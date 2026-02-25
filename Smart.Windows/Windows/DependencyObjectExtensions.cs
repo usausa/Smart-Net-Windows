@@ -55,7 +55,7 @@ public static class DependencyObjectExtensions
     {
         while (true)
         {
-            var parent = Parent(obj);
+            var parent = obj.Parent();
             if (parent is null)
             {
                 return null;
@@ -98,14 +98,14 @@ public static class DependencyObjectExtensions
     public static IEnumerable<T> FindChildren<T>(this DependencyObject source)
         where T : DependencyObject
     {
-        foreach (var child in Children(source))
+        foreach (var child in source.Children())
         {
             if (child is T typedChild)
             {
                 yield return typedChild;
             }
 
-            foreach (var descendant in FindChildren<T>(child))
+            foreach (var descendant in child.FindChildren<T>())
             {
                 yield return descendant;
             }
