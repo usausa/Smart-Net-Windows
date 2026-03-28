@@ -41,7 +41,10 @@ public sealed class MessageTrigger : TriggerBase<FrameworkElement>
 
     private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
     {
-        Messenger?.Received -= MessengerOnReceived;
+        if (Messenger is not null)
+        {
+            Messenger.Received -= MessengerOnReceived;
+        }
     }
 
     private static void HandleMessengerPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

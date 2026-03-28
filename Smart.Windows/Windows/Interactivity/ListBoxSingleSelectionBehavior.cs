@@ -35,7 +35,10 @@ public sealed class ListBoxSingleSelectionBehavior : Behavior<ListBox>
 
     protected override void OnDetaching()
     {
-        AssociatedObject?.SelectionChanged -= OnSelectionChanged;
+        if (AssociatedObject is not null)
+        {
+            AssociatedObject.SelectionChanged -= OnSelectionChanged;
+        }
 
         base.OnDetaching();
     }
