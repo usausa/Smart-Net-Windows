@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
     <PackageReference Include="Usa.Smart.Converter" Version="2.5.1" />
     <PackageReference Include="Usa.Smart.Core" Version="2.5.0" />
   </ItemGroup>

@@ -38,10 +38,7 @@ public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElem
 
     private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
     {
-        if (Request is not null)
-        {
-            Request.Requested -= EventRequestOnRequested;
-        }
+        Request?.Requested -= EventRequestOnRequested;
     }
 
     private static void HandleRequestPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

@@ -49,7 +49,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
     {
         if (commands is null)
         {
-            commands = new List<IObserveCommand>();
+            commands = [];
             BusyState.PropertyChanged += BusyStateOnPropertyChanged;
             Disposables.Add(new DelegateDisposable(() => BusyState.PropertyChanged -= BusyStateOnPropertyChanged));
         }
