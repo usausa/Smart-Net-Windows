@@ -360,7 +360,7 @@ dotnet_diagnostic.IDE0030.severity = warning
 dotnet_diagnostic.IDE0270.severity = none
 
 # dotnet_style_null_propagation
-dotnet_diagnostic.IDE0031.severity = warning
+dotnet_diagnostic.IDE0031.severity = none
 
 # dotnet_style_prefer_auto_properties
 dotnet_diagnostic.IDE0032.severity = warning
