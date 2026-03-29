@@ -427,7 +427,7 @@ dotnet_diagnostic.IDE0054.severity = warning
 dotnet_diagnostic.IDE0074.severity = warning
 
 # Formatting rule
-dotnet_diagnostic.IDE0055.severity = warning
+dotnet_diagnostic.IDE0055.severity = none
 
 # csharp_style_prefer_index_operator
 dotnet_diagnostic.IDE0056.severity = warning
