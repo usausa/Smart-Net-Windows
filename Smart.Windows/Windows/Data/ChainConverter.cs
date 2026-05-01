@@ -13,13 +13,23 @@ public sealed class ChainConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return Converters.Aggregate(value, (current, converter) =>
-            converter.Convert(current, targetType, parameter, culture));
+        var result = value;
+        for (var i = 0; i < Converters.Count; i++)
+        {
+            result = Converters[i].Convert(result, targetType, parameter, culture);
+        }
+
+        return result;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return Converters.Reverse().Aggregate(value, (current, converter) =>
-            converter.ConvertBack(current, targetType, parameter, culture));
+        var result = value;
+        for (var i = Converters.Count - 1; i >= 0; i--)
+        {
+            result = Converters[i].ConvertBack(result, targetType, parameter, culture);
+        }
+
+        return result;
     }
 }
