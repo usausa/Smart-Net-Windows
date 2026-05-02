@@ -11,7 +11,7 @@ public sealed class AllConverter : IMultiValueConverter
 
     public bool Invert { get; set; }
 
-    public object? Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
     {
         foreach (var value in values)
         {
@@ -29,5 +29,5 @@ public sealed class AllConverter : IMultiValueConverter
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool ConvertToBoolean(object? value, CultureInfo culture) =>
-        value is bool boolValue || (value is not null && System.Convert.ToBoolean(value, culture));
+        value is bool boolValue ? boolValue : value is not null && System.Convert.ToBoolean(value, culture);
 }

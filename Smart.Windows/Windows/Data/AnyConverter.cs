@@ -11,7 +11,7 @@ public sealed class AnyConverter : IMultiValueConverter
 
     public bool Invert { get; set; }
 
-    public object? Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
     {
         foreach (var value in values)
         {
