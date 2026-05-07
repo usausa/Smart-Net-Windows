@@ -111,4 +111,44 @@ public static class DependencyObjectExtensions
             }
         }
     }
+
+    public static IEnumerable<T> FindChildren<T>(this DependencyObject source, Func<T, bool> predicate)
+        where T : DependencyObject
+    {
+        foreach (var child in source.FindChildren<T>())
+        {
+            if (predicate(child))
+            {
+                yield return child;
+            }
+        }
+    }
+
+    public static T? FindChild<T>(this DependencyObject source)
+        where T : DependencyObject =>
+        source.FindChildren<T>().FirstOrDefault();
+
+    public static T? FindChild<T>(this DependencyObject source, Func<T, bool> predicate)
+        where T : DependencyObject =>
+        source.FindChildren<T>().FirstOrDefault(predicate);
+
+    // ------------------------------------------------------------
+    // Ancestry
+    // ------------------------------------------------------------
+
+    public static bool IsDescendantOf(this DependencyObject element, DependencyObject ancestor)
+    {
+        var current = element.Parent();
+        while (current is not null)
+        {
+            if (current == ancestor)
+            {
+                return true;
+            }
+
+            current = current.Parent();
+        }
+
+        return false;
+    }
 }
