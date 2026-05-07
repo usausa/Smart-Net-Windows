@@ -23,14 +23,30 @@ public abstract class BoolToObjectConverter<T> : IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (Equals(value, TrueValue))
+        if (value is T typed)
         {
-            return true;
-        }
-
-        if (Equals(value, FalseValue))
-        {
-            return false;
+            if (typed is IEquatable<T> equatable)
+            {
+                if (equatable.Equals(TrueValue))
+                {
+                    return true;
+                }
+                if (equatable.Equals(FalseValue))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (Equals(typed, TrueValue))
+                {
+                    return true;
+                }
+                if (Equals(typed, FalseValue))
+                {
+                    return false;
+                }
+            }
         }
 
         return Binding.DoNothing;

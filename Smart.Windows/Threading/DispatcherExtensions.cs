@@ -38,13 +38,13 @@ public static class DispatcherExtensions
         return (TResult)dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
     }
 
-    public static void AsyncInvoke(this DispatcherObject dispatcher, Action action)
+    public static DispatcherOperation AsyncInvoke(this DispatcherObject dispatcher, Action action, CancellationToken cancellationToken = default)
     {
-        dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
+        return dispatcher.Dispatcher.InvokeAsync(action, DispatcherPriority.Normal, cancellationToken);
     }
 
-    public static void AsyncInvoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg)
+    public static DispatcherOperation AsyncInvoke<T>(this DispatcherObject dispatcher, Action<T> action, T arg, CancellationToken cancellationToken = default)
     {
-        dispatcher.Dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
+        return dispatcher.Dispatcher.InvokeAsync(() => action(arg), DispatcherPriority.Normal, cancellationToken);
     }
 }
