@@ -9,7 +9,8 @@ using System.Windows.Markup;
 [ValueConversion(typeof(object), typeof(object))]
 public sealed class ChainConverter : IValueConverter
 {
-    public Collection<IValueConverter> Converters { get; } = new([]);
+    // ReSharper disable once CollectionNeverUpdated.Global
+    public Collection<IValueConverter> Converters { get; } = [];
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
