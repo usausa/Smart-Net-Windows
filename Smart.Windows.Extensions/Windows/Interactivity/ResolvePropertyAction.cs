@@ -1,5 +1,6 @@
 namespace Smart.Windows.Interactivity;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Windows;
 
@@ -35,6 +36,7 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
 
     private PropertyInfo? cachedProperty;
 
+    [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     protected override void Invoke(object parameter)
     {
         var target = TargetObject ?? AssociatedObject;

@@ -1,5 +1,6 @@
 namespace Smart.Windows.Interactivity;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Windows;
 
@@ -41,6 +42,7 @@ public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
         set => SetValue(FormatProperty, value);
     }
 
+    [UnconditionalSuppressMessage("Trimming", "IL2075", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     protected override void Invoke(object parameter)
     {
         var method = TargetObject.GetType().GetMethod(MethodName, BindingFlags.Instance | BindingFlags.Public);

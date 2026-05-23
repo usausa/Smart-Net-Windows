@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data;
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Data;
 [ValueConversion(typeof(object), typeof(string))]
 public sealed class EnumDescriptionConverter : IValueConverter
 {
+    [UnconditionalSuppressMessage("Trimming", "IL2075", Justification = "Enum type members are expected to be preserved by the application")]
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null)

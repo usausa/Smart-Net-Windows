@@ -1,10 +1,12 @@
 namespace Smart.Windows.Expressions;
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 public static class ConvertHelper
 {
+    [RequiresUnreferencedCode("Uses TypeDescriptor which is not trim-compatible")]
     public static object? Convert(Type targetType, object value)
     {
         if (targetType == value.GetType())

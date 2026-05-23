@@ -1,6 +1,7 @@
 namespace Smart.Windows.Markup;
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Markup;
 
 [ContentProperty("Type")]
@@ -14,5 +15,6 @@ public sealed class EnumValuesExtension : MarkupExtension
         Type = type;
     }
 
+    [UnconditionalSuppressMessage("Trimming", "IL2111", Justification = "Enum type is specified by user; they must ensure it is preserved")]
     public override object ProvideValue(IServiceProvider serviceProvider) => Enum.GetValues(Type);
 }

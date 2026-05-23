@@ -1,5 +1,6 @@
 namespace Smart.Windows.Interactivity;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
@@ -67,6 +68,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
 
     private MethodInfo? cachedMethod;
 
+    [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     protected override void Invoke(object parameter)
     {
         var target = TargetObject ?? AssociatedObject;

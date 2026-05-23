@@ -1,5 +1,6 @@
 namespace Smart.Windows.Expressions;
 
+using System.Diagnostics.CodeAnalysis;
 public static class CompareExpressions
 {
     public static ICompareExpression Equal { get; } = new EqualExpression();
@@ -16,6 +17,7 @@ public static class CompareExpressions
 
     private abstract class CompareExpression : ICompareExpression
     {
+        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "ConvertHelper uses TypeDescriptor; callers are XAML-driven runtime expressions")]
         public bool Eval(object? left, object? right)
         {
             if ((left is IComparable comparable) && (right is not null))

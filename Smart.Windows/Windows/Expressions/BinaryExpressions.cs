@@ -1,6 +1,7 @@
 namespace Smart.Windows.Expressions;
 
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Reflection;
 
@@ -16,6 +17,7 @@ public static class BinaryExpressions
 
     private abstract class CompareExpression : IBinaryExpression
     {
+        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "ConvertHelper uses TypeDescriptor; callers are XAML-driven runtime expressions")]
         public object? Eval(object? left, object? right)
         {
             if ((left is IComparable comparable) && (right is not null))
@@ -53,6 +55,7 @@ public static class BinaryExpressions
 
     private abstract class ArithmeticExpression : IBinaryExpression
     {
+        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "ConvertHelper uses TypeDescriptor; callers are XAML-driven runtime expressions")]
         public object? Eval(object? left, object? right)
         {
             if ((left is null) || (right is null))
@@ -89,9 +92,10 @@ public static class BinaryExpressions
         {
             return MethodCache.GetOrAdd(type, static t =>
             {
-                return t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IAdditionOperators<,,>))
-                    ? typeof(AddExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t)
-                    : null;
+                [UnconditionalSuppressMessage("Trimming", "IL2070", Justification = "Interface check on runtime type from XAML binding")]
+                static bool HasInterface(Type t) => t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IAdditionOperators<,,>));
+
+                return HasInterface(t) ? typeof(AddExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t) : null;
             });
         }
 
@@ -110,9 +114,10 @@ public static class BinaryExpressions
         {
             return MethodCache.GetOrAdd(type, static t =>
             {
-                return t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ISubtractionOperators<,,>))
-                    ? typeof(SubExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t)
-                    : null;
+                [UnconditionalSuppressMessage("Trimming", "IL2070", Justification = "Interface check on runtime type from XAML binding")]
+                static bool HasInterface(Type t) => t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ISubtractionOperators<,,>));
+
+                return HasInterface(t) ? typeof(SubExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t) : null;
             });
         }
 
