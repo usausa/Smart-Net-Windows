@@ -1,6 +1,7 @@
 namespace Smart.Windows.Expressions;
 
 using System.Diagnostics.CodeAnalysis;
+
 public static class CompareExpressions
 {
     public static ICompareExpression Equal { get; } = new EqualExpression();
