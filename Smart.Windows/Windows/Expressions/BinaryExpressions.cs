@@ -1,9 +1,6 @@
 namespace Smart.Windows.Expressions;
 
-using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-using System.Reflection;
 
 public static class BinaryExpressions
 {
@@ -77,54 +74,41 @@ public static class BinaryExpressions
                 }
             }
 
-            var op = GetOperator(left.GetType());
-            return op?.Invoke(null, [left, rightValue]);
+            return Calculate(left, rightValue);
         }
 
-        protected abstract MethodInfo? GetOperator(Type type);
+        protected abstract object? Calculate(object left, object right);
     }
 
     private sealed class AddExpression : ArithmeticExpression
     {
-        private static readonly ConcurrentDictionary<Type, MethodInfo?> MethodCache = new();
-
-        protected override MethodInfo? GetOperator(Type type)
+        protected override object? Calculate(object left, object right) => left switch
         {
-            return MethodCache.GetOrAdd(type, static t =>
-            {
-                [UnconditionalSuppressMessage("Trimming", "IL2070", Justification = "Interface check on runtime type from XAML binding")]
-                static bool HasInterface(Type t) => t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IAdditionOperators<,,>));
-
-                return HasInterface(t) ? typeof(AddExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t) : null;
-            });
-        }
-
-        private static T Operation<T>(T left, T right)
-            where T : IAdditionOperators<T, T, T>
-        {
-            return left + right;
-        }
+            int l when right is int r => l + r,
+            long l when right is long r => l + r,
+            double l when right is double r => l + r,
+            float l when right is float r => l + r,
+            decimal l when right is decimal r => l + r,
+            short l when right is short r => (short)(l + r),
+            uint l when right is uint r => l + r,
+            ulong l when right is ulong r => l + r,
+            _ => null
+        };
     }
 
     private sealed class SubExpression : ArithmeticExpression
     {
-        private static readonly ConcurrentDictionary<Type, MethodInfo?> MethodCache = new();
-
-        protected override MethodInfo? GetOperator(Type type)
+        protected override object? Calculate(object left, object right) => left switch
         {
-            return MethodCache.GetOrAdd(type, static t =>
-            {
-                [UnconditionalSuppressMessage("Trimming", "IL2070", Justification = "Interface check on runtime type from XAML binding")]
-                static bool HasInterface(Type t) => t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ISubtractionOperators<,,>));
-
-                return HasInterface(t) ? typeof(SubExpression).GetMethod(nameof(Operation), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(t) : null;
-            });
-        }
-
-        private static T Operation<T>(T left, T right)
-            where T : ISubtractionOperators<T, T, T>
-        {
-            return left - right;
-        }
+            int l when right is int r => l - r,
+            long l when right is long r => l - r,
+            double l when right is double r => l - r,
+            float l when right is float r => l - r,
+            decimal l when right is decimal r => l - r,
+            short l when right is short r => (short)(l - r),
+            uint l when right is uint r => l - r,
+            ulong l when right is ulong r => l - r,
+            _ => null
+        };
     }
 }

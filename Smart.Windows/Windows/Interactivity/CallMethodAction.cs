@@ -69,6 +69,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
     private MethodInfo? cachedMethod;
 
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
+    [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "MethodInfo.Invoke is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
     {
         var target = TargetObject ?? AssociatedObject;

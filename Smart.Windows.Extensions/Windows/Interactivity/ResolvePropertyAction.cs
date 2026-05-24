@@ -37,6 +37,7 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
     private PropertyInfo? cachedProperty;
 
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
+    [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "PropertyInfo.GetValue is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
     {
         var target = TargetObject ?? AssociatedObject;
