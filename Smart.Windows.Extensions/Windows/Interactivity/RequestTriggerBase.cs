@@ -22,25 +22,70 @@ public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElem
         set => SetValue(RequestProperty, value);
     }
 
+    private bool subscribed;
+
     protected override void OnAttached()
     {
         base.OnAttached();
 
+        AssociatedObject.Loaded += OnLoaded;
         AssociatedObject.Unloaded += OnUnloaded;
+
+        if (AssociatedObject.IsLoaded)
+        {
+            Subscribe();
+        }
     }
 
     protected override void OnDetaching()
     {
+        Unsubscribe();
+
+        AssociatedObject.Loaded -= OnLoaded;
         AssociatedObject.Unloaded -= OnUnloaded;
 
         base.OnDetaching();
     }
 
-    private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+    private void OnLoaded(object sender, RoutedEventArgs e) => Subscribe();
+
+    private void OnUnloaded(object sender, RoutedEventArgs e) => Unsubscribe();
+
+    private void Subscribe()
     {
-        if (Request is not null)
+        if (subscribed)
         {
-            Request.Requested -= EventRequestOnRequested;
+            return;
+        }
+
+        subscribed = true;
+        AddRequested(Request);
+    }
+
+    private void Unsubscribe()
+    {
+        if (!subscribed)
+        {
+            return;
+        }
+
+        subscribed = false;
+        RemoveRequested(Request);
+    }
+
+    private void AddRequested(IEventRequest<TEventArgs>? request)
+    {
+        if (request is not null)
+        {
+            request.Requested += EventRequestOnRequested;
+        }
+    }
+
+    private void RemoveRequested(IEventRequest<TEventArgs>? request)
+    {
+        if (request is not null)
+        {
+            request.Requested -= EventRequestOnRequested;
         }
     }
 
@@ -52,16 +97,13 @@ public abstract class RequestTriggerBase<TEventArgs> : TriggerBase<FrameworkElem
         }
 
         var trigger = (RequestTriggerBase<TEventArgs>)obj;
-
-        if (e.OldValue is IEventRequest<TEventArgs> oldRequest)
+        if (!trigger.subscribed)
         {
-            oldRequest.Requested -= trigger.EventRequestOnRequested;
+            return;
         }
 
-        if (e.NewValue is IEventRequest<TEventArgs> newRequest)
-        {
-            newRequest.Requested += trigger.EventRequestOnRequested;
-        }
+        trigger.RemoveRequested(e.OldValue as IEventRequest<TEventArgs>);
+        trigger.AddRequested(e.NewValue as IEventRequest<TEventArgs>);
     }
 
     private void EventRequestOnRequested(object? sender, TEventArgs e)

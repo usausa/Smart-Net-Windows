@@ -25,25 +25,70 @@ public sealed class MessageTrigger : TriggerBase<FrameworkElement>
 
     public Type? MessageType { get; set; }
 
+    private bool subscribed;
+
     protected override void OnAttached()
     {
         base.OnAttached();
 
+        AssociatedObject.Loaded += OnLoaded;
         AssociatedObject.Unloaded += OnUnloaded;
+
+        if (AssociatedObject.IsLoaded)
+        {
+            Subscribe();
+        }
     }
 
     protected override void OnDetaching()
     {
+        Unsubscribe();
+
+        AssociatedObject.Loaded -= OnLoaded;
         AssociatedObject.Unloaded -= OnUnloaded;
 
         base.OnDetaching();
     }
 
-    private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
+    private void OnLoaded(object sender, RoutedEventArgs e) => Subscribe();
+
+    private void OnUnloaded(object sender, RoutedEventArgs e) => Unsubscribe();
+
+    private void Subscribe()
     {
-        if (Messenger is not null)
+        if (subscribed)
         {
-            Messenger.Received -= MessengerOnReceived;
+            return;
+        }
+
+        subscribed = true;
+        AddReceived(Messenger);
+    }
+
+    private void Unsubscribe()
+    {
+        if (!subscribed)
+        {
+            return;
+        }
+
+        subscribed = false;
+        RemoveReceived(Messenger);
+    }
+
+    private void AddReceived(IMessenger? messenger)
+    {
+        if (messenger is not null)
+        {
+            messenger.Received += MessengerOnReceived;
+        }
+    }
+
+    private void RemoveReceived(IMessenger? messenger)
+    {
+        if (messenger is not null)
+        {
+            messenger.Received -= MessengerOnReceived;
         }
     }
 
@@ -55,16 +100,13 @@ public sealed class MessageTrigger : TriggerBase<FrameworkElement>
         }
 
         var trigger = (MessageTrigger)obj;
-
-        if (e.OldValue is Messenger oldMessenger)
+        if (!trigger.subscribed)
         {
-            oldMessenger.Received -= trigger.MessengerOnReceived;
+            return;
         }
 
-        if (e.NewValue is Messenger newMessenger)
-        {
-            newMessenger.Received += trigger.MessengerOnReceived;
-        }
+        trigger.RemoveReceived(e.OldValue as IMessenger);
+        trigger.AddReceived(e.NewValue as IMessenger);
     }
 
     private void MessengerOnReceived(object? sender, MessengerEventArgs e)

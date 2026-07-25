@@ -88,7 +88,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
                 ((m.GetParameters().Length == 0) ||
                  ((m.GetParameters().Length == 1) &&
                   ((MethodParameter is null) ||
-                   MethodParameter.GetType().GetTypeInfo().IsAssignableFrom(m.GetParameters()[0].ParameterType.GetTypeInfo())))));
+                   m.GetParameters()[0].ParameterType.GetTypeInfo().IsAssignableFrom(MethodParameter.GetType().GetTypeInfo())))));
             if (cachedMethod is null)
             {
                 return;
@@ -98,7 +98,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
         if (cachedMethod.GetParameters().Length > 0)
         {
             var methodParameter = MethodParameter;
-            var argument = (methodParameter is not null) || this.IsSet(MethodNameProperty)
+            var argument = (methodParameter is not null) || this.IsSet(MethodParameterProperty)
                 ? methodParameter
                 : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
             cachedMethod.Invoke(target, [argument]);
