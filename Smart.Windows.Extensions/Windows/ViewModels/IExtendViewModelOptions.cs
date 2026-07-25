@@ -5,4 +5,6 @@ using Smart.Mvvm.ViewModels;
 public interface IExtendViewModelOptions : IViewModelOptions
 {
     CommandBehavior CommandBehavior { get; }
+
+    bool AutoUpdateCommandState => true;
 }

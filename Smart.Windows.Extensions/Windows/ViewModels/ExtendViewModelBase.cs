@@ -18,6 +18,8 @@ public abstract class ExtendViewModelBase : ViewModelBase
 
     private readonly CommandBehavior defaultBehavior;
 
+    private readonly bool autoUpdateCommandState;
+
     private List<IObserveCommand>? commands;
 
     // ------------------------------------------------------------
@@ -28,6 +30,7 @@ public abstract class ExtendViewModelBase : ViewModelBase
         : base(options ?? DefaultOptions)
     {
         defaultBehavior = options?.CommandBehavior ?? DefaultOptions.CommandBehavior;
+        autoUpdateCommandState = options?.AutoUpdateCommandState ?? DefaultOptions.AutoUpdateCommandState;
     }
 
     // ------------------------------------------------------------
@@ -38,7 +41,10 @@ public abstract class ExtendViewModelBase : ViewModelBase
     {
         base.RaisePropertyChanged(args);
 
-        UpdateCommandState();
+        if (autoUpdateCommandState)
+        {
+            UpdateCommandState();
+        }
     }
 
     // ------------------------------------------------------------
