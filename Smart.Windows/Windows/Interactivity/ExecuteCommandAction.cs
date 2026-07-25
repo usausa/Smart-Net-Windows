@@ -11,12 +11,12 @@ public sealed class ExecuteCommandAction : TriggerAction<DependencyObject>
 {
     public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
         nameof(Command),
-        typeof(IValueConverter),
+        typeof(ICommand),
         typeof(ExecuteCommandAction));
 
     public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
         nameof(CommandParameter),
-        typeof(IValueConverter),
+        typeof(object),
         typeof(ExecuteCommandAction));
 
     public static readonly DependencyProperty ConverterProperty = DependencyProperty.Register(
