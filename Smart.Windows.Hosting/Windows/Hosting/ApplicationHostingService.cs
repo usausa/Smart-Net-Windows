@@ -29,7 +29,7 @@ internal sealed class ApplicationHostingService<TApp> : BackgroundService
             try
             {
                 var app = serviceProvider.GetRequiredService<TApp>();
-                using var registration = stoppingToken.Register(() => app.Dispatcher.InvokeAsync(() => app.Shutdown()));
+                using var registration = stoppingToken.Register(() => app.Dispatcher.InvokeAsync(app.Shutdown));
 
                 app.Run();
                 tcs.TrySetResult();
