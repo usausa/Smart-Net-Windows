@@ -3,8 +3,6 @@ namespace Smart.Windows.Resolver;
 using System.ComponentModel;
 using System.Windows;
 
-using Smart.Mvvm.Resolver;
-
 public static class DataContextResolver
 {
     public static readonly DependencyProperty TypeProperty = DependencyProperty.RegisterAttached(
@@ -12,6 +10,11 @@ public static class DataContextResolver
         typeof(Type),
         typeof(DataContextResolver),
         new PropertyMetadata(HandleTypePropertyChanged));
+
+    private static readonly DependencyProperty ResolvedProperty = DependencyProperty.RegisterAttached(
+        "Resolved",
+        typeof(object),
+        typeof(DataContextResolver));
 
     public static readonly DependencyProperty DisposeOnChangedProperty = DependencyProperty.RegisterAttached(
         "DisposeOnChanged",
@@ -40,12 +43,17 @@ public static class DataContextResolver
 
         if (d is FrameworkElement element)
         {
-            if (element.DataContext is IDisposable disposable && GetDisposeOnChanged(d))
+            var resolved = element.GetValue(ResolvedProperty);
+            if (GetDisposeOnChanged(d) &&
+                ReferenceEquals(element.DataContext, resolved) &&
+                resolved is IDisposable disposable)
             {
                 disposable.Dispose();
             }
 
-            element.DataContext = e.NewValue is not null ? ResolveProvider.Default.GetService((Type)e.NewValue) : null;
+            var context = e.NewValue is not null ? ResolveHelper.Resolve((Type)e.NewValue) : null;
+            element.SetValue(ResolvedProperty, context);
+            element.DataContext = context;
         }
     }
 }

@@ -3,8 +3,6 @@ namespace Smart.Windows.Resolver;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Markup;
 
-using Smart.Mvvm.Resolver;
-
 public sealed class ResolveExtension : MarkupExtension
 {
     [ConstructorArgument("type")]
@@ -20,5 +18,5 @@ public sealed class ResolveExtension : MarkupExtension
         Type = type;
     }
 
-    public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveProvider.Default.GetService(Type);
+    public override object? ProvideValue(IServiceProvider serviceProvider) => ResolveHelper.Resolve(Type);
 }
