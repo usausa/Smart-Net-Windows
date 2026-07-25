@@ -13,7 +13,7 @@ internal sealed class ApplicationHostingService<TApp> : BackgroundService
 
     private readonly IHostApplicationLifetime hostApplicationLifetime;
 
-    private readonly TaskCompletionSource tcs = new();
+    private readonly TaskCompletionSource tcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
     public ApplicationHostingService(IServiceProvider serviceProvider, IHostApplicationLifetime hostApplicationLifetime)
     {
@@ -25,10 +25,24 @@ internal sealed class ApplicationHostingService<TApp> : BackgroundService
     {
         var thread = new Thread(() =>
         {
-            var app = serviceProvider.GetRequiredService<TApp>();
-            app.Run();
-            tcs.SetResult();
-            hostApplicationLifetime.StopApplication();
+#pragma warning disable CA1031
+            try
+            {
+                var app = serviceProvider.GetRequiredService<TApp>();
+                using var registration = stoppingToken.Register(() => app.Dispatcher.InvokeAsync(() => app.Shutdown()));
+
+                app.Run();
+                tcs.TrySetResult();
+            }
+            catch (Exception ex)
+            {
+                tcs.TrySetException(ex);
+            }
+            finally
+            {
+                hostApplicationLifetime.StopApplication();
+            }
+#pragma warning restore CA1031
         });
         thread.SetApartmentState(ApartmentState.STA);
         thread.Start();
