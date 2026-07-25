@@ -31,11 +31,38 @@ public sealed class WindowPlacementBehavior : Behavior<Window>
         set => SetValue(MarginProperty, value);
     }
 
+    private bool placed;
+
     protected override void OnAttached()
     {
         base.OnAttached();
 
+        AssociatedObject.Loaded += OnLoaded;
+        AssociatedObject.ContentRendered += OnContentRendered;
+
+        TryUpdatePlacement();
+    }
+
+    protected override void OnDetaching()
+    {
+        AssociatedObject.Loaded -= OnLoaded;
+        AssociatedObject.ContentRendered -= OnContentRendered;
+
+        base.OnDetaching();
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e) => TryUpdatePlacement();
+
+    private void OnContentRendered(object? sender, EventArgs e) => TryUpdatePlacement();
+
+    private void TryUpdatePlacement()
+    {
+        if (placed)
+        {
+            return;
+        }
+
         var workingArea = SystemParameters.WorkArea;
-        WindowPlacementHelper.UpdatePlacement(AssociatedObject, workingArea, Placement, Margin);
+        placed = WindowPlacementHelper.UpdatePlacement(AssociatedObject, workingArea, Placement, Margin);
     }
 }
