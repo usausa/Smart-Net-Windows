@@ -1,6 +1,7 @@
 namespace Smart.Windows.Expressions;
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
@@ -28,10 +29,11 @@ public static class ConvertHelper
         {
             return System.Convert.ChangeType(value, targetType, CultureInfo.CurrentCulture);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Trace.WriteLine($"Convert failed. targetType=[{targetType}], valueType=[{value.GetType()}], message=[{ex.Message}]");
             return null;
         }
-    }
 #pragma warning restore CA1031
+    }
 }

@@ -1,6 +1,7 @@
 namespace Smart.Windows.Interactivity;
 
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,9 @@ using Microsoft.Xaml.Behaviors;
 [TypeConstraint(typeof(ListBox))]
 public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 {
+    private static readonly DependencyPropertyDescriptor ItemsSourceDescriptor =
+        DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(ListBox))!;
+
     public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
         nameof(Enabled),
         typeof(bool),
@@ -33,31 +37,58 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
         set => SetValue(PositionProperty, value);
     }
 
+    private INotifyCollectionChanged? subscribedCollection;
+
     protected override void OnAttached()
     {
+        base.OnAttached();
+
         AssociatedObject.Loaded += OnLoaded;
-        AssociatedObject.Unloaded += OnUnLoaded;
+        AssociatedObject.Unloaded += OnUnloaded;
     }
 
     protected override void OnDetaching()
     {
         AssociatedObject.Loaded -= OnLoaded;
-        AssociatedObject.Unloaded -= OnUnLoaded;
+        AssociatedObject.Unloaded -= OnUnloaded;
+
+        base.OnDetaching();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
-        {
-            ncc.CollectionChanged += OnCollectionChanged;
-        }
+        ItemsSourceDescriptor.AddValueChanged(AssociatedObject, OnItemsSourceChanged);
+        Subscribe(AssociatedObject.ItemsSource as INotifyCollectionChanged);
     }
 
-    private void OnUnLoaded(object sender, RoutedEventArgs e)
+    private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        if (AssociatedObject.ItemsSource is INotifyCollectionChanged ncc)
+        ItemsSourceDescriptor.RemoveValueChanged(AssociatedObject, OnItemsSourceChanged);
+        Subscribe(null);
+    }
+
+    private void OnItemsSourceChanged(object? sender, EventArgs e)
+    {
+        Subscribe(AssociatedObject.ItemsSource as INotifyCollectionChanged);
+    }
+
+    private void Subscribe(INotifyCollectionChanged? collection)
+    {
+        if (ReferenceEquals(subscribedCollection, collection))
         {
-            ncc.CollectionChanged -= OnCollectionChanged;
+            return;
+        }
+
+        if (subscribedCollection is not null)
+        {
+            subscribedCollection.CollectionChanged -= OnCollectionChanged;
+        }
+
+        subscribedCollection = collection;
+
+        if (subscribedCollection is not null)
+        {
+            subscribedCollection.CollectionChanged += OnCollectionChanged;
         }
     }
 
