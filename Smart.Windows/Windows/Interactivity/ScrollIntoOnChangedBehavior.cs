@@ -1,18 +1,15 @@
 namespace Smart.Windows.Interactivity;
 
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 using Microsoft.Xaml.Behaviors;
 
 [TypeConstraint(typeof(ListBox))]
 public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 {
-    private static readonly DependencyPropertyDescriptor ItemsSourceDescriptor =
-        DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(ListBox))!;
-
     public static readonly DependencyProperty EnabledProperty = DependencyProperty.Register(
         nameof(Enabled),
         typeof(bool),
@@ -24,6 +21,12 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
         typeof(ScrollPosition),
         typeof(ScrollIntoOnChangedBehavior),
         new PropertyMetadata(ScrollPosition.Last));
+
+    private static readonly DependencyProperty ItemsSourceWatcherProperty = DependencyProperty.Register(
+        "ItemsSourceWatcher",
+        typeof(object),
+        typeof(ScrollIntoOnChangedBehavior),
+        new PropertyMetadata(null, HandleItemsSourceChanged));
 
     public bool Enabled
     {
@@ -39,16 +42,34 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 
     private INotifyCollectionChanged? subscribedCollection;
 
+    private bool loaded;
+
     protected override void OnAttached()
     {
         base.OnAttached();
 
         AssociatedObject.Loaded += OnLoaded;
         AssociatedObject.Unloaded += OnUnloaded;
+
+        BindingOperations.SetBinding(
+            this,
+            ItemsSourceWatcherProperty,
+            new Binding { Path = new PropertyPath(ItemsControl.ItemsSourceProperty), Source = AssociatedObject });
+
+        if (AssociatedObject.IsLoaded)
+        {
+            loaded = true;
+            Subscribe(AssociatedObject.ItemsSource as INotifyCollectionChanged);
+        }
     }
 
     protected override void OnDetaching()
     {
+        loaded = false;
+        Subscribe(null);
+
+        BindingOperations.ClearBinding(this, ItemsSourceWatcherProperty);
+
         AssociatedObject.Loaded -= OnLoaded;
         AssociatedObject.Unloaded -= OnUnloaded;
 
@@ -57,19 +78,23 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ItemsSourceDescriptor.AddValueChanged(AssociatedObject, OnItemsSourceChanged);
+        loaded = true;
         Subscribe(AssociatedObject.ItemsSource as INotifyCollectionChanged);
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        ItemsSourceDescriptor.RemoveValueChanged(AssociatedObject, OnItemsSourceChanged);
+        loaded = false;
         Subscribe(null);
     }
 
-    private void OnItemsSourceChanged(object? sender, EventArgs e)
+    private static void HandleItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        Subscribe(AssociatedObject.ItemsSource as INotifyCollectionChanged);
+        var behavior = (ScrollIntoOnChangedBehavior)d;
+        if (behavior.loaded)
+        {
+            behavior.Subscribe(e.NewValue as INotifyCollectionChanged);
+        }
     }
 
     private void Subscribe(INotifyCollectionChanged? collection)
@@ -94,23 +119,24 @@ public sealed class ScrollIntoOnChangedBehavior : Behavior<ListBox>
 
     private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        if (!Enabled)
+        var listBox = AssociatedObject;
+        if (!Enabled || (listBox is null))
         {
             return;
         }
 
         if (e.Action == NotifyCollectionChangedAction.Add)
         {
-            var count = AssociatedObject.Items.Count;
+            var count = listBox.Items.Count;
             if (count == 0)
             {
                 return;
             }
 
-            var item = Position == ScrollPosition.First ? AssociatedObject.Items[0] : AssociatedObject.Items[count - 1];
+            var item = Position == ScrollPosition.First ? listBox.Items[0] : listBox.Items[count - 1];
             if (item is not null)
             {
-                AssociatedObject.ScrollIntoView(item);
+                listBox.ScrollIntoView(item);
             }
         }
     }

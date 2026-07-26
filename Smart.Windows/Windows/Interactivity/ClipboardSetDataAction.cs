@@ -44,6 +44,8 @@ public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
 
     private MethodInfo? cachedMethod;
 
+    private Type? cachedType;
+
     [UnconditionalSuppressMessage("Trimming", "IL2075", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     protected override void Invoke(object parameter)
     {
@@ -55,10 +57,11 @@ public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
         }
 
         if ((cachedMethod is null) ||
-            (cachedMethod.DeclaringType != target.GetType()) ||
+            (cachedType != target.GetType()) ||
             (cachedMethod.Name != methodName))
         {
             cachedMethod = target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public);
+            cachedType = target.GetType();
             if (cachedMethod is null)
             {
                 return;
