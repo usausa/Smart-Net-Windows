@@ -37,6 +37,8 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
 
     private MethodInfo? cachedMethod;
 
+    private Type? cachedType;
+
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "MethodInfo.Invoke is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
@@ -49,7 +51,7 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
         }
 
         if ((cachedMethod is null) ||
-            (cachedMethod.DeclaringType != target.GetType()) ||
+            (cachedType != target.GetType()) ||
             (cachedMethod.Name != methodName))
         {
             cachedMethod = target.GetType().GetRuntimeMethods()
@@ -58,6 +60,8 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
             {
                 return;
             }
+
+            cachedType = target.GetType();
         }
 
         var eventArgs = (ResolveEventArgs)parameter;

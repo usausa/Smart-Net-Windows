@@ -68,6 +68,10 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
 
     private MethodInfo? cachedMethod;
 
+    private Type? cachedType;
+
+    private Type? cachedParameterType;
+
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
     [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "MethodInfo.Invoke is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
@@ -79,9 +83,11 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
             return;
         }
 
+        var parameterType = MethodParameter?.GetType();
         if ((cachedMethod is null) ||
-            (cachedMethod.DeclaringType != target.GetType()) ||
-            (cachedMethod.Name != methodName))
+            (cachedType != target.GetType()) ||
+            (cachedMethod.Name != methodName) ||
+            (cachedParameterType != parameterType))
         {
             cachedMethod = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
                 m.Name == methodName &&
@@ -93,6 +99,9 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
             {
                 return;
             }
+
+            cachedType = target.GetType();
+            cachedParameterType = parameterType;
         }
 
         if (cachedMethod.GetParameters().Length > 0)

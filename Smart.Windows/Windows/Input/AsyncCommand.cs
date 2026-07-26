@@ -1,6 +1,5 @@
 namespace Smart.Windows.Input;
 
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -28,8 +27,6 @@ public sealed class AsyncCommand : IObserveCommand
 
     private readonly Func<bool> canExecute;
 
-    private bool executing;
-
     public AsyncCommand(Func<Task> execute)
         : this(execute, Functions.True)
     {
@@ -41,34 +38,12 @@ public sealed class AsyncCommand : IObserveCommand
         this.canExecute = canExecute;
     }
 
-    bool ICommand.CanExecute(object? parameter) => !executing && canExecute();
+    bool ICommand.CanExecute(object? parameter) => canExecute();
 
     // ReSharper disable once AsyncVoidMethod
     async void ICommand.Execute(object? parameter)
     {
-        if (executing)
-        {
-            return;
-        }
-
-        executing = true;
-        RaiseCanExecuteChanged();
-
-#pragma warning disable CA1031
-        try
-        {
-            await execute().ConfigureAwait(true);
-        }
-        catch (Exception ex)
-        {
-            Trace.WriteLine($"Execute failed. type=[{GetType()}], message=[{ex.Message}]");
-        }
-        finally
-        {
-            executing = false;
-            RaiseCanExecuteChanged();
-        }
-#pragma warning restore CA1031
+        await execute().ConfigureAwait(true);
     }
 
 #pragma warning disable CA1030
@@ -102,8 +77,6 @@ public sealed class AsyncCommand<T> : IObserveCommand
 
     private readonly Func<T, bool> canExecute;
 
-    private bool executing;
-
     public AsyncCommand(Func<T, Task> execute)
         : this(execute, Functions<T>.True)
     {
@@ -115,34 +88,12 @@ public sealed class AsyncCommand<T> : IObserveCommand
         this.canExecute = canExecute;
     }
 
-    bool ICommand.CanExecute(object? parameter) => !executing && canExecute(Cast(parameter));
+    bool ICommand.CanExecute(object? parameter) => canExecute(Cast(parameter));
 
     // ReSharper disable once AsyncVoidMethod
     async void ICommand.Execute(object? parameter)
     {
-        if (executing)
-        {
-            return;
-        }
-
-        executing = true;
-        RaiseCanExecuteChanged();
-
-#pragma warning disable CA1031
-        try
-        {
-            await execute(Cast(parameter)).ConfigureAwait(true);
-        }
-        catch (Exception ex)
-        {
-            Trace.WriteLine($"Execute failed. type=[{GetType()}], message=[{ex.Message}]");
-        }
-        finally
-        {
-            executing = false;
-            RaiseCanExecuteChanged();
-        }
-#pragma warning restore CA1031
+        await execute(Cast(parameter)).ConfigureAwait(true);
     }
 
     private static T Cast(object? parameter)

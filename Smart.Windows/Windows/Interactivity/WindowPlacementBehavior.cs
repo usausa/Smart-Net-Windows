@@ -11,7 +11,7 @@ public sealed class WindowPlacementBehavior : Behavior<Window>
         nameof(Placement),
         typeof(WindowPlacement),
         typeof(WindowPlacementBehavior),
-        new PropertyMetadata(WindowPlacement.TopLeft));
+        new PropertyMetadata(WindowPlacement.TopLeft, HandlePlacementPropertyChanged));
 
     public WindowPlacement Placement
     {
@@ -23,7 +23,7 @@ public sealed class WindowPlacementBehavior : Behavior<Window>
         nameof(Margin),
         typeof(Thickness),
         typeof(WindowPlacementBehavior),
-        new PropertyMetadata(new Thickness(0)));
+        new PropertyMetadata(new Thickness(0), HandlePlacementPropertyChanged));
 
     public Thickness Margin
     {
@@ -54,6 +54,16 @@ public sealed class WindowPlacementBehavior : Behavior<Window>
     private void OnLoaded(object sender, RoutedEventArgs e) => TryUpdatePlacement();
 
     private void OnContentRendered(object? sender, EventArgs e) => TryUpdatePlacement();
+
+    private static void HandlePlacementPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var behavior = (WindowPlacementBehavior)d;
+        if (behavior.AssociatedObject is not null)
+        {
+            behavior.placed = false;
+            behavior.TryUpdatePlacement();
+        }
+    }
 
     private void TryUpdatePlacement()
     {

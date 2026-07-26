@@ -198,14 +198,11 @@ public sealed class AsyncCommandTest
     }
 
     //------------------------------------------------------------------
-    // Reentrancy
+    // Concurrency (the command does not serialize by itself)
     //------------------------------------------------------------------
 
-    private static void WaitUntilExecutable(ICommand command, object? parameter = null) =>
-        Assert.True(SpinWait.SpinUntil(() => command.CanExecute(parameter), TimeSpan.FromSeconds(5)));
-
     [Fact]
-    public void ExecuteIsIgnoredWhileRunning()
+    public void ExecuteAllowsConcurrentInvocation()
     {
         // Arrange
         var tcs = new TaskCompletionSource();
@@ -216,62 +213,15 @@ public sealed class AsyncCommandTest
             return tcs.Task;
         });
 
-        // Act
+        // Act (AsyncCommand keeps no execution state; exclusion must be expressed through canExecute)
         ((ICommand)command).Execute(null);
-        ((ICommand)command).Execute(null);
-
-        // Assert
-        Assert.Equal(1, count);
-
-        // Completing the first execution makes the command executable again
-        tcs.SetResult();
-        WaitUntilExecutable(command);
-
-        ((ICommand)command).Execute(null);
-        Assert.Equal(2, count);
-    }
-
-    [Fact]
-    public void CanExecuteIsFalseWhileRunning()
-    {
-        // Arrange
-        var tcs = new TaskCompletionSource();
-        var command = new AsyncCommand(() => tcs.Task);
-
-        // Act & Assert
         Assert.True(((ICommand)command).CanExecute(null));
-
         ((ICommand)command).Execute(null);
-        Assert.False(((ICommand)command).CanExecute(null));
-
-        tcs.SetResult();
-        WaitUntilExecutable(command);
-    }
-
-    [Fact]
-    public void GenericExecuteIsIgnoredWhileRunning()
-    {
-        // Arrange
-        var tcs = new TaskCompletionSource();
-        var count = 0;
-        var command = new AsyncCommand<int>(v =>
-        {
-            count += v;
-            return tcs.Task;
-        });
-
-        // Act
-        ((ICommand)command).Execute(1);
-        ((ICommand)command).Execute(1);
 
         // Assert
-        Assert.Equal(1, count);
+        Assert.Equal(2, count);
 
         tcs.SetResult();
-        WaitUntilExecutable(command, 1);
-
-        ((ICommand)command).Execute(1);
-        Assert.Equal(2, count);
     }
 
     //------------------------------------------------------------------
@@ -287,8 +237,8 @@ public sealed class AsyncCommandTest
         // Act (the failure is traced, not propagated out of async void)
         ((ICommand)command).Execute(null);
 
-        // Assert (state is restored so the command stays usable)
-        WaitUntilExecutable(command);
+        // Assert
+        Assert.True(((ICommand)command).CanExecute(null));
     }
 
     [Fact]
@@ -301,6 +251,6 @@ public sealed class AsyncCommandTest
         ((ICommand)command).Execute(1);
 
         // Assert
-        WaitUntilExecutable(command, 1);
+        Assert.True(((ICommand)command).CanExecute(1));
     }
 }

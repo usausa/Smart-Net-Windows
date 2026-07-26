@@ -43,17 +43,18 @@ public static class DataContextResolver
 
         if (d is FrameworkElement element)
         {
+            var context = e.NewValue is not null ? ResolveHelper.Resolve((Type)e.NewValue) : null;
+
             var resolved = element.GetValue(ResolvedProperty);
+            element.SetValue(ResolvedProperty, context);
+            element.DataContext = context;
+
             if (GetDisposeOnChanged(d) &&
-                ReferenceEquals(element.DataContext, resolved) &&
+                !ReferenceEquals(resolved, context) &&
                 resolved is IDisposable disposable)
             {
                 disposable.Dispose();
             }
-
-            var context = e.NewValue is not null ? ResolveHelper.Resolve((Type)e.NewValue) : null;
-            element.SetValue(ResolvedProperty, context);
-            element.DataContext = context;
         }
     }
 }
