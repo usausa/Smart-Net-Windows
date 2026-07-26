@@ -1,6 +1,7 @@
 namespace Smart.Windows.Messaging;
 
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -34,7 +35,16 @@ public sealed class ReactiveMessenger : IReactiveMessenger, IDisposable
 
         foreach (var holder in holders.Values)
         {
-            holder.Dispose();
+#pragma warning disable CA1031
+            try
+            {
+                holder.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Dispose failed. type=[{holder.GetType()}], message=[{ex.Message}]");
+            }
+#pragma warning restore CA1031
         }
 
         holders.Clear();
@@ -47,11 +57,7 @@ public sealed class ReactiveMessenger : IReactiveMessenger, IDisposable
 
     public void Send<TMessage>(TMessage message)
     {
-        var holder = GetHolder<TMessage>();
-        lock (holder)
-        {
-            holder.Subject.OnNext(message);
-        }
+        GetHolder<TMessage>().Subject.OnNext(message);
     }
 
     public bool HasObservers<TMessage>()
