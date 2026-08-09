@@ -2,8 +2,21 @@ namespace Smart.Windows.Input;
 
 using System.Windows.Input;
 
-public sealed class AsyncCommandTest
+public sealed class AsyncCommandTest : IDisposable
 {
+    private readonly SynchronizationContext? original = SynchronizationContext.Current;
+
+    public void Dispose() => SynchronizationContext.SetSynchronizationContext(original);
+
+    private sealed class RecordingSynchronizationContext : SynchronizationContext
+    {
+        private readonly List<(SendOrPostCallback Callback, object? State)> posted = [];
+
+        public IReadOnlyList<(SendOrPostCallback Callback, object? State)> Posted => posted;
+
+        public override void Post(SendOrPostCallback d, object? state) => posted.Add((d, state));
+    }
+
     //------------------------------------------------------------------
     // AsyncCommand
     //------------------------------------------------------------------
@@ -229,28 +242,34 @@ public sealed class AsyncCommandTest
     //------------------------------------------------------------------
 
     [Fact]
-    public void ExecuteDoesNotThrowWhenTaskFails()
+    public void ExecuteDoesNotThrowToCallerWhenTaskFails()
     {
         // Arrange
+        var context = new RecordingSynchronizationContext();
+        SynchronizationContext.SetSynchronizationContext(context);
         var command = new AsyncCommand(static () => Task.FromException(new InvalidOperationException("test")));
 
-        // Act (the failure is traced, not propagated out of async void)
+        // Act
         ((ICommand)command).Execute(null);
 
         // Assert
-        Assert.True(((ICommand)command).CanExecute(null));
+        var (callback, state) = Assert.Single(context.Posted);
+        Assert.Throws<InvalidOperationException>(() => callback(state));
     }
 
     [Fact]
-    public void GenericExecuteDoesNotThrowWhenTaskFails()
+    public void GenericExecuteDoesNotThrowToCallerWhenTaskFails()
     {
         // Arrange
+        var context = new RecordingSynchronizationContext();
+        SynchronizationContext.SetSynchronizationContext(context);
         var command = new AsyncCommand<int>(static _ => Task.FromException(new InvalidOperationException("test")));
 
         // Act
         ((ICommand)command).Execute(1);
 
         // Assert
-        Assert.True(((ICommand)command).CanExecute(1));
+        var (callback, state) = Assert.Single(context.Posted);
+        Assert.Throws<InvalidOperationException>(() => callback(state));
     }
 }
