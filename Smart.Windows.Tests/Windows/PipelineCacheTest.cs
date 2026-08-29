@@ -39,6 +39,27 @@ public sealed class PipelineCacheTest
         }
         """;
 
+    private const string BaseCallbackSource =
+        """
+        using Smart.Windows;
+        using System.Windows;
+
+        namespace Test;
+
+        public class BaseElement : DependencyObject
+        {
+            protected void OnChanged()
+            {
+            }
+        }
+
+        public partial class DerivedElement : BaseElement
+        {
+            [DependencyProperty(PropertyChanged = nameof(OnChanged))]
+            public partial string? Text { get; set; }
+        }
+        """;
+
     // ------------------------------------------------------------
     // Cache
     // ------------------------------------------------------------
@@ -63,5 +84,17 @@ public sealed class PipelineCacheTest
 
         // Assert
         Assert.Contains(result.OutputReasons, static x => x.IsChanged());
+    }
+
+    [Fact]
+    public void UnrelatedEditKeepsBaseCallbackModelCached()
+    {
+        // Arrange & Act
+        var result = GeneratorTestHelper.RunIncremental(BaseCallbackSource, UnrelatedSource);
+
+        // Assert
+        Assert.Equal(result.FirstGeneratedText, result.SecondGeneratedText);
+        Assert.NotEmpty(result.OutputReasons);
+        Assert.DoesNotContain(result.OutputReasons, static x => x.IsChanged());
     }
 }

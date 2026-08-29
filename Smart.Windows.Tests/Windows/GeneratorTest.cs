@@ -272,6 +272,74 @@ public sealed class GeneratorTest
     // ------------------------------------------------------------
 
     [Fact]
+    public void BaseTypeCallbackIsResolved()
+    {
+        // Arrange
+        const string source =
+            """
+            using Smart.Windows;
+            using System.Windows;
+
+            namespace Test;
+
+            public class BaseElement : DependencyObject
+            {
+                protected void OnChanged()
+                {
+                }
+            }
+
+            public partial class TestElement : BaseElement
+            {
+                [DependencyProperty(PropertyChanged = nameof(OnChanged))]
+                public partial string? Text { get; set; }
+            }
+            """;
+
+        // Act
+        var generated = GeneratorTestHelper.GetGeneratedSource(source);
+
+        // Assert
+        Assert.Contains("static (d, e) => ((TestElement)d).OnChanged()", generated, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void DeclaredCallbackHidesBaseTypeCallback()
+    {
+        // Arrange
+        const string source =
+            """
+            using Smart.Windows;
+            using System.Windows;
+
+            namespace Test;
+
+            public class BaseElement : DependencyObject
+            {
+                protected void OnChanged(int value)
+                {
+                }
+            }
+
+            public partial class TestElement : BaseElement
+            {
+                [DependencyProperty(PropertyChanged = nameof(OnChanged))]
+                public partial string? Text { get; set; }
+
+                private new void OnChanged()
+                {
+                }
+            }
+            """;
+
+        // Act
+        var generated = GeneratorTestHelper.GetGeneratedSource(source);
+
+        // Assert
+        Assert.Contains("static (d, e) => ((TestElement)d).OnChanged()", generated, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void PropertyChangedCallbackIsApplied()
     {
         // Arrange

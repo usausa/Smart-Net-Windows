@@ -189,6 +189,38 @@ public sealed class DiagnosticTest
     }
 
     [Fact]
+    public void Swd0008InaccessibleBaseCallbackEmitsDiagnostic()
+    {
+        // Arrange
+        const string source =
+            """
+            using Smart.Windows;
+            using System.Windows;
+
+            namespace Test;
+
+            public class BaseElement : DependencyObject
+            {
+                private void OnChanged()
+                {
+                }
+            }
+
+            public partial class TestElement : BaseElement
+            {
+                [DependencyProperty(PropertyChanged = nameof(BaseElement.OnChanged))]
+                public partial string? Text { get; set; }
+            }
+            """;
+
+        // Act
+        var diagnostics = GeneratorTestHelper.GetDiagnostics(source);
+
+        // Assert
+        Assert.Contains(diagnostics, static x => x.Id == "SWD0008");
+    }
+
+    [Fact]
     public void Swd0008CallbackNotFoundEmitsDiagnostic()
     {
         // Arrange

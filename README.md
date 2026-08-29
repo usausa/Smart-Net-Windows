@@ -43,6 +43,8 @@ public partial class GaugeControl : FrameworkElement
 | `Coerce` | Name of a `T` method with `(T value)` |
 | `Validate` | Name of a `static bool` method with `(T value)` |
 
+A callback method can be declared in the containing type or in a base type, so an inherited method can be specified directly.
+
 Requires C# 13 or later, because partial properties are used.
 
 ## NuGet
