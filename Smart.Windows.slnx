@@ -7,13 +7,19 @@
     <File Path="Analyzers.ruleset" />
     <File Path="CLAUDE.md" />
     <File Path="CodeCoverage.runsettings" />
+    <File Path="Diagnostics.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
     <File Path="LICENSE" />
     <File Path="README.md" />
     <File Path="Smart.Windows.sln.DotSettings" />
+    <File Path="Smart.Windows.props" />
+    <File Path="Smart.Windows.targets" />
   </Folder>
-  <Project Path="Smart.Windows/Smart.Windows.csproj" />
+  <Project Path="Smart.Windows/Smart.Windows.csproj">
+    <BuildDependency Project="Smart.Windows.Generator/Smart.Windows.Generator.csproj" />
+  </Project>
+  <Project Path="Smart.Windows.Generator/Smart.Windows.Generator.csproj" />
   <Project Path="Smart.Windows.Extensions/Smart.Windows.Extensions.csproj" />
   <Project Path="Smart.Windows.Hosting/Smart.Windows.Hosting.csproj" />
   <Project Path="Smart.Windows.Tests/Smart.Windows.Tests.csproj" />
