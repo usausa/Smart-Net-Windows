@@ -176,7 +176,7 @@ public sealed class DependencyPropertyGenerator : IIncrementalGenerator
         var defaultValueLiteral = defaultValueExpression;
         if (defaultValue.HasValue)
         {
-            defaultValueLiteral = FormatDefaultValue(defaultValue.Value, symbol.Type);
+            defaultValueLiteral = defaultValue.Value.ToCSharpExpression(symbol.Type);
             if (defaultValueLiteral is null)
             {
                 return Results.Error<PropertyModel>(new DiagnosticInfo(Diagnostics.InvalidDefaultValue, location, symbol.Name));
@@ -347,97 +347,6 @@ public sealed class DependencyPropertyGenerator : IIncrementalGenerator
         return found
             ? (null, new DiagnosticInfo(Diagnostics.InvalidCallbackMethod, location, methodName))
             : (null, new DiagnosticInfo(Diagnostics.CallbackMethodNotFound, location, methodName));
-    }
-
-    private static string? FormatDefaultValue(TypedConstant constant, ITypeSymbol propertyType)
-    {
-        if (constant.IsNull)
-        {
-            return "null";
-        }
-
-        if (constant.Kind == TypedConstantKind.Enum)
-        {
-            return $"({constant.Type!.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)})({((IFormattable)constant.Value!).ToString(null, CultureInfo.InvariantCulture)})";
-        }
-
-        if (constant.Kind == TypedConstantKind.Type)
-        {
-            return $"typeof({((ITypeSymbol)constant.Value!).ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)})";
-        }
-
-        if (constant.Kind != TypedConstantKind.Primitive)
-        {
-            return null;
-        }
-
-        var literal = constant.Value switch
-        {
-            string s => SymbolDisplay.FormatLiteral(s, true),
-            char c => SymbolDisplay.FormatLiteral(c, true),
-            bool b => b ? "true" : "false",
-            float f => FormatFloat(f),
-            double d => FormatDouble(d),
-            long l => l.ToString(CultureInfo.InvariantCulture) + "L",
-            ulong ul => ul.ToString(CultureInfo.InvariantCulture) + "UL",
-            uint ui => ui.ToString(CultureInfo.InvariantCulture) + "u",
-            IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture),
-            _ => null
-        };
-        if (literal is null)
-        {
-            return null;
-        }
-
-        if ((constant.Type is null) || SymbolEqualityComparer.Default.Equals(constant.Type, propertyType))
-        {
-            return literal;
-        }
-
-        var propertyTypeName = propertyType.ToDisplayString(TypeDisplayFormat);
-        return literal[0] == '-'
-            ? $"({propertyTypeName})({literal})"
-            : $"({propertyTypeName}){literal}";
-    }
-
-    private static string FormatFloat(float value)
-    {
-        if (Single.IsNaN(value))
-        {
-            return "float.NaN";
-        }
-
-        if (Single.IsPositiveInfinity(value))
-        {
-            return "float.PositiveInfinity";
-        }
-
-        if (Single.IsNegativeInfinity(value))
-        {
-            return "float.NegativeInfinity";
-        }
-
-        return value.ToString("R", CultureInfo.InvariantCulture) + "f";
-    }
-
-    private static string FormatDouble(double value)
-    {
-        if (Double.IsNaN(value))
-        {
-            return "double.NaN";
-        }
-
-        if (Double.IsPositiveInfinity(value))
-        {
-            return "double.PositiveInfinity";
-        }
-
-        if (Double.IsNegativeInfinity(value))
-        {
-            return "double.NegativeInfinity";
-        }
-
-        return value.ToString("R", CultureInfo.InvariantCulture) + "d";
     }
 
     // ------------------------------------------------------------
