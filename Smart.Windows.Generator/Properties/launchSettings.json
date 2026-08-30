@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Smart.Windows.Generator": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\Smart.Windows.Tests\\Smart.Windows.Tests.csproj"
-    }
-  }
-}
