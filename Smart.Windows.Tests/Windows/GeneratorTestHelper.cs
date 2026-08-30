@@ -22,6 +22,10 @@ internal static class GeneratorTestHelper
 
     public static IReadOnlyList<Diagnostic> GetDiagnosticsAll(string source) => Runner.GetDiagnosticsAll(source);
 
+    // Used when the generated code can not compile by design, such as a type with no known base type
+    public static IReadOnlyList<Diagnostic> GetDiagnosticsWithoutVerify(string source) =>
+        Runner.VerifyCompiles(false).GetDiagnostics(source);
+
     public static string GetGeneratedSource(string source) => Runner.GetGeneratedSource(source);
 
     public static IncrementalRunResult RunIncremental(string source, string addedSource) =>
