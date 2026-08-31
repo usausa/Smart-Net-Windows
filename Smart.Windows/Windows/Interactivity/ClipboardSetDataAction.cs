@@ -69,6 +69,11 @@ public sealed class ClipboardSetDataAction : TriggerAction<DependencyObject>
         }
 
         var result = cachedMethod.Invoke(target, null);
-        Clipboard.SetData(Format, result!);
+        if (result is null)
+        {
+            return;
+        }
+
+        Clipboard.SetData(Format, result);
     }
 }

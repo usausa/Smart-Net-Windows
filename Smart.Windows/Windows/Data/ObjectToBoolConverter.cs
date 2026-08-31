@@ -11,7 +11,7 @@ public abstract class ObjectToBoolConverter<T> : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is T typedValue && Equals(typedValue, TrueValue);
+        return (value is T typedValue) && Equals(typedValue, TrueValue);
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

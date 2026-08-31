@@ -14,7 +14,7 @@ public abstract class ContainsConverter<T> : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return parameter is IList list && list.Contains(value) ? TrueValue : FalseValue;
+        return (parameter is IList list) && list.Contains(value) ? TrueValue : FalseValue;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

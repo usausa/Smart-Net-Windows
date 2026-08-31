@@ -12,7 +12,10 @@ public sealed class ResolveExtensionTest : IDisposable
     {
         private readonly object? service;
 
-        public StubProvider(object? service) => this.service = service;
+        public StubProvider(object? service)
+        {
+            this.service = service;
+        }
 
         public object? GetService(Type serviceType) => service;
     }

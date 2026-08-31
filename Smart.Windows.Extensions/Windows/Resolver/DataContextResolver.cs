@@ -51,7 +51,7 @@ public static class DataContextResolver
 
             if (GetDisposeOnChanged(d) &&
                 !ReferenceEquals(resolved, context) &&
-                resolved is IDisposable disposable)
+                (resolved is IDisposable disposable))
             {
                 disposable.Dispose();
             }

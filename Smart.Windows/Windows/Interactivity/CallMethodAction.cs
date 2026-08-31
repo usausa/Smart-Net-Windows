@@ -90,7 +90,7 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
             (cachedParameterType != parameterType))
         {
             cachedMethod = target.GetType().GetRuntimeMethods().FirstOrDefault(m =>
-                m.Name == methodName &&
+                (m.Name == methodName) &&
                 ((m.GetParameters().Length == 0) ||
                  ((m.GetParameters().Length == 1) &&
                   ((MethodParameter is null) ||

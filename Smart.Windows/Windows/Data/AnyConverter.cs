@@ -29,5 +29,5 @@ public sealed class AnyConverter : IMultiValueConverter
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool ConvertToBoolean(object? value, CultureInfo culture) =>
-        value is bool boolValue ? boolValue : value is not null && System.Convert.ToBoolean(value, culture);
+        value is bool boolValue ? boolValue : (value is not null) && System.Convert.ToBoolean(value, culture);
 }

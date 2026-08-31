@@ -16,7 +16,7 @@ public abstract class NullToObjectConverter<T> : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if ((value is null) ||
-            (HandleEmptyString && value is string { Length: 0 }))
+            (HandleEmptyString && (value is string { Length: 0 })))
         {
             return NullValue;
         }
