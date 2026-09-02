@@ -20,9 +20,7 @@ public sealed class ResolveExtensionTest : IDisposable
         public object? GetService(Type serviceType) => service;
     }
 
-    private sealed class Service
-    {
-    }
+    private sealed class Service;
 
     //------------------------------------------------------------------
     // Resolver

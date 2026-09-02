@@ -41,14 +41,10 @@ public sealed class NullToBoolConverter : NullToObjectConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class NullToTextConverter : NullToObjectConverter<string?>
-{
-}
+public sealed class NullToTextConverter : NullToObjectConverter<string?>;
 
 [ValueConversion(typeof(object), typeof(Visibility))]
-public sealed class NullToVisibilityConverter : NullToObjectConverter<Visibility>
-{
-}
+public sealed class NullToVisibilityConverter : NullToObjectConverter<Visibility>;
 
 [ValueConversion(typeof(object), typeof(Brush))]
 public sealed class NullToBrushConverter : NullToObjectConverter<Brush>

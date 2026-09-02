@@ -34,14 +34,10 @@ public sealed class ContainsToBoolConverter : ContainsConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class ContainsToTextConverter : ContainsConverter<string?>
-{
-}
+public sealed class ContainsToTextConverter : ContainsConverter<string?>;
 
 [ValueConversion(typeof(object), typeof(Visibility))]
-public sealed class ContainsToVisibilityConverter : ContainsConverter<Visibility>
-{
-}
+public sealed class ContainsToVisibilityConverter : ContainsConverter<Visibility>;
 
 [ValueConversion(typeof(object), typeof(Brush))]
 public sealed class ContainsToBrushConverter : ContainsConverter<Brush>

@@ -10,13 +10,9 @@ public sealed class CallMethodActionTest
     private static void Invoke(CallMethodAction action, object? parameter) =>
         InvokeMethod.Invoke(action, [parameter]);
 
-    private interface IArgument
-    {
-    }
+    private interface IArgument;
 
-    private sealed class Argument : IArgument
-    {
-    }
+    private sealed class Argument : IArgument;
 
     private sealed class MethodTarget
     {

@@ -37,14 +37,10 @@ public sealed class CompareToBoolConverter : CompareConverter<bool>
 }
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class CompareToTextConverter : CompareConverter<string?>
-{
-}
+public sealed class CompareToTextConverter : CompareConverter<string?>;
 
 [ValueConversion(typeof(object), typeof(Visibility))]
-public sealed class CompareToVisibilityConverter : CompareConverter<Visibility>
-{
-}
+public sealed class CompareToVisibilityConverter : CompareConverter<Visibility>;
 
 [ValueConversion(typeof(object), typeof(Brush))]
 public sealed class CompareToBrushConverter : CompareConverter<Brush>

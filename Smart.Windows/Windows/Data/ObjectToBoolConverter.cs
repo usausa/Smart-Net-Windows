@@ -21,11 +21,7 @@ public abstract class ObjectToBoolConverter<T> : IValueConverter
 }
 
 [ValueConversion(typeof(string), typeof(bool))]
-public sealed class TextToBoolConverter : ObjectToBoolConverter<string?>
-{
-}
+public sealed class TextToBoolConverter : ObjectToBoolConverter<string?>;
 
 [ValueConversion(typeof(int), typeof(bool))]
-public sealed class IntToBoolConverter : ObjectToBoolConverter<int>
-{
-}
+public sealed class IntToBoolConverter : ObjectToBoolConverter<int>;

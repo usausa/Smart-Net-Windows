@@ -51,9 +51,7 @@ public abstract class MapToObjectConverter<T> : IValueConverter
     }
 }
 
-public sealed class MapToBrushEntry : MapEntry<Brush>
-{
-}
+public sealed class MapToBrushEntry : MapEntry<Brush>;
 
 [ValueConversion(typeof(object), typeof(Brush))]
 public sealed class MapToBrushConverter : MapToObjectConverter<Brush>
@@ -64,18 +62,12 @@ public sealed class MapToBrushConverter : MapToObjectConverter<Brush>
     }
 }
 
-public sealed class MapToTextEntry : MapEntry<string?>
-{
-}
+public sealed class MapToTextEntry : MapEntry<string?>;
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class MapToTextConverter : MapToObjectConverter<string?>
-{
-}
+public sealed class MapToTextConverter : MapToObjectConverter<string?>;
 
-public sealed class MapToColorEntry : MapEntry<Color>
-{
-}
+public sealed class MapToColorEntry : MapEntry<Color>;
 
 [ValueConversion(typeof(object), typeof(Color))]
 public sealed class MapToColorConverter : MapToObjectConverter<Color>

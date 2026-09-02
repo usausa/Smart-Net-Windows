@@ -54,14 +54,10 @@ public abstract class BoolToObjectConverter<T> : IValueConverter
 }
 
 [ValueConversion(typeof(bool), typeof(string))]
-public sealed class BoolToTextConverter : BoolToObjectConverter<string?>
-{
-}
+public sealed class BoolToTextConverter : BoolToObjectConverter<string?>;
 
 [ValueConversion(typeof(bool), typeof(Visibility))]
-public sealed class BoolToVisibilityConverter : BoolToObjectConverter<Visibility>
-{
-}
+public sealed class BoolToVisibilityConverter : BoolToObjectConverter<Visibility>;
 
 [ValueConversion(typeof(bool), typeof(Brush))]
 public sealed class BoolToBrushConverter : BoolToObjectConverter<Brush>
