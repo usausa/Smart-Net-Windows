@@ -15,9 +15,9 @@ public sealed class ChainConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var result = value;
-        for (var i = 0; i < Converters.Count; i++)
+        foreach (var converter in Converters)
         {
-            result = Converters[i].Convert(result, targetType, parameter, culture);
+            result = converter.Convert(result, targetType, parameter, culture);
         }
 
         return result;
