@@ -56,6 +56,18 @@ public sealed class MapToObjectConverterTests
     }
 
     [Fact]
+    public void BoolConverterReturnsMappedValueOrDefault()
+    {
+        // Arrange
+        var converter = new MapToBoolConverter();
+        converter.Entries.Add(new MapToBoolEntry { Key = 1, Value = true });
+
+        // Act & Assert
+        Assert.Equal(true, converter.Convert(1, typeof(bool), null, Culture));
+        Assert.Equal(false, converter.Convert(2, typeof(bool), null, Culture));
+    }
+
+    [Fact]
     public void ConvertBackThrows()
     {
         // Arrange

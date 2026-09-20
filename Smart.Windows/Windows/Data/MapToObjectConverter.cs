@@ -62,6 +62,11 @@ public sealed class MapToBrushConverter : MapToObjectConverter<Brush>
     }
 }
 
+public sealed class MapToBoolEntry : MapEntry<bool>;
+
+[ValueConversion(typeof(object), typeof(bool))]
+public sealed class MapToBoolConverter : MapToObjectConverter<bool>;
+
 public sealed class MapToTextEntry : MapEntry<string?>;
 
 [ValueConversion(typeof(object), typeof(string))]
