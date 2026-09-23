@@ -2,6 +2,8 @@ namespace Smart.Windows.Data;
 
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
@@ -19,6 +21,10 @@ public sealed class ChainConverter : IValueConverter
         for (var i = 0; i < Converters.Count; i++)
         {
             result = Converters[i].Convert(result, targetType, parameter, culture);
+            if (IsSentinel(result))
+            {
+                break;
+            }
         }
 
         return result;
@@ -30,8 +36,16 @@ public sealed class ChainConverter : IValueConverter
         for (var i = Converters.Count - 1; i >= 0; i--)
         {
             result = Converters[i].ConvertBack(result, targetType, parameter, culture);
+            if (IsSentinel(result))
+            {
+                break;
+            }
         }
 
         return result;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool IsSentinel(object? value) =>
+        (value == Binding.DoNothing) || (value == DependencyProperty.UnsetValue);
 }

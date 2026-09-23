@@ -1,6 +1,8 @@
 namespace Smart.Windows.Data;
 
 using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 
 public sealed class ColorToBrushConverterTests
@@ -22,13 +24,13 @@ public sealed class ColorToBrushConverterTests
     }
 
     [Fact]
-    public void ConvertNullReturnsNull()
+    public void ConvertNullReturnsUnsetValue()
     {
         // Arrange
         var converter = new ColorToBrushConverter();
 
         // Act & Assert
-        Assert.Null(converter.Convert(null, typeof(SolidColorBrush), null, Culture));
+        Assert.Equal(DependencyProperty.UnsetValue, converter.Convert(null, typeof(SolidColorBrush), null, Culture));
     }
 
     [Fact]
@@ -46,12 +48,12 @@ public sealed class ColorToBrushConverterTests
     }
 
     [Fact]
-    public void ConvertBackNullReturnsNull()
+    public void ConvertBackNullReturnsDoNothing()
     {
         // Arrange
         var converter = new ColorToBrushConverter();
 
         // Act & Assert
-        Assert.Null(converter.ConvertBack(null, typeof(Color), null, Culture));
+        Assert.Equal(Binding.DoNothing, converter.ConvertBack(null, typeof(Color), null, Culture));
     }
 }

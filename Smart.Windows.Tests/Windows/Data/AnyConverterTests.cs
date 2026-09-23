@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data;
 
 using System.Globalization;
+using System.Windows;
 
 public sealed class AnyConverterTests
 {
@@ -43,6 +44,19 @@ public sealed class AnyConverterTests
 
         // Assert
         Assert.Equal(false, result);
+    }
+
+    [Fact]
+    public void UnsetValueReturnsUnsetValue()
+    {
+        // Arrange
+        var converter = new AnyConverter();
+
+        // Act
+        var result = converter.Convert([false, DependencyProperty.UnsetValue], typeof(bool), null, Culture);
+
+        // Assert
+        Assert.Equal(DependencyProperty.UnsetValue, result);
     }
 
     [Fact]

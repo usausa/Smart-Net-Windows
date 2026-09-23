@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data;
 
 using System.Globalization;
+using System.Windows;
 
 public sealed class ArrayIndexConverterTests
 {
@@ -21,7 +22,7 @@ public sealed class ArrayIndexConverterTests
     }
 
     [Fact]
-    public void ConvertNullIndexReturnsNull()
+    public void ConvertNullIndexReturnsUnsetValue()
     {
         // Arrange
         var converter = new ArrayIndexConverter();
@@ -30,7 +31,35 @@ public sealed class ArrayIndexConverterTests
         var result = converter.Convert(null, typeof(object), null, Culture);
 
         // Assert
-        Assert.Null(result);
+        Assert.Equal(DependencyProperty.UnsetValue, result);
+    }
+
+    [Fact]
+    public void ConvertNegativeIndexReturnsUnsetValue()
+    {
+        // Arrange
+        var converter = new ArrayIndexConverter();
+        var array = new object[] { "a", "b", "c" };
+
+        // Act
+        var result = converter.Convert(-1, typeof(object), array, Culture);
+
+        // Assert
+        Assert.Equal(DependencyProperty.UnsetValue, result);
+    }
+
+    [Fact]
+    public void ConvertIndexOutOfRangeReturnsUnsetValue()
+    {
+        // Arrange
+        var converter = new ArrayIndexConverter();
+        var array = new object[] { "a", "b", "c" };
+
+        // Act
+        var result = converter.Convert(3, typeof(object), array, Culture);
+
+        // Assert
+        Assert.Equal(DependencyProperty.UnsetValue, result);
     }
 
     [Fact]

@@ -2,6 +2,7 @@ namespace Smart.Windows.Data;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 using Smart.Converter;
@@ -21,6 +22,17 @@ public sealed class ObjectConvertConverter : IValueConverter
     [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "ObjectConverter uses MakeGenericType/MakeGenericMethod internally; not AOT-safe by design")]
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        if (Converter.TryConvert(value, targetType, out var result))
+        {
+            return result;
+        }
+
+        if (Converter.CanConvert(value, targetType))
+        {
+            return DependencyProperty.UnsetValue;
+        }
+
+        // Convert throws when there is no converter for the types
         return Converter.Convert(value, targetType);
     }
 }

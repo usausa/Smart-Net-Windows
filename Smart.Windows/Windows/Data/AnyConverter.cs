@@ -2,6 +2,7 @@ namespace Smart.Windows.Data;
 
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Data;
 
 public sealed class AnyConverter : IMultiValueConverter
@@ -13,6 +14,11 @@ public sealed class AnyConverter : IMultiValueConverter
 
     public object Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
     {
+        if (values.Contains(DependencyProperty.UnsetValue))
+        {
+            return DependencyProperty.UnsetValue;
+        }
+
         foreach (var value in values)
         {
             if (ConvertToBoolean(value, culture))

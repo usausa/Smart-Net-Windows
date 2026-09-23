@@ -1,6 +1,7 @@
 namespace Smart.Windows.Data;
 
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -9,11 +10,11 @@ public sealed class ColorToBrushConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is Color color ? new SolidColorBrush(color) : null;
+        return value is Color color ? new SolidColorBrush(color) : DependencyProperty.UnsetValue;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is SolidColorBrush brush ? brush.Color : null;
+        return value is SolidColorBrush brush ? brush.Color : Binding.DoNothing;
     }
 }
