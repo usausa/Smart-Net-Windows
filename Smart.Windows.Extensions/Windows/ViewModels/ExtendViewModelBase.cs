@@ -16,11 +16,17 @@ public abstract class ExtendViewModelBase : ViewModelBase
     // Member
     // ------------------------------------------------------------
 
-    private readonly CommandBehavior defaultBehavior;
+    private readonly CommandMode defaultMode;
 
     private readonly bool autoUpdateCommandState;
 
     private List<IObserveCommand>? commands;
+
+    // ------------------------------------------------------------
+    // Property
+    // ------------------------------------------------------------
+
+    protected bool AcceptsCommand { get; set; } = true;
 
     // ------------------------------------------------------------
     // Constructor
@@ -29,7 +35,8 @@ public abstract class ExtendViewModelBase : ViewModelBase
     protected ExtendViewModelBase(IExtendViewModelOptions? options = null)
         : base(options ?? DefaultOptions)
     {
-        defaultBehavior = options?.CommandBehavior ?? DefaultOptions.CommandBehavior;
+        var mode = options?.CommandMode ?? DefaultOptions.CommandMode;
+        defaultMode = mode == CommandMode.Default ? CommandMode.Standard : mode;
         autoUpdateCommandState = options?.AutoUpdateCommandState ?? DefaultOptions.AutoUpdateCommandState;
     }
 
@@ -88,27 +95,51 @@ public abstract class ExtendViewModelBase : ViewModelBase
         return command;
     }
 
-    protected IObserveCommand MakeDelegateCommand(Action execute, CommandBehavior behavior = CommandBehavior.Default) =>
-        MakeDelegateCommand(execute, Functions.True, behavior);
+    protected IObserveCommand MakeDelegateCommand(Action execute) =>
+        MakeDelegateCommand(CommandMode.Default, execute, Functions.True);
 
-    protected IObserveCommand MakeDelegateCommand(Action execute, Func<bool> canExecute, CommandBehavior behavior = CommandBehavior.Default)
+    protected IObserveCommand MakeDelegateCommand(Action execute, Func<bool> canExecute) =>
+        MakeDelegateCommand(CommandMode.Default, execute, canExecute);
+
+    protected IObserveCommand MakeDelegateCommand(CommandMode mode, Action execute) =>
+        MakeDelegateCommand(mode, execute, Functions.True);
+
+    protected IObserveCommand MakeDelegateCommand(CommandMode mode, Action execute, Func<bool> canExecute)
     {
         DelegateCommand command;
-        if (IsControlByBusyState(behavior))
+        var resolved = ResolveMode(mode);
+        if (resolved == CommandMode.Simple)
         {
             command = new DelegateCommand(() =>
             {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
+                execute();
+            }, canExecute);
+        }
+        else if (resolved == CommandMode.ControlByBusyState)
+        {
+            command = new DelegateCommand(() =>
+            {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
                 using (BusyState.Begin())
                 {
                     execute();
                 }
             }, () => !BusyState.IsBusy && canExecute());
         }
-        else if (!IsAllowBusyExecution(behavior))
+        else
         {
             command = new DelegateCommand(() =>
             {
-                if (BusyState.IsBusy)
+                if (!AcceptsCommand || BusyState.IsBusy)
                 {
                     return;
                 }
@@ -119,41 +150,55 @@ public abstract class ExtendViewModelBase : ViewModelBase
                 }
             }, canExecute);
         }
-        else
-        {
-            command = new DelegateCommand(() =>
-            {
-                using (BusyState.Begin())
-                {
-                    execute();
-                }
-            }, canExecute);
-        }
         AddCommandObserver(command);
         return command;
     }
 
-    protected IObserveCommand MakeDelegateCommand<TParameter>(Action<TParameter> execute, CommandBehavior behavior = CommandBehavior.Default) =>
-        MakeDelegateCommand(execute, Functions<TParameter>.True, behavior);
+    protected IObserveCommand MakeDelegateCommand<TParameter>(Action<TParameter> execute) =>
+        MakeDelegateCommand(CommandMode.Default, execute, Functions<TParameter>.True);
 
-    protected IObserveCommand MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute, CommandBehavior behavior = CommandBehavior.Default)
+    protected IObserveCommand MakeDelegateCommand<TParameter>(Action<TParameter> execute, Func<TParameter, bool> canExecute) =>
+        MakeDelegateCommand(CommandMode.Default, execute, canExecute);
+
+    protected IObserveCommand MakeDelegateCommand<TParameter>(CommandMode mode, Action<TParameter> execute) =>
+        MakeDelegateCommand(mode, execute, Functions<TParameter>.True);
+
+    protected IObserveCommand MakeDelegateCommand<TParameter>(CommandMode mode, Action<TParameter> execute, Func<TParameter, bool> canExecute)
     {
         DelegateCommand<TParameter> command;
-        if (IsControlByBusyState(behavior))
+        var resolved = ResolveMode(mode);
+        if (resolved == CommandMode.Simple)
         {
             command = new DelegateCommand<TParameter>(x =>
             {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
+                execute(x);
+            }, canExecute);
+        }
+        else if (resolved == CommandMode.ControlByBusyState)
+        {
+            command = new DelegateCommand<TParameter>(x =>
+            {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
                 using (BusyState.Begin())
                 {
                     execute(x);
                 }
             }, x => !BusyState.IsBusy && canExecute(x));
         }
-        else if (!IsAllowBusyExecution(behavior))
+        else
         {
             command = new DelegateCommand<TParameter>(x =>
             {
-                if (BusyState.IsBusy)
+                if (!AcceptsCommand || BusyState.IsBusy)
                 {
                     return;
                 }
@@ -164,41 +209,55 @@ public abstract class ExtendViewModelBase : ViewModelBase
                 }
             }, canExecute);
         }
-        else
-        {
-            command = new DelegateCommand<TParameter>(x =>
-            {
-                using (BusyState.Begin())
-                {
-                    execute(x);
-                }
-            }, canExecute);
-        }
         AddCommandObserver(command);
         return command;
     }
 
-    protected IObserveCommand MakeAsyncCommand(Func<Task> execute, CommandBehavior behavior = CommandBehavior.Default) =>
-        MakeAsyncCommand(execute, Functions.True, behavior);
+    protected IObserveCommand MakeAsyncCommand(Func<Task> execute) =>
+        MakeAsyncCommand(CommandMode.Default, execute, Functions.True);
 
-    protected IObserveCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute, CommandBehavior behavior = CommandBehavior.Default)
+    protected IObserveCommand MakeAsyncCommand(Func<Task> execute, Func<bool> canExecute) =>
+        MakeAsyncCommand(CommandMode.Default, execute, canExecute);
+
+    protected IObserveCommand MakeAsyncCommand(CommandMode mode, Func<Task> execute) =>
+        MakeAsyncCommand(mode, execute, Functions.True);
+
+    protected IObserveCommand MakeAsyncCommand(CommandMode mode, Func<Task> execute, Func<bool> canExecute)
     {
         AsyncCommand command;
-        if (IsControlByBusyState(behavior))
+        var resolved = ResolveMode(mode);
+        if (resolved == CommandMode.Simple)
         {
             command = new AsyncCommand(async () =>
             {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
+                await execute().ConfigureAwait(true);
+            }, canExecute);
+        }
+        else if (resolved == CommandMode.ControlByBusyState)
+        {
+            command = new AsyncCommand(async () =>
+            {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
                 using (BusyState.Begin())
                 {
                     await execute().ConfigureAwait(true);
                 }
             }, () => !BusyState.IsBusy && canExecute());
         }
-        else if (!IsAllowBusyExecution(behavior))
+        else
         {
             command = new AsyncCommand(async () =>
             {
-                if (BusyState.IsBusy)
+                if (!AcceptsCommand || BusyState.IsBusy)
                 {
                     return;
                 }
@@ -209,55 +268,59 @@ public abstract class ExtendViewModelBase : ViewModelBase
                 }
             }, canExecute);
         }
-        else
-        {
-            command = new AsyncCommand(async () =>
-            {
-                using (BusyState.Begin())
-                {
-                    await execute().ConfigureAwait(true);
-                }
-            }, canExecute);
-        }
         AddCommandObserver(command);
         return command;
     }
 
-    protected IObserveCommand MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, CommandBehavior behavior = CommandBehavior.Default) =>
-        MakeAsyncCommand(execute, Functions<TParameter>.True, behavior);
+    protected IObserveCommand MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute) =>
+        MakeAsyncCommand(CommandMode.Default, execute, Functions<TParameter>.True);
 
-    protected IObserveCommand MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute, CommandBehavior behavior = CommandBehavior.Default)
+    protected IObserveCommand MakeAsyncCommand<TParameter>(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute) =>
+        MakeAsyncCommand(CommandMode.Default, execute, canExecute);
+
+    protected IObserveCommand MakeAsyncCommand<TParameter>(CommandMode mode, Func<TParameter, Task> execute) =>
+        MakeAsyncCommand(mode, execute, Functions<TParameter>.True);
+
+    protected IObserveCommand MakeAsyncCommand<TParameter>(CommandMode mode, Func<TParameter, Task> execute, Func<TParameter, bool> canExecute)
     {
         AsyncCommand<TParameter> command;
-        if (IsControlByBusyState(behavior))
+        var resolved = ResolveMode(mode);
+        if (resolved == CommandMode.Simple)
         {
             command = new AsyncCommand<TParameter>(async x =>
             {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
+                await execute(x).ConfigureAwait(true);
+            }, canExecute);
+        }
+        else if (resolved == CommandMode.ControlByBusyState)
+        {
+            command = new AsyncCommand<TParameter>(async x =>
+            {
+                if (!AcceptsCommand)
+                {
+                    return;
+                }
+
                 using (BusyState.Begin())
                 {
                     await execute(x).ConfigureAwait(true);
                 }
             }, x => !BusyState.IsBusy && canExecute(x));
         }
-        else if (!IsAllowBusyExecution(behavior))
-        {
-            command = new AsyncCommand<TParameter>(async x =>
-            {
-                if (BusyState.IsBusy)
-                {
-                    return;
-                }
-
-                using (BusyState.Begin())
-                {
-                    await execute(x).ConfigureAwait(true);
-                }
-            }, canExecute);
-        }
         else
         {
             command = new AsyncCommand<TParameter>(async x =>
             {
+                if (!AcceptsCommand || BusyState.IsBusy)
+                {
+                    return;
+                }
+
                 using (BusyState.Begin())
                 {
                     await execute(x).ConfigureAwait(true);
@@ -269,16 +332,8 @@ public abstract class ExtendViewModelBase : ViewModelBase
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool HasFlags(CommandBehavior behavior, CommandBehavior flag) =>
-        (behavior & flag) == flag;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool IsControlByBusyState(CommandBehavior behavior) =>
-        HasFlags(HasFlags(behavior, CommandBehavior.Default) ? defaultBehavior : behavior, CommandBehavior.ControlByBusyState);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool IsAllowBusyExecution(CommandBehavior behavior) =>
-        HasFlags(HasFlags(behavior, CommandBehavior.Default) ? defaultBehavior : behavior, CommandBehavior.AllowBusyExecution);
+    private CommandMode ResolveMode(CommandMode mode) =>
+        mode == CommandMode.Default ? defaultMode : mode;
 
     // ------------------------------------------------------------
     // Reactive helper

@@ -4,7 +4,7 @@ using Smart.Mvvm.ViewModels;
 
 public class ExtendViewModelOptions : ViewModelOptions, IExtendViewModelOptions
 {
-    public CommandBehavior CommandBehavior { get; } = CommandBehavior.None;
+    public CommandMode CommandMode { get; init; } = CommandMode.Standard;
 
     public bool AutoUpdateCommandState { get; init; } = true;
 }
