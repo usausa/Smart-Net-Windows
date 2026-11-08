@@ -46,6 +46,30 @@ public sealed class MapToObjectConverterTests
     }
 
     [Fact]
+    public void ConvertEnumKeyMatchesSameEnumValue()
+    {
+        // Arrange
+        var converter = new MapToTextConverter { DefaultValue = "default" };
+        converter.Entries.Add(new MapToTextEntry { Key = DayOfWeek.Monday, Value = "Mon" });
+
+        // Act & Assert
+        Assert.Equal("Mon", converter.Convert(DayOfWeek.Monday, typeof(string), null, Culture));
+    }
+
+    [Fact]
+    public void ConvertDifferentTypeValueReturnsDefaultValue()
+    {
+        // Arrange
+        var converter = new MapToTextConverter { DefaultValue = "default" };
+        converter.Entries.Add(new MapToTextEntry { Key = DayOfWeek.Monday, Value = "Mon" });
+        converter.Entries.Add(new MapToTextEntry { Key = 1d, Value = "one" });
+
+        // Act & Assert
+        Assert.Equal("default", converter.Convert("Monday", typeof(string), null, Culture));
+        Assert.Equal("default", converter.Convert(1, typeof(string), null, Culture));
+    }
+
+    [Fact]
     public void NullValueReturnsDefault()
     {
         // Arrange

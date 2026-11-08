@@ -26,7 +26,7 @@ public abstract class MapToObjectConverter<T> : IValueConverter
         {
             if (value is IComparable comparable)
             {
-                var entry = Entries.FirstOrDefault(comparable, static (x, s) => s.CompareTo(x.Key) == 0);
+                var entry = Entries.FirstOrDefault(comparable, static (x, s) => s.GetType().IsInstanceOfType(x.Key) && (s.CompareTo(x.Key) == 0));
                 if (entry is not null)
                 {
                     return entry.Value;
