@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 using Smart.Windows.Data;
 
-[MarkupExtensionReturnType(typeof(BoolToColorConverter))]
+[MarkupExtensionReturnType(typeof(BoolToTextConverter))]
 public sealed class BoolToTextExtension : MarkupExtension
 {
     public string? True { get; set; }
@@ -17,7 +17,7 @@ public sealed class BoolToTextExtension : MarkupExtension
         new BoolToTextConverter { TrueValue = True, FalseValue = False };
 }
 
-[MarkupExtensionReturnType(typeof(BoolToVisibilityExtension))]
+[MarkupExtensionReturnType(typeof(BoolToVisibilityConverter))]
 public sealed class BoolToVisibilityExtension : MarkupExtension
 {
     public Visibility True { get; set; }
@@ -28,7 +28,7 @@ public sealed class BoolToVisibilityExtension : MarkupExtension
         new BoolToVisibilityConverter { TrueValue = True, FalseValue = False };
 }
 
-[MarkupExtensionReturnType(typeof(BoolToBrushExtension))]
+[MarkupExtensionReturnType(typeof(BoolToBrushConverter))]
 public sealed class BoolToBrushExtension : MarkupExtension
 {
     public Brush True { get; set; } = Brushes.Transparent;
