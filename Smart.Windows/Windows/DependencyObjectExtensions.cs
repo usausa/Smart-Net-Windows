@@ -70,6 +70,39 @@ public static class DependencyObjectExtensions
         }
     }
 
+    public static T? FindParent<T>(this DependencyObject obj, Func<T, bool> predicate)
+        where T : DependencyObject =>
+        obj.FindParent<T, Func<T, bool>>(predicate, static (x, p) => p(x));
+
+    public static T? FindParent<T, TState>(this DependencyObject obj, TState state, Func<T, TState, bool> predicate)
+        where T : DependencyObject
+    {
+        var parent = obj.Parent();
+        while (parent is not null)
+        {
+            if ((parent is T typedParent) && predicate(typedParent, state))
+            {
+                return typedParent;
+            }
+
+            parent = parent.Parent();
+        }
+
+        return null;
+    }
+
+    public static T? FindParentOrSelf<T>(this DependencyObject obj)
+        where T : DependencyObject =>
+        obj as T ?? obj.FindParent<T>();
+
+    public static T? FindParentOrSelf<T>(this DependencyObject obj, Func<T, bool> predicate)
+        where T : DependencyObject =>
+        (obj is T self) && predicate(self) ? self : obj.FindParent(predicate);
+
+    public static T? FindParentOrSelf<T, TState>(this DependencyObject obj, TState state, Func<T, TState, bool> predicate)
+        where T : DependencyObject =>
+        (obj is T self) && predicate(self, state) ? self : obj.FindParent(state, predicate);
+
     // ------------------------------------------------------------
     // Children
     // ------------------------------------------------------------
@@ -124,6 +157,18 @@ public static class DependencyObjectExtensions
         }
     }
 
+    public static IEnumerable<T> FindChildren<T, TState>(this DependencyObject source, TState state, Func<T, TState, bool> predicate)
+        where T : DependencyObject
+    {
+        foreach (var child in source.FindChildren<T>())
+        {
+            if (predicate(child, state))
+            {
+                yield return child;
+            }
+        }
+    }
+
     public static T? FindChild<T>(this DependencyObject source)
         where T : DependencyObject =>
         source.FindChildren<T>().FirstOrDefault();
@@ -131,6 +176,32 @@ public static class DependencyObjectExtensions
     public static T? FindChild<T>(this DependencyObject source, Func<T, bool> predicate)
         where T : DependencyObject =>
         source.FindChildren<T>().FirstOrDefault(predicate);
+
+    public static T? FindChild<T, TState>(this DependencyObject source, TState state, Func<T, TState, bool> predicate)
+        where T : DependencyObject
+    {
+        foreach (var child in source.FindChildren<T>())
+        {
+            if (predicate(child, state))
+            {
+                return child;
+            }
+        }
+
+        return null;
+    }
+
+    public static T? FindChildOrSelf<T>(this DependencyObject source)
+        where T : DependencyObject =>
+        source as T ?? source.FindChild<T>();
+
+    public static T? FindChildOrSelf<T>(this DependencyObject source, Func<T, bool> predicate)
+        where T : DependencyObject =>
+        (source is T self) && predicate(self) ? self : source.FindChild(predicate);
+
+    public static T? FindChildOrSelf<T, TState>(this DependencyObject source, TState state, Func<T, TState, bool> predicate)
+        where T : DependencyObject =>
+        (source is T self) && predicate(self, state) ? self : source.FindChild(state, predicate);
 
     // ------------------------------------------------------------
     // Ancestry
