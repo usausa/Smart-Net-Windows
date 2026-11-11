@@ -18,7 +18,7 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
 
     public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
         nameof(PropertyName),
-        typeof(object),
+        typeof(string),
         typeof(ResolvePropertyAction),
         new PropertyMetadata(string.Empty));
 
@@ -39,9 +39,13 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
     private Type? cachedType;
 
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
-    [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "PropertyInfo.GetValue is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
     {
+        if (parameter is not ResolveEventArgs args)
+        {
+            return;
+        }
+
         var target = TargetObject ?? AssociatedObject;
         var propertyName = PropertyName;
         if (String.IsNullOrEmpty(propertyName))
@@ -61,7 +65,6 @@ public sealed class ResolvePropertyAction : TriggerAction<DependencyObject>
             }
         }
 
-        var eventArgs = (ResolveEventArgs)parameter;
-        eventArgs.Result = cachedProperty.GetValue(target);
+        args.Result = cachedProperty.GetValue(target);
     }
 }

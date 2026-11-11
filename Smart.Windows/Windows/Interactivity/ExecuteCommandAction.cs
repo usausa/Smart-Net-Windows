@@ -62,9 +62,10 @@ public sealed class ExecuteCommandAction : TriggerAction<DependencyObject>
         }
 
         var commandParameter = CommandParameter;
+        var converter = Converter;
         var argument = (commandParameter is not null) || this.IsSet(CommandParameterProperty)
             ? commandParameter
-            : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
+            : converter is not null ? converter.Convert(parameter, typeof(object), ConverterParameter, null) : parameter;
         if (command.CanExecute(argument))
         {
             command.Execute(argument);

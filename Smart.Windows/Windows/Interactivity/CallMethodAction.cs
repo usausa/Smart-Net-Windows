@@ -72,8 +72,9 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
 
     private Type? cachedParameterType;
 
+    private bool cachedHasParameter;
+
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
-    [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "MethodInfo.Invoke is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
     {
         var target = TargetObject ?? AssociatedObject;
@@ -102,14 +103,16 @@ public sealed class CallMethodAction : TriggerAction<DependencyObject>
 
             cachedType = target.GetType();
             cachedParameterType = parameterType;
+            cachedHasParameter = cachedMethod.GetParameters().Length > 0;
         }
 
-        if (cachedMethod.GetParameters().Length > 0)
+        if (cachedHasParameter)
         {
             var methodParameter = MethodParameter;
+            var converter = Converter;
             var argument = (methodParameter is not null) || this.IsSet(MethodParameterProperty)
                 ? methodParameter
-                : Converter?.Convert(parameter, typeof(object), ConverterParameter, null) ?? parameter;
+                : converter is not null ? converter.Convert(parameter, typeof(object), ConverterParameter, null) : parameter;
             cachedMethod.Invoke(target, [argument]);
         }
         else

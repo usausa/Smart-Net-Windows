@@ -22,6 +22,20 @@ public sealed class ArrayIndexConverterTests
     }
 
     [Fact]
+    public void ConvertReturnsElementOfList()
+    {
+        // Arrange
+        var converter = new ArrayIndexConverter();
+        List<object> list = ["a", "b", "c"];
+
+        // Act
+        var result = converter.Convert(2, typeof(object), list, Culture);
+
+        // Assert
+        Assert.Equal("c", result);
+    }
+
+    [Fact]
     public void ConvertNullIndexReturnsUnsetValue()
     {
         // Arrange
@@ -74,6 +88,20 @@ public sealed class ArrayIndexConverterTests
 
         // Assert
         Assert.Equal(1, result);
+    }
+
+    [Fact]
+    public void ConvertBackReturnsIndexInList()
+    {
+        // Arrange
+        var converter = new ArrayIndexConverter();
+        List<object> list = ["x", "y", "z"];
+
+        // Act
+        var result = converter.ConvertBack("z", typeof(int), list, Culture);
+
+        // Assert
+        Assert.Equal(2, result);
     }
 
     [Fact]

@@ -47,4 +47,14 @@ public static class DispatcherExtensions
     {
         return dispatcher.Dispatcher.InvokeAsync(() => action(arg), DispatcherPriority.Normal, cancellationToken);
     }
+
+    public static Task AsyncInvoke(this DispatcherObject dispatcher, Func<Task> action, CancellationToken cancellationToken = default)
+    {
+        return dispatcher.Dispatcher.InvokeAsync(action, DispatcherPriority.Normal, cancellationToken).Task.Unwrap();
+    }
+
+    public static Task<TResult> AsyncInvoke<TResult>(this DispatcherObject dispatcher, Func<Task<TResult>> action, CancellationToken cancellationToken = default)
+    {
+        return dispatcher.Dispatcher.InvokeAsync(action, DispatcherPriority.Normal, cancellationToken).Task.Unwrap();
+    }
 }

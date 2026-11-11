@@ -19,7 +19,7 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
 
     public static readonly DependencyProperty MethodNameProperty = DependencyProperty.Register(
         nameof(MethodName),
-        typeof(object),
+        typeof(string),
         typeof(ResolveMethodAction),
         new PropertyMetadata(string.Empty));
 
@@ -40,9 +40,13 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
     private Type? cachedType;
 
     [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Target type is determined at runtime via XAML; callers must ensure the type is preserved")]
-    [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "MethodInfo.Invoke is used at runtime; not AOT-safe by design")]
     protected override void Invoke(object parameter)
     {
+        if (parameter is not ResolveEventArgs args)
+        {
+            return;
+        }
+
         var target = TargetObject ?? AssociatedObject;
         var methodName = MethodName;
         if (String.IsNullOrEmpty(methodName))
@@ -64,7 +68,6 @@ public sealed class ResolveMethodAction : TriggerAction<DependencyObject>
             cachedType = target.GetType();
         }
 
-        var eventArgs = (ResolveEventArgs)parameter;
-        eventArgs.Result = cachedMethod.Invoke(target, null);
+        args.Result = cachedMethod.Invoke(target, null);
     }
 }

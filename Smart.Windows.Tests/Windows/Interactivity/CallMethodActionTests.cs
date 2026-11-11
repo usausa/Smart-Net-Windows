@@ -1,6 +1,8 @@
 namespace Smart.Windows.Interactivity;
 
+using System.Globalization;
 using System.Reflection;
+using System.Windows.Data;
 
 public sealed class CallMethodActionTests
 {
@@ -35,6 +37,13 @@ public sealed class CallMethodActionTests
             ObjectCalled = true;
             ObjectReceived = argument;
         }
+    }
+
+    private sealed class NullConverter : IValueConverter
+    {
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => null;
+
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
     }
 
     //------------------------------------------------------------------
@@ -99,5 +108,25 @@ public sealed class CallMethodActionTests
         // Assert
         Assert.True(target.ObjectCalled);
         Assert.Equal("methodParameter", target.ObjectReceived);
+    }
+
+    [Fact]
+    public void PassesNullWhenConverterReturnsNull()
+    {
+        // Arrange
+        var target = new MethodTarget();
+        var action = new CallMethodAction
+        {
+            TargetObject = target,
+            MethodName = nameof(MethodTarget.InvokeObject),
+            Converter = new NullConverter()
+        };
+
+        // Act
+        Invoke(action, "eventArgument");
+
+        // Assert
+        Assert.True(target.ObjectCalled);
+        Assert.Null(target.ObjectReceived);
     }
 }

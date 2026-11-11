@@ -25,7 +25,7 @@ public sealed class CompareTrigger : TriggerBase<DependencyObject>
         nameof(Expression),
         typeof(ICompareExpression),
         typeof(CompareTrigger),
-        new PropertyMetadata(CompareExpressions.Equal));
+        new PropertyMetadata(CompareExpressions.Equal, HandlePropertyChanged));
 
     public object? Binding
     {
@@ -57,6 +57,11 @@ public sealed class CompareTrigger : TriggerBase<DependencyObject>
 
     private void HandlePropertyChanged()
     {
+        if (AssociatedObject is null)
+        {
+            return;
+        }
+
         var expression = Expression ?? CompareExpressions.Equal;
         if (expression.Eval(Binding, Parameter))
         {

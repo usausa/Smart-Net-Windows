@@ -22,7 +22,9 @@ public sealed class CancelEventAction : TriggerAction<DependencyObject>
 
     protected override void Invoke(object parameter)
     {
-        var args = (CancelEventArgs)parameter;
-        args.Cancel = Cancel;
+        if (parameter is CancelEventArgs args)
+        {
+            args.Cancel = Cancel;
+        }
     }
 }
