@@ -9,7 +9,7 @@ using Microsoft.Xaml.Behaviors;
 public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
 {
     public static readonly DependencyProperty PropertyNameProperty =
-        DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction));
+        DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(UpdateTargetAction), new PropertyMetadata(HandlePropertyChanged));
 
     private DependencyPropertyDescriptor? dpd;
 
@@ -33,9 +33,9 @@ public sealed class UpdateTargetAction : TriggerAction<FrameworkElement>
         base.OnDetaching();
     }
 
-    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+    private static void HandlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        UpdatePropertyDescriptor();
+        ((UpdateTargetAction)d).UpdatePropertyDescriptor();
     }
 
     private void UpdatePropertyDescriptor()

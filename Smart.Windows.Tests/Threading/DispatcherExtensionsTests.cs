@@ -124,4 +124,76 @@ public sealed class DispatcherExtensionsTests
             Assert.Equal(dispatcherThread, task.Result);
         });
     }
+
+    [Fact]
+    public void InvokePassesExceptionToCallerFromOtherThread()
+    {
+        TestDispatcher.RunSta(static () =>
+        {
+            // Arrange
+            var element = new DependencyObject();
+            var unhandled = false;
+            Dispatcher.CurrentDispatcher.UnhandledException += (_, e) =>
+            {
+                unhandled = true;
+                e.Handled = true;
+            };
+
+            // Act
+            var task = Task.Run(() => element.Invoke(static () => throw new InvalidOperationException()));
+            TestDispatcher.ProcessUntil(() => task.IsCompleted, Timeout);
+
+            // Assert
+            Assert.IsType<InvalidOperationException>(task.Exception?.InnerException);
+            Assert.False(unhandled);
+        });
+    }
+
+    [Fact]
+    public void InvokeWithArgumentPassesExceptionToCallerFromOtherThread()
+    {
+        TestDispatcher.RunSta(static () =>
+        {
+            // Arrange
+            var element = new DependencyObject();
+            var unhandled = false;
+            Dispatcher.CurrentDispatcher.UnhandledException += (_, e) =>
+            {
+                unhandled = true;
+                e.Handled = true;
+            };
+
+            // Act
+            var task = Task.Run(() => element.Invoke(static _ => throw new InvalidOperationException(), 1));
+            TestDispatcher.ProcessUntil(() => task.IsCompleted, Timeout);
+
+            // Assert
+            Assert.IsType<InvalidOperationException>(task.Exception?.InnerException);
+            Assert.False(unhandled);
+        });
+    }
+
+    [Fact]
+    public void InvokeWithResultPassesExceptionToCallerFromOtherThread()
+    {
+        TestDispatcher.RunSta(static () =>
+        {
+            // Arrange
+            var element = new DependencyObject();
+            var unhandled = false;
+            Dispatcher.CurrentDispatcher.UnhandledException += (_, e) =>
+            {
+                unhandled = true;
+                e.Handled = true;
+            };
+
+            // Act
+            var task = Task.Run(() => element.Invoke<int>(static () => throw new InvalidOperationException()));
+            TestDispatcher.ProcessUntil(() => task.IsCompleted, Timeout);
+
+            // Assert
+            Assert.IsType<InvalidOperationException>(task.Exception?.InnerException);
+            Assert.False(unhandled);
+        });
+    }
 }

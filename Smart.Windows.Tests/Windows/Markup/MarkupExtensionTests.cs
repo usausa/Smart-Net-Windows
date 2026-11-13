@@ -100,14 +100,12 @@ public sealed class Int64ExtensionTests
 
 public sealed class EnumValuesExtensionTests
 {
-    // ReSharper disable UnusedMember.Local
     private enum SampleEnum
     {
         A,
         B,
         C
     }
-    // ReSharper restore UnusedMember.Local
 
     [Fact]
     public void ProvideValueReturnsEnumValues()
@@ -121,7 +119,7 @@ public sealed class EnumValuesExtensionTests
         // Assert
         var values = Assert.IsAssignableFrom<System.Collections.IEnumerable>(result);
         var list = values.Cast<object>().ToList();
-        Assert.Equal(3, list.Count);
+        Assert.Equal([SampleEnum.A, SampleEnum.B, SampleEnum.C], list);
     }
 }
 

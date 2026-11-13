@@ -12,7 +12,7 @@ public static class DispatcherExtensions
         }
         else
         {
-            dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
+            dispatcher.Dispatcher.Invoke(action, DispatcherPriority.Normal);
         }
     }
 
@@ -24,7 +24,7 @@ public static class DispatcherExtensions
         }
         else
         {
-            dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action, arg);
+            dispatcher.Dispatcher.Invoke(() => action(arg), DispatcherPriority.Normal);
         }
     }
 
@@ -35,7 +35,7 @@ public static class DispatcherExtensions
             return action();
         }
 
-        return (TResult)dispatcher.Dispatcher.Invoke(DispatcherPriority.Normal, action);
+        return dispatcher.Dispatcher.Invoke(action, DispatcherPriority.Normal);
     }
 
     public static DispatcherOperation AsyncInvoke(this DispatcherObject dispatcher, Action action, CancellationToken cancellationToken = default)
