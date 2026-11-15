@@ -44,10 +44,13 @@ public static class ColorExtensions
         var max = Math.Max(Math.Max(r, g), b);
         var min = Math.Min(Math.Min(r, g), b);
         var chroma = (double)(max - min);
-        var sector = max == min ? 0
-            : max == r ? (((g - b) / chroma) + 6) % 6
-            : max == g ? ((b - r) / chroma) + 2
-            : ((r - g) / chroma) + 4;
+        var sector = max == min
+            ? 0
+            : max == r
+                ? (((g - b) / chroma) + 6) % 6
+                : max == g
+                    ? ((b - r) / chroma) + 2
+                    : ((r - g) / chroma) + 4;
         return (sector * 60, max / 255d, min / 255d);
     }
 
